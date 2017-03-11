@@ -2068,17 +2068,26 @@ class qa_html_theme_base
             $this->form_hidden_elements(@$q_view['buttons_form_hidden']);
             $this->output('</form>');
         }
-       /*<img src="im" width="50" height="50" alt="image not found">*/
+        /*<img src="im" width="50" height="50" alt="image not found">*/
         $this->c_form(@$q_view['c_form']);
-        $this->output('<br><br><form method = "post" action ="./vega-master/index.php?id=' . $GLOBALS['qid'] .'" 
+        $form = '';
+        if(qa_is_logged_in())
+            $form = '<br><br><form method = "post" action ="./vega-master/index.php?id=' . $GLOBALS['qid'] .'" 
         <input type = "hidden" name = "subject" value = "Feedback Form"> 
         <input type = "hidden" name = "userid" value ="' . $GLOBALS['uid'] . '">
         <input type = "hidden" name = "redirect" value = "' . $GLOBALS['qid'] . '">
         <input type = "submit" value = "Answer">
-    </form>');
+    </form>';
+        else {
+            $form = '<input type="submit" value="Say Hi!" onclick=window.alert("please&nbsp;login&nbsp;or&nbsp;register"); />';
+        }
+        $this->output($form);
         $this->output('</div> <!-- END qa-q-view-main -->');
     }
-
+    function answer_validation()
+    {
+        $this->error('please login');
+    }
     public function q_view_content($q_view)
     {
         $content = isset($q_view['content']) ? $q_view['content'] : '';
@@ -2247,7 +2256,7 @@ class qa_html_theme_base
 
         $this->output('<div class="qa-a-item-content">');
 
-            $this->output('<img src="' . $path . '"  alt="image not found">');
+        $this->output('<img src="' . $path . '"  alt="image not found">');
         $this->output_raw($a_item['content']);
         $this->output('</div>');
     }
@@ -2387,3 +2396,4 @@ class qa_html_theme_base
         $this->output('</div>');
     }
 }
+?>

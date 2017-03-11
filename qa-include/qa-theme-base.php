@@ -2079,7 +2079,7 @@ class qa_html_theme_base
         <input type = "submit" value = "Answer">
     </form>';
         else {
-            $form = '<input type="submit" value="Say Hi!" onclick=window.alert("please&nbsp;login&nbsp;or&nbsp;register"); />';
+            $form = '<input type="submit" value="Answer" onclick=window.alert("please&nbsp;login&nbsp;or&nbsp;register"); />';
         }
         $this->output($form);
         $this->output('</div> <!-- END qa-q-view-main -->');

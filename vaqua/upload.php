@@ -13,6 +13,9 @@ function make_conf_file($file_name, $attributes)
     $i = 0;
     $fields = ["x", "y"];
     foreach ($attributes as $key){
+        if($i > 1){
+            break;
+        }
         $val = array("field" => $key, "type" => "ordinal");
 
         $encoArray[$fields[$i++]] = $val;

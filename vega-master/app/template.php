@@ -11,7 +11,7 @@
       <div class="mod_title">
         <select class="sel_mode">
           <option value="vega-lite">Vega-lite</option>
-          <option value="vega">Vega</option>
+<!--          <option value="vega">Vega</option>-->
         </select>
       </div>
     </div>
@@ -63,7 +63,7 @@ fclose($myfile);
     <div class="mod_header">
       <div class="mod_ctrls">
         Renderer <select class="sel_render"></select>
-        <input type="button" class="btn_export" value="Export">
+<!--        <input type="button" class="btn_export" value="Export">-->
       </div>
       <div class="mod_title">Visualization</div>
     </div>
@@ -97,6 +97,7 @@ fclose($myfile);
 
       <div class="textAnswer">
               <textarea id="comment" style="resize: none;" placeholder="your comment here about your visualization"></textarea>
+        <input type="button" class="btn_export" value="Add Answer">
       </div>
 </div>
 

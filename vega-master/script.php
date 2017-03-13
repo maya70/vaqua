@@ -48,7 +48,12 @@ function updateAnswer($db, $vDB, $q_id, $user_id, $comment){
 
     $db->updateAnswerCount($acount, $q_id);
 
-    return $acount - ($acount % 10);
+    $start = $acount - ($acount % 10);
+    if($acount % 10 == 0){
+        $start = $acount - 10;
+    }
+
+    return $start;
 }
 
 function uploadImage($q_id, $ans_id)

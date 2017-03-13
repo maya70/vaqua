@@ -17,3 +17,32 @@ function make_directory($path_to_directory)
 
     return $path_to_directory;
 }
+
+
+function get_json_Attributes($file){
+    $str = file_get_contents($file);
+    return json_parse($str);
+}
+
+
+function json_parse($json){
+    $jsonIterator = new RecursiveIteratorIterator(
+        new RecursiveArrayIterator(json_decode($json, TRUE)),
+        RecursiveIteratorIterator::SELF_FIRST);
+
+    $attributes = array();
+    $firstArray = 0;
+    foreach ($jsonIterator as $key => $val) {
+
+        if ($firstArray == 2){
+            break;
+        }
+
+        if(is_array($val)) {
+            $firstArray++;
+        } else {
+            array_push($attributes,$key);
+        }
+    }
+    return $attributes;
+}

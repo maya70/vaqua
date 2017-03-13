@@ -2,19 +2,26 @@
 require_once QA_BASE_DIR . 'qa-include/qa-db.php';
 require_once __DIR__ .'/vaqua_utilities.php';
 
-function make_conf_file($file_name)
+function make_conf_file($file_name, $attributes)
 {
     $base_path = getBasePath();
 
     $url = $base_path . $file_name;
 
+    $encoArray = array();
+
+    $i = 0;
+    $fields = ["x", "y"];
+    foreach ($attributes as $key){
+        $val = array("field" => $key, "type" => "ordinal");
+
+        $encoArray[$fields[$i++]] = $val;
+    }
+
         $jsonObj = array(
             "data" => array("url" => "../../$url"),
             "mark" => "bar",
-            "encoding" => array(
-                "x" => array("field" => "x", "type" => "ordinal"),
-                "y" => array("aggregate" => "mean", "field" => "y", "type" => "quantitative")
-            )
+            "encoding" => $encoArray
         );
 
 
@@ -47,7 +54,8 @@ function uploadFile($filename)
 // if everything is ok, try to upload file
     } else {
         if (move_uploaded_file($filename["tmp_name"], $target_file)) {
-            make_conf_file(basename($filename['name']));
+            $attributes = get_json_Attributes($target_file);
+            make_conf_file(basename($filename['name']), $attributes);
         } else {
             return false;
         }

@@ -826,7 +826,6 @@
 			$html=preg_replace('/(?<=\s) /', '&nbsp;', $html);
 			$html=str_replace("\t", '&nbsp; &nbsp; ', $html);
 			$html=nl2br($html);
-            echo "$html";
 		}
 
 		return $html;

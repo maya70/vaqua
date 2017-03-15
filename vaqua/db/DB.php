@@ -14,7 +14,8 @@ class DB
 
     function __construct()
     {
-        $this->con = mysqli_connect("localhost", "root", "", "q2a");
+        require_once __DIR__ . '/../../qa-config.php';
+        $this->con = mysqli_connect(QA_MYSQL_HOSTNAME, QA_MYSQL_USERNAME, QA_MYSQL_PASSWORD, QA_MYSQL_DATABASE);
     }
 
 

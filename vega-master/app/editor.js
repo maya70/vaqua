@@ -553,12 +553,12 @@ ved.init = function (el, dir) {
         }
 
         // Load content from cookies if no example has been loaded
-        var key = ved.currentMode + '-spec';
-        if (ved.getSelect().selectedIndex === 0 && localStorage.getItem(key)) {
-
-            ved.select(localStorage.getItem(key));
-
-        }
+        // var key = ved.currentMode + '-spec';
+        // if (ved.getSelect().selectedIndex === 0 && localStorage.getItem(key)) {
+        //
+        //     ved.select(localStorage.getItem(key));
+        //
+        // }
 
         // Handle post messages
         window.addEventListener('message', function (evt) {

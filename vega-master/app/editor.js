@@ -153,9 +153,14 @@ ved.select = function (spec) {
 };
 
 ved.uri = function (entry) {//simple pir chart for ex --- file pat
-    // return ved.path + 'spec/' + ved.currentMode +
-    //     '/' + entry.name + '.json';
-    return '../uploads/' + vaqua.q_id + "/conf.json";
+
+    if(entry == ""){
+        return '../uploads/' + vaqua.q_id + "/conf.json";
+    }
+    else {
+        return ved.path + 'spec/' + ved.currentMode +
+            '/' + entry.name + '.json';
+    }
 };
 
 ved.renderer = function () {
@@ -623,16 +628,29 @@ vaqua.initVegaJson = function () {
     var spec = d3.select(sel.options[5]).datum();
 
     d3.xhr(ved.uri(""), function (error, response) {
-        editor.setValue(response.responseText);
-        ved.select(response.responseText);
-        editor.gotoLine(0);
-        parse(function (err) {
-            if (err) console.error(err);
-            desc.html(spec.desc || '');
 
-        });
-        ved.format();
+        var text = vaqua.changeFields(response.responseText);
+
+        editor.setValue(text);
+        ved.select(text);
+        editor.gotoLine(0);
+        // parse(function (err) {
+        //     if (err) console.error(err);
+        //     desc.html(spec.desc || '');
+        //
+        // });
+         ved.format();
     });
+}
+
+vaqua.changeFields = function(jsonTxt){
+    var jsonObj = JSON.parse(jsonTxt);
+
+    jsonObj['data'] = "";
+
+    var text = JSON.stringify(jsonObj);
+
+    return text;
 }
 
 vaqua.initTextArea = function(el){

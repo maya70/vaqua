@@ -128,7 +128,10 @@ ved.select = function (spec) {
 
     if (idx > 0) {
         d3.xhr(ved.uri(spec), function (error, response) {
-            editor.setValue(response.responseText);
+
+            var txt = vaqua.changeFields(response.responseText);
+
+            editor.setValue(txt);
             editor.gotoLine(0);
             parse(function (err) {
                 if (err) console.error(err);
@@ -154,7 +157,7 @@ ved.select = function (spec) {
 
 ved.uri = function (entry) {//simple pir chart for ex --- file pat
 
-    if(entry == ""){
+    if (entry == "") {
         return '../uploads/' + vaqua.q_id + "/conf.json";
     }
     else {
@@ -356,12 +359,12 @@ vaqua.dowloadOnServe = function (dataUrl) {
         url: "script.php",
         data: {
             'img': dataUrl,
-            'q_id':vaqua.q_id,
-            'comment':vaqua.comment.value
+            'q_id': vaqua.q_id,
+            'comment': vaqua.comment.value
         },
-        dataType:"json"
+        dataType: "json"
     }).done(function (res) {
-        window.location = "./../index.php?qa="+vaqua.q_id+"&qa_1="+res['title']+"&start="+res['start']+"#a_list_title";
+        window.location = "./../index.php?qa=" + vaqua.q_id + "&qa_1=" + res['title'] + "&start=" + res['start'] + "#a_list_title";
     });
 }
 
@@ -639,21 +642,64 @@ vaqua.initVegaJson = function () {
         //     desc.html(spec.desc || '');
         //
         // });
-         ved.format();
+        ved.format();
     });
-}
+};
 
-vaqua.changeFields = function(jsonTxt){
+
+vaqua.changeFields = function (jsonTxt) {
     var jsonObj = JSON.parse(jsonTxt);
 
-    jsonObj['data'] = "";
+    var keys = Object.keys(jsonObj);
+    console.log(keys);
+
+    jsonObj = vaqua.parseConfJson(jsonObj);
 
     var text = JSON.stringify(jsonObj);
 
     return text;
 }
 
-vaqua.initTextArea = function(el){
+vaqua.parseConfJson = function (jsonObj) {
+    if (!vaqua.url) {
+        vaqua.url = jsonObj['data'];
+        vaqua.x = jsonObj['encoding']['x']['field'];
+        vaqua.y = jsonObj['encoding']['y']['field'];
+    }
+
+    var url = vaqua.url;
+    var i = 0;
+
+
+    jsonObj['data'] = url;
+    jsonObj['transform'] = "";
+    var obj = jsonObj['encoding'];
+
+    if (obj) {
+        if (obj['x']) {
+            obj['x']['field'] = vaqua.x;
+        }
+        if (obj['y']) {
+            obj['y']['field'] = vaqua.y;
+        }
+
+
+        if (obj['text']) {
+            obj['text']['field'] = vaqua.x;
+        }
+        if (obj['color']) {
+            obj['color']['field'] = vaqua.y;
+        }
+        if (obj['size']) {
+            obj['size']['field'] = vaqua.y;
+        }
+    }
+
+
+    return jsonObj
+}
+
+vaqua.initTextArea = function (el) {
 
     var txtArea = el.select("#comment")[0][0];
     vaqua.comment = txtArea;
@@ -665,16 +711,18 @@ vaqua.initTextArea = function(el){
     txtArea.style.height = (documentHeight - txtAreaHeight - 400) + "px";
 };
 
-vaqua.cumulativeOffset = function(element) {
+vaqua.cumulativeOffset = function (element) {
     var top = 0, left = 0;
     do {
-        top += element.offsetTop  || 0;
+        top += element.offsetTop || 0;
         left += element.offsetLeft || 0;
         element = element.offsetParent;
-    } while(element);
+    } while (element);
 
     return {
         top: top,
         left: left
     };
 };
+
+

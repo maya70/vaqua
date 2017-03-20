@@ -202,7 +202,6 @@
 
 
 
-			'content' => $field,
 		),
 
 		'buttons' => array(

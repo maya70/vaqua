@@ -34,14 +34,13 @@
         }
 
       if(isset($_SESSION['uid'])){
-        echo "is set";
         $user_id = $_SESSION['uid'];
         $_SESSION['luid'] = $_SESSION['uid'];
       }
       else{
         $user_id = $_SESSION['luid'];
       }
-      echo $user_id;
+
 
       require_once __DIR__.'/../../vaqua/db/DbHelper.php';
       require_once __DIR__.'/../../vaqua/db/DB.php';
@@ -49,13 +48,13 @@
       $vDB = new \VAQUA\DbHelper();
       $db = new \VAQUA\DB();
 
-$path= $vDB->getPostPath($q_id);
-
-      $dir = __DIR__.'/../../';
-$myfile=fopen($dir.$path,"r");
-$data=fread($myfile,filesize($dir.$path));
+$data
+    ='<form   name="data" method="post" action="/../vaqua/vaqua/data/data.php">
+<input type = "hidden" name = "id"  value ="'.$q_id.'">
+<input type="submit" value="show data" onclick = ""> </form>';
+      
   echo $data;
-fclose($myfile);
+
 
     ?></div>
   </div>

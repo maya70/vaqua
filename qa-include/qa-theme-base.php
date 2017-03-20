@@ -2075,7 +2075,7 @@ class qa_html_theme_base
 
         $path= $vDB->getPostPath($GLOBALS['qid']);
         $data = '
-<form   name="data" method="post" action="./vaqua/data/data.php">
+<form   name="data" method="post" action="./vaqua/data/data.php" target="_blank">
 <input type = "hidden" name = "id"  value = "' . $GLOBALS['qid'] . '">
 <input type="submit" value="show data" onclick = ""> </form>';
         $this->output($data);

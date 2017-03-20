@@ -118,9 +118,7 @@
 
 		$errors=array();
 
-        if(!$in['file']){
-            $errors['file_error'] = qa_lang_html('enter your file');
-        }
+
 
 		if (!qa_check_form_security_code('ask', qa_post_text('code')))
 			$errors['page']=qa_lang_html('misc/form_security_again');
@@ -198,15 +196,12 @@
 			),
             'fileChooser' => array(
                 'tags' => 'name="upload" type = "file" id="upload"',
-                'error' => qa_html(@$errors['file_error'])
+                'label'=>'(optional)'
+
             ),
 
 
-			'similar' => array(
-				'type' => 'custom',
-				'html' => '<span id="similar"></span>',
-			),
-
+			
 			'content' => $field,
 		),
 

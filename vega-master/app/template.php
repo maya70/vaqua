@@ -49,7 +49,7 @@
       $db = new \VAQUA\DB();
 
 $data
-    ='<form   name="data" method="post" action="/../vaqua/vaqua/data/data.php">
+    ='<form   name="data" method="post" action="/../vaqua/vaqua/data/data.php" target="_blank">
 <input type = "hidden" name = "id"  value ="'.$q_id.'">
 <input type="submit" value="show data" onclick = ""> </form>';
       

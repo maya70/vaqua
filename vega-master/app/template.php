@@ -95,8 +95,13 @@ $data
   </div>
 
       <div class="textAnswer">
+        <p>
               <textarea id="comment" style="resize: none;" placeholder="your comment here about your visualization"></textarea>
+        <label>(optional)</label> <input name="upload" type="file" id="upload">
+        <br><br>
         <input type="button" class="btn_export" value="Add Answer">
+        </p>
+
       </div>
 </div>
 

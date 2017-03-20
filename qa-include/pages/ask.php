@@ -200,7 +200,7 @@
 
             ),
 
-
+			'content' => $field,
 		),
 
 		'buttons' => array(

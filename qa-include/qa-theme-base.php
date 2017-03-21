@@ -2260,17 +2260,13 @@ class qa_html_theme_base
 
     public function a_item_content($a_item)
     {
-
-
         $answers = $GLOBALS['aid'];
         $path = './uploads/'.$GLOBALS['qid'].'/ans/'.
             $answers[$GLOBALS['indx']++].'.png';
 
 
         $this->output('<div class="qa-a-item-content">');
-        if(!is_file($path))
-            $path = './uploads/'.$GLOBALS['qbest'].'/ans/'.
-              $GLOBALS['abest'].'.png';
+
         $this->output('<img src="' . $path . '"  alt="image not found">');
         $this->output_raw($a_item['content']);
         $this->output('</div>');

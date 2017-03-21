@@ -6,7 +6,6 @@ $path= $vDB->getPostPath($id);
 ?>
 
 <html>
-<head><title>data</title></head>
 <body>
 <div id = "data"></div>
 <script src="/../vaqua/vega-master/lib/jquery-3.1.1.min.js"></script>

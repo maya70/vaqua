@@ -582,8 +582,6 @@ function qa_page_q_answer_view($question, $answer, $isselected, $usershtml, $for
 		$clicksuffix=' onclick="return qa_answer_click('.qa_js($answerid).', '.qa_js($question['postid']).', this);"';
 
 		if ($question['aselectable'] && !$answer['hidden'] && !$answer['queued']) {
-		    $GLOBALS['abest'] = $answerid;
-            $GLOBALS['qbest'] = $question['postid'];;
 			if ($isselected)
 				$a_view['unselect_tags']='title="'.qa_lang_html('question/unselect_popup').'" name="'.$prefix.'dounselect"'.$clicksuffix;
 			else

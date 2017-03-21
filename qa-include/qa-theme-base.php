@@ -2064,10 +2064,21 @@ class qa_html_theme_base
         $this->q_view_buttons($q_view);
         $this->c_list(@$q_view['c_list'], 'qa-q-view');
 
+
+
         if (isset($q_view['main_form_tags'])) {
             $this->form_hidden_elements(@$q_view['buttons_form_hidden']);
             $this->output('</form>');
         }
+        require_once __DIR__.'/../vaqua/db/DbHelper.php';
+        $vDB = new \VAQUA\DbHelper();
+
+        $path= $vDB->getPostPath($GLOBALS['qid']);
+        $data = '
+<form   name="data" method="post" action="./vaqua/data/data.php" target="_blank">
+<input type = "hidden" name = "id"  value = "' . $GLOBALS['qid'] . '">
+<input type="submit" value="show data" onclick = ""> </form>';
+        $this->output($data);
         /*<img src="im" width="50" height="50" alt="image not found">*/
         $this->c_form(@$q_view['c_form']);
         $form = '';
@@ -2249,13 +2260,17 @@ class qa_html_theme_base
 
     public function a_item_content($a_item)
     {
+
+
         $answers = $GLOBALS['aid'];
         $path = './uploads/'.$GLOBALS['qid'].'/ans/'.
             $answers[$GLOBALS['indx']++].'.png';
 
 
         $this->output('<div class="qa-a-item-content">');
-
+        if(!is_file($path))
+            $path = './uploads/'.$GLOBALS['qbest'].'/ans/'.
+              $GLOBALS['abest'].'.png';
         $this->output('<img src="' . $path . '"  alt="image not found">');
         $this->output_raw($a_item['content']);
         $this->output('</div>');

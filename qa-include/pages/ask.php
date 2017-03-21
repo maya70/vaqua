@@ -202,10 +202,7 @@
             ),
 
 
-			'similar' => array(
-				'type' => 'custom',
-				'html' => '<span id="similar"></span>',
-			),
+
 
 			'content' => $field,
 		),

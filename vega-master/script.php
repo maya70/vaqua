@@ -44,8 +44,7 @@ function updateAnswer($db, $vDB, $q_id, $user_id, $comment){
         'date' => $result,
         'user_id' => $user_id
     );
-    $db->insertPost($content);
-
+    if($db->insertPost($content))
     $db->updateAnswerCount($acount, $q_id);
 
     $start = $acount - ($acount % 10);

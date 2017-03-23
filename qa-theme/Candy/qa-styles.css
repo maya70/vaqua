@@ -12,7 +12,12 @@
 
 /* General page layout */
 
-body {background:#bddb62 url(page-bg.png) repeat-x left top; margin:0; padding:0; text-align:center;}
+body { background: red; /* For browsers that do not support gradients */
+	background: -webkit-linear-gradient(deepskyblue , white); /* For Safari 5.1 to 6.0 */
+	background: -o-linear-gradient( deepskyblue , white); /* For Opera 11.1 to 12.0 */
+	background: -moz-linear-gradient(deepskyblue , white); /* For Firefox 3.6 to 15 */
+	background: linear-gradient( deepskyblue , white); /* Standard syntax */
+url(page-bg.png) repeat-x left top; margin:0; padding:0; text-align:center;}
 body,td,input,textarea {font-size:12px; font-family: "Trebuchet MS", Tahoma, Arial, Helvetica, sans-serif;}
 a:link,a:active,a:visited {text-decoration:none;}
 a:hover {text-decoration:underline;}
@@ -42,8 +47,8 @@ p {margin-top:0;}
 
 /* Headings */
 
-h1 {margin:1em 0 0.5em 0; color:#c659ab; font-size:28px; font-weight:bold;}
-h2 {font-size:22px; color:#c659ab; padding-top:12px; clear:both;}
+h1 {margin:1em 0 0.5em 0; color:black; font-size:28px; font-weight:bold;}
+h2 {font-size:22px; color:black; padding-top:12px; clear:both;}
 
 .qa-favoriting {float:right; padding-right:16px;}
 
@@ -65,12 +70,12 @@ h2 {font-size:22px; color:#c659ab; padding-top:12px; clear:both;}
 
 .qa-header {position:relative;}
 .qa-sidepanel {float:right; width:176px; word-wrap:break-word;}
-.qa-sidebar {padding:12px; font-size:14px; background:#ebc5e2 url(sidebar-bg.png) repeat-y right top; border: 2px solid #6a1b56; border-right:none; margin:18px 0;}
+.qa-sidebar {padding:12px; font-size:14px; background:deepskyblue; url(sidebar-bg.png) repeat-y right top; border: 2px solid deepskyblue; border-right:none; margin:18px 0;}
 .qa-feed {background:url(feed-icon-14x14.png) no-repeat left 1px; padding-left:20px; margin:18px 12px 18px 0;}
 .qa-feed-link {font-size:12px; color:#666;}
 .qa-main {padding-left:20px; float:left; width:750px; margin-bottom:24px; clear:left; overflow:hidden;}
 .qa-main-hidden h1 {color:#999;}
-.qa-footer {clear:both; background:#3b7c1f url(footer-bg.png) repeat-x left top; color:#FFF; font-size:10px; padding:10px;}
+.qa-footer {clear:both; background:dodgerblue; url(footer-bg.png) repeat-x left top; color:#FFF; font-size:10px; padding:10px;}
 * html .qa-footer {padding-top:6px;} /* IE6 */
 
 /* Widget wrappers */
@@ -84,10 +89,10 @@ h2 {font-size:22px; color:#c659ab; padding-top:12px; clear:both;}
 
 /* Header sections */
 
-.qa-logo {float:left; margin-bottom:16px; padding-left:20px; padding-top:10px; font-size:48px; font-weight:bold; color:#6a1b56;}
-.qa-logo-link, .qa-logo-link:hover {color:#6a1b56;}
+.qa-logo {float:left; margin-bottom:16px; padding-left:20px; padding-top:10px; font-size:48px; font-weight:bold; color:deepskyblue;}
+.qa-logo-link, .qa-logo-link:hover {color:deepskyblue;}
 
-.qa-search {float:right; background:#efecb2; border:2px solid #c0b600; border-top:0; padding:10px; margin-right:10px; white-space:nowrap;}
+.qa-search {float:right; background:deepskyblue; border:2px ; border-top:0; padding:10px; margin-right:10px; white-space:nowrap;}
 * html .qa-search {margin-right:6px;} /* IE6 */
 .qa-search form {margin:0;} /* IE6/7 */
 .qa-search-field {width:12em; margin-right:2px;}
@@ -106,15 +111,19 @@ h2 {font-size:22px; color:#c659ab; padding-top:12px; clear:both;}
 .qa-nav-main-item,.qa-nav-main-item-opp {background:#efeb9c url(nav-main-bg.png) repeat-x left top;}
 .qa-nav-main-item {float:left; padding-left:10px;}
 .qa-nav-main-item-opp {float:right; padding-right:10px;}
-.qa-nav-main-link {background:#efeb9c url(nav-main-bg.png) repeat-x left top; color:#597700; display:block; padding:14px 10px;}
-.qa-nav-main-link:hover,.qa-nav-main-selected {background: url(nav-main-sel-bg.png) repeat-x left top; border-left:1px solid #e9e697; border-right:1px solid #e9e697; color:#8d006a; padding:14px 9px; text-decoration:none;}
+.qa-nav-main-link {background:#efeb9c url(nav-main-bg.png) repeat-x left top; color:black; display:block; padding:14px 10px;}
+.qa-nav-main-link:hover,.qa-nav-main-selected {background: url(nav-main-sel-bg.png) repeat-x left top; border-left:1px solid #e9e697; border-right:1px solid #e9e697; background: red; /* For browsers that do not support gradients */
+	background: -webkit-linear-gradient(deepskyblue , white); /* For Safari 5.1 to 6.0 */
+	background: -o-linear-gradient( deepskyblue , white); /* For Opera 11.1 to 12.0 */
+	background: -moz-linear-gradient(deepskyblue , white); /* For Firefox 3.6 to 15 */
+	background: linear-gradient( deepskyblue , white); /* Standard syntax */; padding:14px 9px; text-decoration:none;}
 .qa-nav-main-hot .qa-nav-main-link {color:#c33;}
 
-.qa-nav-sub {clear:both; background:url(nav-sub-bg.png) repeat-x left top;}
-* html .qa-nav-sub {background:none;} /* IE6 since z-order goes wrong */
+/*.qa-nav-sub {clear:both; background:url(sub-nav.png) repeat-x left top;}*/
+/** html .qa-nav-sub {background:none;} !* IE6 since z-order goes wrong *!*/
 .qa-nav-sub-list {font-size:12px; list-style:none; padding:0; margin:0;}
 .qa-nav-sub-item {float:left; padding:5px 0 11px 10px;}
-.qa-nav-sub-link {color:#7d7600; font-weight:normal; padding:5px 8px; display:block; text-transform:uppercase;}
+.qa-nav-sub-link {color:deepskyblue; font-weight:normal; padding:5px 8px; display:block; text-transform:uppercase;}
 .qa-nav-sub-link:hover, .qa-nav-sub-selected {color:#000; text-decoration:none;}
 
 .qa-nav-cat {margin:18px 12px 18px 0;}
@@ -161,7 +170,7 @@ h2 {font-size:22px; color:#c659ab; padding-top:12px; clear:both;}
 	.qa-form-tall-note a:hover {color:#396E63;}
 .qa-form-tall-buttons {padding:24px 8px 8px 8px; text-align:center;}
 .qa-form-tall-button {background:#f6f5f5 url(button-bg.png) repeat-x left top; border:1px solid #bfbfbf; color:#206b00; padding:4px 8px; text-transform:uppercase;}
-.qa-form-tall-button:hover {background:#e8c6df url(button-hover-bg.png) repeat-x left top; border:1px solid #c1a0b9; color:#6a1b56; padding:4px 8px; text-transform:uppercase;}
+.qa-form-tall-button:hover {background:#e8c6df url(button-hover-bg.png) repeat-x left top; border:1px solid #c1a0b9; color:deepskyblue; padding:4px 8px; text-transform:uppercase;}
 
 /* Standard form (wide version) */
 
@@ -178,7 +187,7 @@ h2 {font-size:22px; color:#c659ab; padding-top:12px; clear:both;}
 .qa-form-wide-buttons {background:#FFF; padding:12px 0 8px 0;}
 .qa-form-wide-prefix {font-size:14px;}
 .qa-form-wide-button {background:#f6f5f5 url(button-bg.png) repeat-x left top; border:1px solid #bfbfbf; color:#206b00; padding:4px 8px; text-transform:uppercase;}
-.qa-form-wide-button:hover {background:#e8c6df url(button-hover-bg.png) repeat-x left top; border:1px solid #c1a0b9; color:#6a1b56; padding:4px 8px; text-transform:uppercase;}
+.qa-form-wide-button:hover {background:#e8c6df url(button-hover-bg.png) repeat-x left top; border:1px solid #c1a0b9; color:deepskyblue; padding:4px 8px; text-transform:uppercase;}
 
 /* Standard form (light version - buttons only) */
 
@@ -205,7 +214,7 @@ h2 {font-size:22px; color:#c659ab; padding-top:12px; clear:both;}
 
 .qa-form-basic-button {margin:4px 4px 8px 0; vertical-align:middle;}
 .qa-form-basic-button {background:#f6f5f5 url(button-bg.png) repeat-x left top; border:1px solid #bfbfbf; color:#206b00; padding:4px 8px; text-transform:uppercase;}
-.qa-form-basic-button:hover {background:#e8c6df url(button-hover-bg.png) repeat-x left top; border:1px solid #c1a0b9; color:#6a1b56; padding:4px 8px; text-transform:uppercase;}
+.qa-form-basic-button:hover {background:#e8c6df url(button-hover-bg.png) repeat-x left top; border:1px solid #c1a0b9; color:deepskyblue; padding:4px 8px; text-transform:uppercase;}
 
 .qa-form-basic-note {font-size:11px;}
 
@@ -228,9 +237,9 @@ h2 {font-size:22px; color:#c659ab; padding-top:12px; clear:both;}
 .qa-q-item-tag-item {display:inline;}
 .qa-q-item-buttons {text-align:right;}
 
-.qa-suggest-next {background:#ebc5e2 url(suggest-bg.png) repeat-x left bottom; border:1px solid #6a1b56; color:#c659ab; font-size:14px; padding:8px; text-align:center; clear:both;}
-	.qa-suggest-next a {color:#5c0045; font-style:italic; text-decoration:underline;}
-	.qa-suggest-next a:hover {background:#5c0045; color:#FFF; text-decoration:underline;}
+.qa-suggest-next {background:#00e4ff url(nav-main-bg.png) repeat-x left bottom; border:1px solid deepskyblue; color:#0083a4; font-size:14px; padding:8px; text-align:center; clear:both;}
+	.qa-suggest-next a {color:black; font-style:italic; text-decoration:underline;}
+
 
 /* Votes */
 

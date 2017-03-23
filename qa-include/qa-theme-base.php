@@ -836,7 +836,7 @@ class qa_html_theme_base
 
         $this->output(
             '<div class="qa-attribution">',
-            'Powered by <a href="http://www.question2answer.org/">Question2Answer</a>',
+            'Powered by <a href="http://www.vaqua.org/">Vaqua Team</a>',
             '</div>'
         );
     }

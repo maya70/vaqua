@@ -1,0 +1,8 @@
+.mod_title,.mod_header,.mod_ctrl,.vg_pane.mod_subheader.hide-vg
+{
+      background:#D7FFF1;
+}
+.mod_header{
+  background: #D7FFF1 !important;
+}
+class="mod_body spec vl-spec hide-vg ace_editor ace-tm"

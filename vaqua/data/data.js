@@ -1,23 +1,47 @@
-var path = window.id||0;
-path = '/vaqua/'+path;
+var path = window.id || 0;
+path = '/vaqua/' + path;
 console.log(path);
-$.getJSON(path,function (data) {
-     // var obj  = json.parse(data);
-    document.writeln('<table border="1">')
-    for(var i in data) {
+$.getJSON(path, function(data) {
+    // var obj  = json.parse(data);
+    var table = document.getElementById('data');
+    var tableData = '<table border="1" class="table">';
+    for (var i in data) {
         var key = i;
+        // console.log(i);
         var val = data[i];
-        document.writeln('<tr>')
+        if (i == 0) {
+            tableData += '<thead><tr>';
+        } else {
+          if(i==1)
+          {
+            tableData += '<tbody><tr>';
+        }
+        else{
+            tableData += '<tr>';
+        }
+      }
         // console.log(key);
 
         for (var j in val) {
             var sub_key = j;
             var sub_val = val[j];
-            document.writeln('<td>'+sub_key+'</td><td>'+sub_val+'</td>');
+
+            if (i == 0) {
+                tableData += '<th>' + sub_key + '</th>';
+
+            } else {
+                tableData += '<td>' + sub_val + '</td>';
+            }
             // console.log(sub_key);
 
         }
-        document.writeln('</tr>')
+        if(i==0)
+        {
+              tableData += '</tr></thead>';
+        }else{
+            tableData += '</tr>';
+      }
     }
-    document.writeln('<table>')
+    tableData += '</tbody></table>';
+    table.innerHTML = tableData;
 });

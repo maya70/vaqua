@@ -5,7 +5,6 @@
     font-size: 14px;
     background-color: #f6f6f6;
 }
-
 .vega-editor .mod_spec {
     -webkit-flex: 0 0 auto;
     flex: 0 0 auto;
@@ -34,7 +33,7 @@
     -webkit-flex: 0 0 auto;
     flex: 0 0 auto;
     padding: 4px 4px 4px 6px;
-    background: #eee;
+    background: #111;
     border-bottom: 1px solid #ccc;
     line-height: 22px;
 }

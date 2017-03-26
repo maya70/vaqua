@@ -2087,7 +2087,7 @@ class qa_html_theme_base
         <input type = "hidden" name = "subject" value = "Feedback Form"> 
         <input type = "hidden" name = "userid" value ="' . $GLOBALS['uid'] . '">
         <input type = "hidden" name = "redirect" value = "' . $GLOBALS['qid'] . '">
-        <input type = "submit" value = "Answer">
+        <input type = "submit" value = "Answer" cla>
     </form>';
         else {
             $form = '<input type="submit" value="Answer" onclick=window.alert("please&nbsp;login&nbsp;or&nbsp;register"); />';

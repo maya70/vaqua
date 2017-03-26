@@ -1,3 +1,4 @@
+<link rel="stylesheet" type="text/css" href="/vaqua/vaqua/css/vega.css">
 <div class="vega-editor">
   <div class="mod_spec module">
     <div class="mod_header">
@@ -20,43 +21,41 @@
     <div class="mod_body spec vl-spec hide-vg" spellcheck="false"></div>
     <div class="vg_pane mod_subheader hide-vg">
       <div class="mod_ctrls">
-        <input type="button" class="btn_to_vega" value="Edit Vega spec">
+        <input type="button" class="btn_to_vega" value="Edit spec">
       </div>
-      Vega compiled from Vega-Lite (read-only)
+      <?php
+      session_start();
+ if(isset($_SESSION['qid'])){
+     $q_id = $_SESSION['qid'];
+     $_SESSION['lqid'] = $_SESSION['qid'];
+ }
+       else{
+          $q_id = $_SESSION['lqid'];
+      }
+
+    if(isset($_SESSION['uid'])){
+      $user_id = $_SESSION['uid'];
+      $_SESSION['luid'] = $_SESSION['uid'];
+    }
+    else{
+      $user_id = $_SESSION['luid'];
+    }
+
+
+    require_once __DIR__.'/../../vaqua/db/DbHelper.php';
+    require_once __DIR__.'/../../vaqua/db/DB.php';
+
+    $vDB = new \VAQUA\DbHelper();
+    $db = new \VAQUA\DB();
+
+
+      echo '<form   name="data" method="post" action="/vaqua/vaqua/data/data.php" target="_blank">
+  <input type = "hidden" name = "id"  value ="'.$q_id.'">
+  <input type="submit" value="show data" onclick = ""> </form>';
+  ?>
       <span class="click_toggle_vega" title="Expand/Collapse Vega editor"></span>
     </div>
     <div class="" style="max-width:400px" spellcheck="false"><?php
-        session_start();
-   if(isset($_SESSION['qid'])){
-       $q_id = $_SESSION['qid'];
-       $_SESSION['lqid'] = $_SESSION['qid'];
-   }
-         else{
-            $q_id = $_SESSION['lqid'];
-        }
-
-      if(isset($_SESSION['uid'])){
-        $user_id = $_SESSION['uid'];
-        $_SESSION['luid'] = $_SESSION['uid'];
-      }
-      else{
-        $user_id = $_SESSION['luid'];
-      }
-
-
-      require_once __DIR__.'/../../vaqua/db/DbHelper.php';
-      require_once __DIR__.'/../../vaqua/db/DB.php';
-
-      $vDB = new \VAQUA\DbHelper();
-      $db = new \VAQUA\DB();
-
-$data
-    ='<form   name="data" method="post" action="/../vaqua/vaqua/data/data.php" target="_blank">
-<input type = "hidden" name = "id"  value ="'.$q_id.'">
-<input type="submit" value="show data" onclick = ""> </form>';
-
-  echo $data;
-
 
     ?></div>
   </div>
@@ -101,8 +100,3 @@ $data
         <input type="button" class="btn_export" value="Add Answer">
       </div>
 </div>
-
-
-
-
-

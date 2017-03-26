@@ -3,7 +3,7 @@
   <head>
     <meta http-equiv="content-type" content="text/html;charset=utf-8">
     <title>Vega Editor</title>
-
+    <link rel="stylesheet" type="text/css" href="/vaqua/vaqua/css/vega.css">
     <link rel="stylesheet" type="text/css" href="app/editor.css"/>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="lib/jquery-3.1.1.min.js"></script>
@@ -33,7 +33,7 @@
       echo $_SESSION['qid'];*/
      /*$first_name = 'David';
 setcookie('qid',$_POST["redirect"],time() + (86400 * 7)); // 86400 sec = 1 day*/
-     
+
 ?>
     <script> ved.init('body', 'app/');
       console.log($("#comment")[0]);

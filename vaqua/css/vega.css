@@ -5,4 +5,9 @@
 .mod_header{
   background: #D7FFF1 !important;
 }
-class="mod_body spec vl-spec hide-vg ace_editor ace-tm"
+
+.mod_body
+{
+    max-height: 70%;
+}
+/*class="mod_body spec vl-spec hide-vg ace_editor ace-tm"*/

@@ -100,10 +100,10 @@ ved.editorVisibility = function () {
         toggle.attr('class', 'click_toggle_vega up');
     } else {
         vgs.style('display', 'block');
-        ved.resizeVlEditor();
+        // ved.resizeVlEditor();
         toggle.attr('class', 'click_toggle_vega down');
     }
-    ved.resize();
+    // ved.resize();
 };
 
 ved.select = function (spec) {
@@ -119,7 +119,7 @@ ved.select = function (spec) {
         editor.gotoLine(0);
         desc.html('');
         parse();
-        ved.resizeVlEditor();
+        // ved.resizeVlEditor();
         return;
     }
 
@@ -146,11 +146,11 @@ ved.select = function (spec) {
         ved.resetView();
     }
 
-    if (mode === VEGA) {
-        ved.resize();
-    } else if (mode === 'vl') {
-        ved.resizeVlEditor();
-    }
+    // if (mode === VEGA) {
+    //     ved.resize();
+    // } else if (mode === 'vl') {
+    //     ved.resizeVlEditor();
+    // }
 
 
 };
@@ -277,30 +277,30 @@ ved.resetView = function () {
     $d3.select('.vis').html('');
 };
 
-ved.resize = function (event) {
-    ved.editor[VEGA].resize();
-    ved.editor[VEGA_LITE].resize();
-};
-
-ved.resizeVlEditor = function () {
-    if (ved.vgHidden || ved.currentMode !== VEGA_LITE)
-        return;
-
-    var editor = ved.editor[VEGA_LITE];
-    var height = editor.getSession().getDocument().getLength() *
-        editor.renderer.lineHeight + editor.renderer.scrollBar.getWidth();
-
-    if (height > 600) {
-        return;
-    } else if (height < 200) {
-        height = 200;
-    }
-
-    ved.$d3.select('.vl-spec')
-        .style('height', height + 'px')
-        .style('flex', 'none');
-    ved.resize();
-};
+// ved.resize = function (event) {
+//     // ved.editor[VEGA].resize();
+//     // ved.editor[VEGA_LITE].resize();
+// };
+//
+// ved.resizeVlEditor = function () {
+//     if (ved.vgHidden || ved.currentMode !== VEGA_LITE)
+//         return;
+//
+//     var editor = ved.editor[VEGA_LITE];
+//     var height = editor.getSession().getDocument().getLength() *
+//         editor.renderer.lineHeight + editor.renderer.scrollBar.getWidth();
+//
+//     if (height > 600) {
+//         return;
+//     } else if (height < 200) {
+//         height = 200;
+//     }
+//
+//     ved.$d3.select('.vl-spec')
+//         .style('height', height + 'px')
+//         .style('flex', 'none');
+//     ved.resize();
+// };
 
 ved.setPermanentUrl = function () {
     var params = [];
@@ -491,8 +491,8 @@ ved.init = function (el, dir) {
         });
 
         // adjust height of vl editor based on content
-        vlEditor.on('input', ved.resizeVlEditor);
-        ved.resizeVlEditor();
+        // vlEditor.on('input', ved.resizeVlEditor);
+        // ved.resizeVlEditor();
 
         // Initialize application
         el.select('.btn_spec_format').on('click', ved.format);
@@ -507,8 +507,8 @@ ved.init = function (el, dir) {
             ved.vgHidden = !ved.vgHidden;
             ved.editorVisibility();
         }));
-        d3.select(window).on('resize', ved.resize);
-        ved.resize();
+        // d3.select(window).on('resize', ved.resize);
+        // ved.resize();
 
         var getIndexes = function (obj) {
             return Object.keys(obj).reduce(function (a, k) {

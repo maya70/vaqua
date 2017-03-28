@@ -1,6 +1,8 @@
 var path = window.id || 0;
 path = '/vaqua/' + path;
 console.log(path);
+if(path == '/vaqua/0')
+    alert("there is no data available");
 $.getJSON(path, function(data) {
     // var obj  = json.parse(data);
     var table = document.getElementById('data');

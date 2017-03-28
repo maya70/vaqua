@@ -51,10 +51,12 @@
 
       echo '<form   name="data" method="post" action="/vaqua/vaqua/data/data.php" target="_blank">
   <input type = "hidden" name = "id"  value ="'.$q_id.'">
-  <input type="submit" value="show data" onclick = ""> </form>';
+  <input type="submit" value="show data" > </form>';
   ?>
+      <label>optional:<input type="file" name="upload" value="upload other file"></label>
       <span class="click_toggle_vega" title="Expand/Collapse Vega editor"></span>
     </div>
+
     <div class="" style="max-width:400px" spellcheck="false"><?php
 
     ?></div>

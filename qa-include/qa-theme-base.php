@@ -2075,9 +2075,7 @@ class qa_html_theme_base
         $vDbHelper = new \VAQUA\DbHelper();
         $vDb = new \VAQUA\DB();
 
-        $path= $vDbHelper->getPostPath($GLOBALS['qid']);
-        $path = explode("/" ,$path);
-        $path = explode("." ,$path[count($path) - 1])[0];
+
 
 
         $files = glob('./uploads/'.$GLOBALS['qid'].'/dataset/*.json');
@@ -2110,7 +2108,10 @@ class qa_html_theme_base
         $this->output('</select>
  </label>
 </form>');
-
+        $path= $vDbHelper->getPostPath($GLOBALS['qid']);
+        $path = explode("/" ,$path);
+        $path = explode("." ,$path[count($path) - 1])[0];
+        echo $path;
             $data = '
 <form   name="data" method="post" action="./vaqua/data/data.php" target="_blank">
 <input type = "hidden" name = "id"  value = "' . $GLOBALS['qid'] . '">

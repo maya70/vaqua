@@ -1,4 +1,4 @@
-<link rel="stylesheet" type="text/css" href="./vaqua/css/vega.css">
+<link rel="stylesheet" type="text/css" href="./../vaqua/css/vega.css">
 <div class="vega-editor">
   <div class="mod_spec module">
     <div class="mod_header">
@@ -9,7 +9,7 @@
         <input type="button" class="btn_vg_parse hide-vl" value="Parse">
         <input type="button" class="btn_vl_parse hide-vg" value="Parse">
       </div>
-      <a href="/vaqua/index.php"><img src="./vaqua/logo3.png" width="150" height="50"> </a>
+      <a href="/vaqua/index.php"><img src="./../vaqua/logo3.png" width="150" height="50"> </a>
       <div class="mod_title">
         <select class="sel_mode" style="display: none;">
           <option value="vega-lite">Vega-lite</option>

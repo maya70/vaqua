@@ -51,7 +51,7 @@ $path= $vDB->getPostPath($id);
     </tbody>
   </table> -->
 <body>
-<div id = "qa-header" class="data"  style="background: white" > <a href="/vaqua/index.php"><img src="./vaqua/logo3.png" width="150" height="50"> </a></div>
+<div id = "qa-header" class="data"  style="background: white" > <a href="./../../index.php"><img src="./../logo3.png" width="150" height="50"> </a></div>
 <div id= "data" ></div>
 <script src="/../vaqua/vega-master/lib/jquery-3.1.1.min.js"></script>
 <script >

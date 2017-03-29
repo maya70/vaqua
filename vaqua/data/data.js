@@ -1,5 +1,5 @@
 var path = window.id || 0;
-path = '/vaqua/' + path;
+path = '../../' + path;
 console.log(path);
 if(path == '/vaqua/0')
     alert("there is no data available");

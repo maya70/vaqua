@@ -2071,12 +2071,47 @@ class qa_html_theme_base
             $this->output('</form>');
         }
         require_once __DIR__.'/../vaqua/db/DbHelper.php';
-        $vDB = new \VAQUA\DbHelper();
+        require_once __DIR__.'/../vaqua/db/DB.php';
+        $vDbHelper = new \VAQUA\DbHelper();
+        $vDb = new \VAQUA\DB();
 
-        $path= $vDB->getPostPath($GLOBALS['qid']);
+        $path= $vDbHelper->getPostPath($GLOBALS['qid']);
         $path = explode("/" ,$path);
         $path = explode("." ,$path[count($path) - 1])[0];
-        $data = '
+
+
+        $files = glob('./uploads/'.$GLOBALS['qid'].'/dataset/*.json');
+        $selectedFile = null;
+
+
+        if($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $selectedFile = $_POST['challengeX'];
+            $vDb->updateQuestionPath($GLOBALS['qid'],'uploads/'.$GLOBALS['qid'].'/dataset/'.$selectedFile);
+        }
+        $this->output('
+<form method="post">
+    <label>Data Sets:
+<select id="label" name="challengeX" style="margin-top:150px;" onchange="this.form.submit()">');
+
+        foreach ($files as $file) {
+            if (strpos(pathinfo($file, PATHINFO_BASENAME), '_conf.json') !== false) {
+                continue;
+            }
+            if($selectedFile == null) {
+                $selectedFile = pathinfo($file, PATHINFO_BASENAME);
+                $vDb->updateQuestionPath($GLOBALS['qid'],'uploads/'.$GLOBALS['qid'].'/dataset/'.$selectedFile);
+
+            }
+            if($selectedFile == pathinfo($file, PATHINFO_BASENAME) )
+                $option = 'selected';
+            else
+                $option = '';
+            $this->output('<option '.$option.' >'.pathinfo($file, PATHINFO_BASENAME).'</option>'); }
+        $this->output('</select>
+ </label>
+</form>');
+
+            $data = '
 <form   name="data" method="post" action="./vaqua/data/data.php" target="_blank">
 <input type = "hidden" name = "id"  value = "' . $GLOBALS['qid'] . '">
 <input type="submit" value="show data" onclick = ""> </form>';

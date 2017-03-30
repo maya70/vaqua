@@ -2111,7 +2111,6 @@ class qa_html_theme_base
         $path= $vDbHelper->getPostPath($GLOBALS['qid']);
         $path = explode("/" ,$path);
         $path = explode("." ,$path[count($path) - 1])[0];
-        echo $path;
             $data = '
 <form   name="data" method="post" action="./vaqua/data/data.php" target="_blank">
 <input type = "hidden" name = "id"  value = "' . $GLOBALS['qid'] . '">

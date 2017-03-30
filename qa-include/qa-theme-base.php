@@ -2074,6 +2074,8 @@ class qa_html_theme_base
         $vDB = new \VAQUA\DbHelper();
 
         $path= $vDB->getPostPath($GLOBALS['qid']);
+        $path = explode("/" ,$path);
+        $path = explode("." ,$path[count($path) - 1])[0];
         $data = '
 <form   name="data" method="post" action="./vaqua/data/data.php" target="_blank">
 <input type = "hidden" name = "id"  value = "' . $GLOBALS['qid'] . '">
@@ -2083,7 +2085,7 @@ class qa_html_theme_base
         $this->c_form(@$q_view['c_form']);
         $form = '';
         if(qa_is_logged_in())
-            $form = '<br><br><form method = "post" action ="./vega-master/index.php?id=' . $GLOBALS['qid'] .'" 
+            $form = '<br><br><form method = "post" action ="./vega-master/index.php?id=' . $GLOBALS['qid'] .'&name='.$path.'" 
         <input type = "hidden" name = "subject" value = "Feedback Form"> 
         <input type = "hidden" name = "userid" value ="' . $GLOBALS['uid'] . '">
         <input type = "hidden" name = "redirect" value = "' . $GLOBALS['qid'] . '">

@@ -754,21 +754,3 @@
 	}
 
 
-//get  last inserted id in posts
-function v_get_last_inserted_id (){
-    $db = qa_db_connection();
-    $query = "SELECT postid from qa_posts order by postid DESC limit 1";
-
-    $result = $db->query($query);
-
-    if ($result->num_rows > 0) {
-        // output data of each row
-        while($row = $result->fetch_assoc()) {
-            return $row["postid"] + 1;
-        }
-    } else {
-        return 1;
-    }
-
-    return 1;
-}

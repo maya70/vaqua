@@ -151,14 +151,14 @@ ved.select = function (spec) {
     // } else if (mode === 'vl') {
     //     ved.resizeVlEditor();
     // }
-
-
 };
 
 ved.uri = function (entry) {//simple pir chart for ex --- file pat
 
     if (entry == "") {
-        return '../uploads/' + vaqua.q_id + "/conf.json";
+        console.log("hhhhhhh");
+        console.log(vaqua.defaultName );
+        return '../uploads/' + vaqua.q_id + "/dataset/" + vaqua.defaultName + "_conf.json";
     }
     else {
         return ved.path + 'spec/' + ved.currentMode +
@@ -391,6 +391,9 @@ ved.init = function (el, dir) {
 
     vaqua.init();
 
+
+
+
     // Set base directory
     var PATH = dir || 'app/';
     vg.config.load.baseURL = PATH;
@@ -398,8 +401,12 @@ ved.init = function (el, dir) {
 
     el = (ved.$d3 = d3.select(el));
 
-    d3.text(PATH + 'template.php', function (err, text) {
+    d3.text(PATH + 'template.php' + '?' + Math.floor(Math.random() * 1000), function (err, text) {
         el.html(text);
+
+
+
+        vaqua.initUpload();
 
         vaqua.initTextArea(el);
 
@@ -507,6 +514,8 @@ ved.init = function (el, dir) {
             ved.vgHidden = !ved.vgHidden;
             ved.editorVisibility();
         }));
+
+
         // d3.select(window).on('resize', ved.resize);
         // ved.resize();
 
@@ -618,6 +627,7 @@ vaqua.findGetParameter = function (parameterName) {
 vaqua.init = function () {
 
     vaqua.q_id = vaqua.findGetParameter('id');
+    vaqua.defaultName = vaqua.findGetParameter('name');
 }
 
 vaqua.initVegaJson = function () {
@@ -630,10 +640,12 @@ vaqua.initVegaJson = function () {
 
     var spec = d3.select(sel.options[5]).datum();
 
+
     d3.xhr(ved.uri(""), function (error, response) {
 
         var text = vaqua.changeFields(response.responseText);
 
+        console.log(text);
         editor.setValue(text);
         ved.select(text);
         editor.gotoLine(0);
@@ -723,6 +735,32 @@ vaqua.cumulativeOffset = function (element) {
         top: top,
         left: left
     };
+};
+
+vaqua.initUpload = function(){
+    $("#upload").change(function () {
+
+        var file_data = $('#upload').prop('files')[0];
+        var form_data = new FormData();
+        form_data.append('file', file_data);
+
+        $.ajax({
+            url: './app/vaqua/upload.php', // point to server-side PHP script
+            dataType: 'text',  // what to expect back from the PHP script, if anything
+            cache: false,
+            contentType: false,
+            processData: false,
+            data: form_data,
+            type: 'post',
+            success: function (res) {
+                console.log("uploaded") // display response from the PHP script, if any
+                vaqua.defaultName = res;
+                vaqua.initVegaJson();
+                vaqua.url = "";
+
+            }
+        });
+    });
 };
 
 

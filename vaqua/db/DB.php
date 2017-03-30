@@ -76,4 +76,34 @@ class DB
     {
         mysqli_close($this->con);
     }
+
+    //get  last inserted id in posts
+    function v_get_last_inserted_id (){
+        $query = "SELECT postid from qa_posts order by postid DESC limit 1";
+
+        $result = mysqli_query($this->con,$query);
+        if($result){
+            while ($row=mysqli_fetch_array($result)) {
+                return $row["postid"] + 1;
+            }
+        } else {
+            return 1;
+        }
+
+        return 1;
+    }
+
+    function updateQuestionPath($id, $path){
+        $query = "UPDATE qa_posts set test='$path' where postid='$id'";
+        $result = mysqli_query($this->con,$query);
+        if(mysqli_error($this->con)){
+            die(mysqli_error($this->con));
+        }
+        if ($result){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
 }

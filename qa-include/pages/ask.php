@@ -113,7 +113,7 @@
 		$in['notify'] = strlen(qa_post_text('notify')) > 0;
 		$in['email']=qa_post_text('email');
 		$in['queued'] = qa_user_moderation_reason($userlevel) !== false;
-        $in['file'] = v_get_file_path();
+
 		qa_get_post_content('editor', 'content', $in['editor'], $in['content'], $in['format'], $in['text']);
 
 		$errors=array();
@@ -146,10 +146,15 @@
 
 				$cookieid=isset($userid) ? qa_cookie_get() : qa_cookie_get_create(); // create a new cookie if necessary
 
+                //TODO : remove last patmeter
 				$questionid=qa_question_create($followanswer, $userid, qa_get_logged_in_handle(), $cookieid,
 					$in['title'], $in['content'], $in['format'], $in['text'], isset($in['tags']) ? qa_tags_to_tagstring($in['tags']) : '',
-					$in['notify'], $in['email'], $in['categoryid'], $in['extra'], $in['queued'], $in['name'], $in['file']);
+					$in['notify'], $in['email'], $in['categoryid'], $in['extra'], $in['queued'], $in['name'], "");
 
+                $in['file'] = v_get_file_path($questionid);
+                require_once __DIR__.'/../../vaqua/db/DB.php';
+                $db = new \VAQUA\DB();
+                $db->updateQuestionPath($questionid,$in['file']);
 
 
 				qa_redirect(qa_q_request($questionid, $in['title'])); // our work is done here

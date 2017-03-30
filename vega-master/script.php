@@ -29,6 +29,8 @@ if (isset($_POST['img']) && isset($_POST['q_id'])&& isset($_POST['comment'])) {
 }
 
 
+
+
 function updateAnswer($db, $vDB, $q_id, $user_id, $comment){
 
     date_default_timezone_set('Africa/Cairo');

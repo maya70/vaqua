@@ -1,1 +1,0 @@
-"{\n\t{\n  \"data\": {\"url\": uploads\/coursenotes.pdf},\n  \"mark\": \"bar\",\n  \"encoding\": {\n    \"x\": {\"field\": \"Cylinders\", \"type\": \"ordinal\"},\n    \"y\": {\"aggregate\": \"mean\", \"field\": \"Acceleration\", \"type\": \"quantitative\"}\n  }\n}\n\n}"

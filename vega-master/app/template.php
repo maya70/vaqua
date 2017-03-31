@@ -68,7 +68,11 @@
                 Renderer <select class="sel_render"></select>
                 <!--        <input type="button" class="btn_export" value="Export">-->
             </div>
-            <div class="mod_title">Visualization</div>
+            <div class="mod_title">
+              <!-- <input type="button"  id="zmin" value="ZoomIn"> -->
+              <button  id="zmin" value="ZoomIn" onclick="fortest()">ZoomIn</button>
+              <button id="zmout" value="ZoomOut" onclick="fortest2()">ZoomOut</button>
+            </div>
         </div>
         <div class="vis"></div>
 

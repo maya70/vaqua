@@ -12,6 +12,17 @@
     border-right: 1px solid #ccc;
 }
 
+canvas{
+  max-height: 300px;
+    min-height:  300px;
+  width: 700px;
+  position: relative;
+
+  /*display: inline-block;*/
+  /*overflow: auto;*/
+  transform: scale(.5,.5);
+}
+
 .vega-editor .mod_vis {
     -webkit-flex: 1 1 auto;
     flex: 1 1 auto;

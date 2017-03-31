@@ -1,5 +1,27 @@
 'use strict';
 
+var scle=0.5;
+var fortest=function(){
+    // var scale=$(this).css('transform')+1;
+    scle++;
+      console.log(scle);
+    console.log("iam in");
+    $('canvas').css('transform','scale('+scle+','+scle+')');
+    var canvas=$('canvas');
+    context=canvas.getContect('2d');
+    $(context).restore();
+  }
+  var fortest2=function(){
+
+      if(scle>1)
+      {
+      scle--;
+      console.log(scle);
+      $('canvas').css('transform','scale('+scle+','+scle+')');
+      $('canvas').restore();
+}
+    }
+
 
 var vaqua = {};
 
@@ -762,5 +784,3 @@ vaqua.initUpload = function(){
         });
     });
 };
-
-

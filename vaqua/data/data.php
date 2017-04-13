@@ -60,5 +60,6 @@ $path= $vDB->getPostPath($id);
     window.id = htmlString;
 </script>
 <script src="data.js"></script>
+<script src="parse/data_parser.js"></script>
 </body>
 </html>

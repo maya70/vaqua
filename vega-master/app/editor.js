@@ -1,26 +1,25 @@
 'use strict';
 
-var scle=0.5;
-var fortest=function(){
+var scle = 0.5;
+var fortest = function () {
     // var scale=$(this).css('transform')+1;
     scle++;
-      console.log(scle);
+    console.log(scle);
     console.log("iam in");
-    $('canvas').css('transform','scale('+scle+','+scle+')');
-    var canvas=$('canvas');
-    context=canvas.getContect('2d');
+    $('canvas').css('transform', 'scale(' + scle + ',' + scle + ')');
+    var canvas = $('canvas');
+    var context = canvas.getContect('2d');
     $(context).restore();
-  }
-  var fortest2=function(){
-
-      if(scle>1)
-      {
-      scle--;
-      console.log(scle);
-      $('canvas').css('transform','scale('+scle+','+scle+')');
-      $('canvas').restore();
 }
+var fortest2 = function () {
+
+    if (scle > 1) {
+        scle--;
+        console.log(scle);
+        $('canvas').css('transform', 'scale(' + scle + ',' + scle + ')');
+        $('canvas').restore();
     }
+}
 
 
 var vaqua = {};
@@ -179,7 +178,7 @@ ved.uri = function (entry) {//simple pir chart for ex --- file pat
 
     if (entry == "") {
         console.log("hhhhhhh");
-        console.log(vaqua.defaultName );
+        console.log(vaqua.defaultName);
         return '../uploads/' + vaqua.q_id + "/dataset/" + vaqua.defaultName + "_conf.json";
     }
     else {
@@ -414,8 +413,6 @@ ved.init = function (el, dir) {
     vaqua.init();
 
 
-
-
     // Set base directory
     var PATH = dir || 'app/';
     vg.config.load.baseURL = PATH;
@@ -425,7 +422,6 @@ ved.init = function (el, dir) {
 
     d3.text(PATH + 'template.php' + '?' + Math.floor(Math.random() * 1000), function (err, text) {
         el.html(text);
-
 
 
         vaqua.initUpload();
@@ -699,6 +695,10 @@ vaqua.parseConfJson = function (jsonObj) {
         vaqua.url = jsonObj['data'];
         vaqua.x = jsonObj['encoding']['x']['field'];
         vaqua.y = jsonObj['encoding']['y']['field'];
+        vaqua.attr = jsonObj['attr'];
+        console.log("attributes : " + vaqua.attr);
+        delete jsonObj['attr'];
+
     }
 
     var url = vaqua.url;
@@ -759,7 +759,7 @@ vaqua.cumulativeOffset = function (element) {
     };
 };
 
-vaqua.initUpload = function(){
+vaqua.initUpload = function () {
     $("#upload").change(function () {
 
         var file_data = $('#upload').prop('files')[0];

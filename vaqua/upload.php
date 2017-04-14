@@ -26,7 +26,8 @@ function make_conf_file($file_name, $attributes, $q_id)
     $jsonObj = array(
         "data" => array("url" => "../../$url"),
         "mark" => "bar",
-        "encoding" => $encoArray
+        "encoding" => $encoArray,
+        "attr" => $attributes
     );
 
 

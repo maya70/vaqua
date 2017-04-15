@@ -12,12 +12,13 @@ function make_conf_file($file_name, $attributes, $q_id)
 
     $i = 0;
     $fields = ["x", "y"];
-    foreach ($attributes as $key) {
+    foreach ($attributes as $key=>$type) {
         if ($i > 1) {
             break;
         }
-        $val = array("field" => $key, "type" => "ordinal");
-
+        $val = array("field" => $key, "type" => $type);
+        if($type == 'nominal')
+            continue;
         $encoArray[$fields[$i++]] = $val;
     }
 

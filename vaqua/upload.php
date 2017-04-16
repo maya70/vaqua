@@ -11,16 +11,15 @@ function make_conf_file($file_name, $attributes, $q_id)
     $encoArray = array();
 
     $i = 0;
-    $fields = ["x", "y"];
-    foreach ($attributes as $key=>$type) {
-        if ($i > 1) {
-            break;
-        }
-        $val = array("field" => $key, "type" => $type);
-        if($type == 'nominal')
-            continue;
-        $encoArray[$fields[$i++]] = $val;
-    }
+    $fields = ["x", "y","color","size","text"];
+    //assing x and y fields
+    assignBasicAxis($attributes, $i, $encoArray, $fields);
+
+    //assing text if there
+    assignTextParam($attributes, $encoArray, $fields);
+
+    //assign color
+    assingColorParam($attributes, $encoArray, $fields);
 
     $url = explode("..",$url)[1];
 
@@ -36,6 +35,58 @@ function make_conf_file($file_name, $attributes, $q_id)
     $fp = fopen($base_path . '/' . $name, 'w');
     fwrite($fp, json_encode($jsonObj));
     fclose($fp);
+}
+
+/**
+ * @param $attributes
+ * @param $encoArray
+ * @param $fields
+ */
+function assingColorParam($attributes, &$encoArray, $fields)
+{
+    foreach ($attributes as $key => $type) {
+
+        $val = array("field" => $key, "type" => $type);
+        if ($type == 'nominal') {
+            $encoArray[$fields[2]] = $val;
+            break;
+        }
+    }
+}
+
+/**
+ * @param $attributes
+ * @param $i
+ * @param $encoArray
+ * @param $fields
+ */
+function assignBasicAxis($attributes, $i, &$encoArray, $fields)
+{
+    foreach ($attributes as $key => $type) {
+        if ($i > 1) {
+            break;
+        }
+        $val = array("field" => $key, "type" => $type);
+        if ($type == 'nominal')
+            continue;
+        $encoArray[$fields[$i++]] = $val;
+    }
+}
+
+/**
+ * @param $attributes
+ * @param $encoArray
+ * @param $fields
+ */
+function assignTextParam($attributes, &$encoArray, $fields)
+{
+    foreach ($attributes as $key => $type) {
+        $val = array("field" => $key, "type" => $type);
+        if ($type == 'nominal') {
+            $encoArray[$fields[4]] = $val;
+            break;
+        }
+    }
 }
 
 

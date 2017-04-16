@@ -1,8 +1,10 @@
 <?php
+if(isset($_POST["id"])){
 $id= $_POST["id"];
 require_once __DIR__.'/../db/DbHelper.php';
 $vDB = new \VAQUA\DbHelper($id);
-$path= $vDB->getPostPath($id);
+$path= $vDB->getPostPath($id);}
+else $path = 0;
 ?>
 
 <html>
@@ -60,6 +62,5 @@ $path= $vDB->getPostPath($id);
     window.id = htmlString;
 </script>
 <script src="data.js"></script>
-<script src="parse/data_parser.js"></script>
 </body>
 </html>

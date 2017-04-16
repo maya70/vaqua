@@ -100,15 +100,15 @@ function getAvailabletype($key,$val)
 function mapToRightType($oldVal,$newVal)//
 {
 
-    $map = array(
+    $priorityMap = array(
         "nominal" =>1,
-        "ordinal"=>3,
         "quantitative"=>2,
+        "ordinal"=>3,
         "temporal"=>4,
         'null'=>5,
         '' =>10
     );
-    if($map[$oldVal]>$map[$newVal])
+    if($priorityMap[$oldVal]>$priorityMap[$newVal])
         return $newVal;
     else
         return $oldVal;

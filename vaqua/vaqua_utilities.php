@@ -79,7 +79,7 @@ function isQauntitative($val)
         $val = $val/10;
         $counter++;
     }
-    return($counter>6)?'integer':'double';
+    return($counter>6)?'double':'integer';
 }
 function getAvailabletype($key,$val)
 {

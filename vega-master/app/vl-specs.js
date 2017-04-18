@@ -151,8 +151,13 @@ var VL_SPECS = {
         {
             "name": "fig2c_customized",
             "title": "Fig. 2(c) Customized"
+        },
+        {
+            "name": "parallel",
+            "title": "parallel-coordinates"
         }
     ]
+
 }
 
 

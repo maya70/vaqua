@@ -147,19 +147,31 @@ ved.select = function (spec) {
     var idx = sel.selectedIndex;
     spec = d3.select(sel.options[idx]).datum();
 
+    function parallel_coord() {
+        console.log("mahmoud");
+        $(".vega")
+            .html('<object width="800" height="700" data="./../parallel-coords/index.html"/>').watch(600);
+    }
+
     if (idx > 0) {
-        d3.xhr(ved.uri(spec), function (error, response) {
+        if(idx ==26) {
+            parallel_coord();
+        }
+        else {
+            d3.xhr(ved.uri(spec), function (error, response) {
 
-            var txt = vaqua.changeFields(response.responseText);
+                var txt = vaqua.changeFields(response.responseText);
 
-            editor.setValue(txt);
-            editor.gotoLine(0);
-            parse(function (err) {
-                if (err) console.error(err);
-                desc.html(spec.desc || '');
+                editor.setValue(txt);
+                editor.gotoLine(0);
+                parse(function (err) {
+                    if (err) console.error(err);
+                    desc.html(spec.desc || '');
+                });
+                ved.format();
+                console.log(response + idx);
             });
-            ved.format();
-        });
+        }
     } else {
         editor.setValue('');
         editor.gotoLine(0);

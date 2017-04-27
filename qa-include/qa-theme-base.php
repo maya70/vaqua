@@ -79,8 +79,8 @@ class qa_html_theme_base
     public function output_array($elements)
         /*
             Output each element in $elements on a separate line, with automatic HTML indenting.
-            This should be passed markup which uses the <tag/> form for unpaired tags, to help keep
-            track of indenting, although its actual output converts these to <tag> for W3C validation
+            This should be passed markup which uses the <tagField/> form for unpaired tags, to help keep
+            track of indenting, although its actual output converts these to <tagField> for W3C validation
         */
     {
         foreach ($elements as $element) {
@@ -1274,6 +1274,13 @@ class qa_html_theme_base
 
     public function form_text_single_row($field, $style)
     {
+        $param = explode(" ", $field['tags']);
+        $flag = false;
+        for ($i = 0; $i < count($param); $i++) {
+            if ($param[$i] == 'id="tags"') {
+                $this->output('Avaialble tags: <select id = "available_tags" onclick="setTag()">');
+            }
+        }
         $this->output('<input ' . @$field['tags'] . ' type="text" value="' . @$field['value'] . '" class="qa-form-' . $style . '-text"/>');
     }
 
@@ -1906,7 +1913,7 @@ class qa_html_theme_base
 
     public function post_tag_list($post, $class)
     {
-        $this->output('<ul class="' . $class . '-tag-list">');
+        $this->output('<ul class="' . $class . '-tagField-list">');
 
         foreach ($post['q_tags'] as $taghtml)
             $this->post_tag_item($taghtml, $class);
@@ -1916,7 +1923,7 @@ class qa_html_theme_base
 
     public function post_tag_item($taghtml, $class)
     {
-        $this->output('<li class="' . $class . '-tag-item">' . $taghtml . '</li>');
+        $this->output('<li class="' . $class . '-tagField-item">' . $taghtml . '</li>');
     }
 
     public function page_links()
@@ -2065,26 +2072,23 @@ class qa_html_theme_base
         $this->c_list(@$q_view['c_list'], 'qa-q-view');
 
 
-
         if (isset($q_view['main_form_tags'])) {
             $this->form_hidden_elements(@$q_view['buttons_form_hidden']);
             $this->output('</form>');
         }
-        require_once __DIR__.'/../vaqua/db/DbHelper.php';
-        require_once __DIR__.'/../vaqua/db/DB.php';
+        require_once __DIR__ . '/../vaqua/db/DbHelper.php';
+        require_once __DIR__ . '/../vaqua/db/DB.php';
         $vDbHelper = new \VAQUA\DbHelper();
         $vDb = new \VAQUA\DB();
 
 
-
-
-        $files = glob('./uploads/'.$GLOBALS['qid'].'/dataset/*.json');
+        $files = glob('./uploads/' . $GLOBALS['qid'] . '/dataset/*.json');
         $selectedFile = null;
 
 
-        if($_SERVER['REQUEST_METHOD'] == 'POST') {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $selectedFile = $_POST['challengeX'];
-            $vDb->updateQuestionPath($GLOBALS['qid'],'uploads/'.$GLOBALS['qid'].'/dataset/'.$selectedFile);
+            $vDb->updateQuestionPath($GLOBALS['qid'], 'uploads/' . $GLOBALS['qid'] . '/dataset/' . $selectedFile);
         }
         $this->output('
 <form method="post">
@@ -2095,23 +2099,24 @@ class qa_html_theme_base
             if (strpos(pathinfo($file, PATHINFO_BASENAME), '_conf.json') !== false) {
                 continue;
             }
-            if($selectedFile == null) {
+            if ($selectedFile == null) {
                 $selectedFile = pathinfo($file, PATHINFO_BASENAME);
-                $vDb->updateQuestionPath($GLOBALS['qid'],'uploads/'.$GLOBALS['qid'].'/dataset/'.$selectedFile);
+                $vDb->updateQuestionPath($GLOBALS['qid'], 'uploads/' . $GLOBALS['qid'] . '/dataset/' . $selectedFile);
 
             }
-            if($selectedFile == pathinfo($file, PATHINFO_BASENAME) )
+            if ($selectedFile == pathinfo($file, PATHINFO_BASENAME))
                 $option = 'selected';
             else
                 $option = '';
-            $this->output('<option '.$option.' >'.pathinfo($file, PATHINFO_BASENAME).'</option>'); }
+            $this->output('<option ' . $option . ' >' . pathinfo($file, PATHINFO_BASENAME) . '</option>');
+        }
         $this->output('</select>
  </label>
 </form>');
-        $path= $vDbHelper->getPostPath($GLOBALS['qid']);
-        $path = explode("/" ,$path);
-        $path = explode("." ,$path[count($path) - 1])[0];
-            $data = '
+        $path = $vDbHelper->getPostPath($GLOBALS['qid']);
+        $path = explode("/", $path);
+        $path = explode(".", $path[count($path) - 1])[0];
+        $data = '
 <form   name="data" method="post" action="./vaqua/data/data.php" target="_blank">
 <input type = "hidden" name = "id"  value = "' . $GLOBALS['qid'] . '">
 <input type="submit" value="show data" onclick = ""> </form>';
@@ -2119,8 +2124,8 @@ class qa_html_theme_base
         /*<img src="im" width="50" height="50" alt="image not found">*/
         $this->c_form(@$q_view['c_form']);
         $form = '';
-        if(qa_is_logged_in())
-            $form = '<br><br><form method = "post" action ="./vega-master/index.php?id=' . $GLOBALS['qid'] .'&name='.$path.'" 
+        if (qa_is_logged_in())
+            $form = '<br><br><form method = "post" action ="./vega-master/index.php?id=' . $GLOBALS['qid'] . '&name=' . $path . '" 
         <input type = "hidden" name = "subject" value = "Feedback Form"> 
         <input type = "hidden" name = "userid" value ="' . $GLOBALS['uid'] . '">
         <input type = "hidden" name = "redirect" value = "' . $GLOBALS['qid'] . '">
@@ -2132,10 +2137,12 @@ class qa_html_theme_base
         $this->output($form);
         $this->output('</div> <!-- END qa-q-view-main -->');
     }
+
     function answer_validation()
     {
         $this->error('please login');
     }
+
     public function q_view_content($q_view)
     {
         $content = isset($q_view['content']) ? $q_view['content'] : '';
@@ -2298,15 +2305,14 @@ class qa_html_theme_base
     public function a_item_content($a_item)
     {
         $answers = $GLOBALS['aid'];
-        $path = './uploads/'.$GLOBALS['qid'].'/ans/'.
-            $answers[$GLOBALS['indx']++].'.png';
+        $path = './uploads/' . $GLOBALS['qid'] . '/ans/' .
+            $answers[$GLOBALS['indx']++] . '.png';
 
 
         $this->output('<div class="qa-a-item-content">');
-        if(!is_file($path))
-        {
-            $path = './uploads/'.$GLOBALS['qbest'].'/ans/'.
-                $GLOBALS['abest'].'.png';
+        if (!is_file($path)) {
+            $path = './uploads/' . $GLOBALS['qbest'] . '/ans/' .
+                $GLOBALS['abest'] . '.png';
         }
         $this->output('<img src="' . $path . '"  alt="image not found">');
         $this->output_raw($a_item['content']);
@@ -2448,4 +2454,5 @@ class qa_html_theme_base
         $this->output('</div>');
     }
 }
+
 ?>

@@ -147,31 +147,19 @@ ved.select = function (spec) {
     var idx = sel.selectedIndex;
     spec = d3.select(sel.options[idx]).datum();
 
-    function parallel_coord() {
-        console.log("mahmoud");
-        $(".vega")
-            .html('<object width="800" height="700" data="./../parallel-coords/index.html"/>').watch(600);
-    }
-
     if (idx > 0) {
-        if(idx ==26) {
-            parallel_coord();
-        }
-        else {
-            d3.xhr(ved.uri(spec), function (error, response) {
+        d3.xhr(ved.uri(spec), function (error, response) {
 
-                var txt = vaqua.changeFields(response.responseText);
+            var txt = vaqua.changeFields(response.responseText);
 
-                editor.setValue(txt);
-                editor.gotoLine(0);
-                parse(function (err) {
-                    if (err) console.error(err);
-                    desc.html(spec.desc || '');
-                });
-                ved.format();
-                console.log(response + idx);
+            editor.setValue(txt);
+            editor.gotoLine(0);
+            parse(function (err) {
+                if (err) console.error(err);
+                desc.html(spec.desc || '');
             });
-        }
+            ved.format();
+        });
     } else {
         editor.setValue('');
         editor.gotoLine(0);
@@ -189,8 +177,8 @@ ved.select = function (spec) {
 ved.uri = function (entry) {//simple pir chart for ex --- file pat
 
     if (entry == "") {
-        // console.log("hhhhhhh");
-        // console.log(vaqua.defaultName);
+        console.log("hhhhhhh");
+        console.log(vaqua.defaultName);
         return '../uploads/' + vaqua.q_id + "/dataset/" + vaqua.defaultName + "_conf.json";
     }
     else {
@@ -233,14 +221,6 @@ ved.parseVl = function (callback) {
 
     try {
         spec = JSON.parse(value);
-        // console.log(vaqua.attr+"   mahmoud");
-        if(spec['encoding']['x']['type']!=vaqua.attr[spec['encoding']['x']['field']]||
-            spec['encoding']['y']['type']!=vaqua.attr[spec['encoding']['y']['field']]){
-            // console.log("attributes : " + );
-            alert("not valid type");
-            return;
-        }
-        // console.log("attributes : " + );
     } catch (e) {
         console.log(e);
         return;
@@ -467,7 +447,6 @@ ved.init = function (el, dir) {
                 return d.name;
             });
 
-
         // Vega-lite specification drop-down menu
         var vlSel = el.select('.sel_vega-lite_spec');
         vlSel.on('change', ved.setUrlAfter(ved.select));
@@ -684,7 +663,7 @@ vaqua.initVegaJson = function () {
 
         var text = vaqua.changeFields(response.responseText);
 
-        // console.log(text);
+        console.log(text);
         editor.setValue(text);
         ved.select(text);
         editor.gotoLine(0);
@@ -701,8 +680,8 @@ vaqua.initVegaJson = function () {
 vaqua.changeFields = function (jsonTxt) {
     var jsonObj = JSON.parse(jsonTxt);
 
-    // var keys = Object.keys(jsonObj);
-    // console.log(keys);
+    var keys = Object.keys(jsonObj);
+    console.log(keys);
 
     jsonObj = vaqua.parseConfJson(jsonObj);
 
@@ -718,18 +697,11 @@ vaqua.parseConfJson = function (jsonObj) {
         vaqua.y = jsonObj['encoding']['y']['field'];
         vaqua.typeX = jsonObj['encoding']['x']['type'];
         vaqua.typeY = jsonObj['encoding']['y']['type'];
-
-        vaqua.color = jsonObj['encoding']['color']['field'];
-        vaqua.colorType = jsonObj['encoding']['color']['type'];
-
-        vaqua.text = jsonObj['encoding']['text']['field'];
-        vaqua.textType = jsonObj['encoding']['text']['type'];
         vaqua.attr = jsonObj['attr'];
-
+        console.log("attributes : " + vaqua.attr);
         delete jsonObj['attr'];
 
     }
-    console.log(vaqua.color+"mmd");
 
     var url = vaqua.url;
     var i = 0;
@@ -742,25 +714,23 @@ vaqua.parseConfJson = function (jsonObj) {
     if (obj) {
         if (obj['x']) {
             obj['x']['field'] = vaqua.x;
-            obj['x']['type'] = vaqua.typeX;
+            // obj['x']['type'] = vaqua.typeX;
+
         }
         if (obj['y']) {
             obj['y']['field'] = vaqua.y;
-            obj['y']['type'] = vaqua.typeY;
+            // obj['y']['type'] = vaqua.typeY;
         }
 
 
         if (obj['text']) {
-            obj['text']['field'] = vaqua.text||vaqua.x;
-            obj['text']['type'] = vaqua.textType;
+            obj['text']['field'] = vaqua.x;
         }
         if (obj['color']) {
-            obj['color']['field'] = vaqua.color||vaqua.y;
-            obj['color']['type'] = vaqua.colorType;
+            obj['color']['field'] = vaqua.y;
         }
         if (obj['size']) {
             obj['size']['field'] = vaqua.y;
-            obj['size']['type'] = vaqua.typeY;
         }
     }
 

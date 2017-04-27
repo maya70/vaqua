@@ -1,10 +1,8 @@
 <?php
-if(isset($_POST["id"])){
 $id= $_POST["id"];
 require_once __DIR__.'/../db/DbHelper.php';
 $vDB = new \VAQUA\DbHelper($id);
-$path= $vDB->getPostPath($id);}
-else $path = 0;
+$path= $vDB->getPostPath($id);
 ?>
 
 <html>
@@ -53,7 +51,7 @@ else $path = 0;
     </tbody>
   </table> -->
 <body>
-<div id = "qa-header" class="data"  style="background: white" > <a href="./../../index.php"><img src="./../logo3.png" width="150" height="50"> </a></div>
+<div id = "qa-header" class="data"  style="background: white" > <a href="./../../index.php"><img src="../logo3.png" width="150" height="50"> </a></div>
 <div id= "data" ></div>
 <script src="/../vaqua/vega-master/lib/jquery-3.1.1.min.js"></script>
 <script >
@@ -62,5 +60,6 @@ else $path = 0;
     window.id = htmlString;
 </script>
 <script src="data.js"></script>
+<script src="parse/data_parser.js"></script>
 </body>
 </html>

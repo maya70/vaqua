@@ -52,6 +52,8 @@ function assingColorParam($attributes, &$encoArray, $fields)
             break;
         }
     }
+    if(!array_key_exists($fields[2],$encoArray))
+        $encoArray[$fields[2]]=$encoArray[$fields[1]];
 }
 
 /**
@@ -67,8 +69,6 @@ function assignBasicAxis($attributes, $i, &$encoArray, $fields)
             break;
         }
         $val = array("field" => $key, "type" => $type);
-        if ($type == 'nominal')
-            continue;
         $encoArray[$fields[$i++]] = $val;
     }
 }
@@ -87,6 +87,8 @@ function assignTextParam($attributes, &$encoArray, $fields)
             break;
         }
     }
+    if(!array_key_exists($fields[4],$encoArray))
+        $encoArray[$fields[4]]=$encoArray[$fields[0]];
 }
 
 

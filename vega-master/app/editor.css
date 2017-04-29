@@ -12,15 +12,29 @@
     border-right: 1px solid #ccc;
 }
 
-canvas{
-  max-height: 300px;
-    min-height:  300px;
-  width: 700px;
-  position: relative;
+.vega-editor .gui_rep {
+    height: 550px;
+  background:white ;
+  font-size: 20px;
+    color:#588191;
+    padding-top: 0px;
+    padding-left: 0px;
+    border-style: double;
+}
 
-  /*display: inline-block;*/
-  /*overflow: auto;*/
-  transform: scale(.5,.5);
+.vega-editor .padding {
+    padding-left: 0.3cm;
+    padding-top: 0.5cm;
+    font-size: 25px;
+     font-family:Arial Black;
+     font-weight: bold;
+
+}
+
+.vega-editor .menustyle {
+     height:25px;
+     width:200px; border-style: solid;
+     border-color: #588191;
 }
 
 .vega-editor .mod_vis {

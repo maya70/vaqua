@@ -1,27 +1,5 @@
 'use strict';
 
-var scle = 0.5;
-var fortest = function () {
-    // var scale=$(this).css('transform')+1;
-    scle++;
-    console.log(scle);
-    console.log("iam in");
-    $('canvas').css('transform', 'scale(' + scle + ',' + scle + ')');
-    var canvas = $('canvas');
-    var context = canvas.getContect('2d');
-    $(context).restore();
-}
-var fortest2 = function () {
-
-    if (scle > 1) {
-        scle--;
-        console.log(scle);
-        $('canvas').css('transform', 'scale(' + scle + ',' + scle + ')');
-        $('canvas').restore();
-    }
-}
-
-
 var vaqua = {};
 
 vaqua.q_id = 0;
@@ -145,21 +123,36 @@ ved.select = function (spec) {
     }
 
     var idx = sel.selectedIndex;
+    vaqua.modelID = idx;
+    vaqua.displaySelect();
     spec = d3.select(sel.options[idx]).datum();
 
+    function parallel_coord() {
+        console.log("mahmoud");
+        $(".vega")
+            .html('<object width="800" height="700" data="./../parallel-coords/index.html"/>').watch(600);
+    }
+
+
     if (idx > 0) {
-        d3.xhr(ved.uri(spec), function (error, response) {
+        if (idx == 26) {
+            parallel_coord();
+        }
+        else {
+            d3.xhr(ved.uri(spec), function (error, response) {
 
-            var txt = vaqua.changeFields(response.responseText);
+                var txt = vaqua.changeFields(response.responseText);
 
-            editor.setValue(txt);
-            editor.gotoLine(0);
-            parse(function (err) {
-                if (err) console.error(err);
-                desc.html(spec.desc || '');
+                editor.setValue(txt);
+                editor.gotoLine(0);
+                parse(function (err) {
+                    if (err) console.error(err);
+                    desc.html(spec.desc || '');
+                });
+                ved.format();
+                console.log(response + idx);
             });
-            ved.format();
-        });
+        }
     } else {
         editor.setValue('');
         editor.gotoLine(0);
@@ -177,8 +170,8 @@ ved.select = function (spec) {
 ved.uri = function (entry) {//simple pir chart for ex --- file pat
 
     if (entry == "") {
-        console.log("hhhhhhh");
-        console.log(vaqua.defaultName);
+        // console.log("hhhhhhh");
+        // console.log(vaqua.defaultName);
         return '../uploads/' + vaqua.q_id + "/dataset/" + vaqua.defaultName + "_conf.json";
     }
     else {
@@ -221,6 +214,14 @@ ved.parseVl = function (callback) {
 
     try {
         spec = JSON.parse(value);
+        // console.log(vaqua.attr+"   mahmoud");
+        if (spec['encoding']['x']['type'] != vaqua.attr[spec['encoding']['x']['field']] ||
+            spec['encoding']['y']['type'] != vaqua.attr[spec['encoding']['y']['field']]) {
+            // console.log("attributes : " + );
+            alert("not valid type");
+            return;
+        }
+        // console.log("attributes : " + );
     } catch (e) {
         console.log(e);
         return;
@@ -407,11 +408,11 @@ ved.getSelect = function () {
     return ved.$d3.select('.sel_' + ved.currentMode + '_spec').node();
 };
 
+
 ved.init = function (el, dir) {
 
 
     vaqua.init();
-
 
     // Set base directory
     var PATH = dir || 'app/';
@@ -446,6 +447,7 @@ ved.init = function (el, dir) {
             .text(function (d) {
                 return d.name;
             });
+
 
         // Vega-lite specification drop-down menu
         var vlSel = el.select('.sel_vega-lite_spec');
@@ -663,7 +665,7 @@ vaqua.initVegaJson = function () {
 
         var text = vaqua.changeFields(response.responseText);
 
-        console.log(text);
+        // console.log(text);
         editor.setValue(text);
         ved.select(text);
         editor.gotoLine(0);
@@ -680,8 +682,8 @@ vaqua.initVegaJson = function () {
 vaqua.changeFields = function (jsonTxt) {
     var jsonObj = JSON.parse(jsonTxt);
 
-    var keys = Object.keys(jsonObj);
-    console.log(keys);
+    // var keys = Object.keys(jsonObj);
+    // console.log(keys);
 
     jsonObj = vaqua.parseConfJson(jsonObj);
 
@@ -697,14 +699,40 @@ vaqua.parseConfJson = function (jsonObj) {
         vaqua.y = jsonObj['encoding']['y']['field'];
         vaqua.typeX = jsonObj['encoding']['x']['type'];
         vaqua.typeY = jsonObj['encoding']['y']['type'];
+
+        vaqua.color = jsonObj['encoding']['color']['field'];
+        vaqua.colorType = jsonObj['encoding']['color']['type'];
+
+        vaqua.text = jsonObj['encoding']['text']['field'];
+        vaqua.textType = jsonObj['encoding']['text']['type'];
         vaqua.attr = jsonObj['attr'];
-        console.log("attributes : " + vaqua.attr);
+
+        vaqua.keys = [];
+        vaqua.values = [];
+
+        console.log("here is attributes...........sssssssssss..................");
+        for (var i = 0; i < Object.keys(vaqua.attr).length; i++) {
+            vaqua.keys[i] = Object.keys(vaqua.attr)[i];
+            console.log(vaqua.keys[i]);
+        }
+
+        console.log("here is types...................................");
+        for (var i = 0; i < Object.values(vaqua.attr).length; i++) {
+            vaqua.values[i] = Object.values(vaqua.attr)[i]
+            console.log(vaqua.values[i]);
+        }
+
+        vaqua.displaySelect();
+        vaqua.initKeysSelect();
+
         delete jsonObj['attr'];
 
     }
+    console.log(vaqua.color + "mmd");
 
     var url = vaqua.url;
     var i = 0;
+    var optio = ["s", "l", "m", "n", "o"];
 
 
     jsonObj['data'] = url;
@@ -714,26 +742,27 @@ vaqua.parseConfJson = function (jsonObj) {
     if (obj) {
         if (obj['x']) {
             obj['x']['field'] = vaqua.x;
-            // obj['x']['type'] = vaqua.typeX;
-
+            obj['x']['type'] = vaqua.typeX;
         }
         if (obj['y']) {
             obj['y']['field'] = vaqua.y;
-            // obj['y']['type'] = vaqua.typeY;
+            obj['y']['type'] = vaqua.typeY;
         }
 
 
         if (obj['text']) {
-            obj['text']['field'] = vaqua.x;
+            obj['text']['field'] = vaqua.text || vaqua.x;
+            obj['text']['type'] = vaqua.textType;
         }
         if (obj['color']) {
-            obj['color']['field'] = vaqua.y;
+            obj['color']['field'] = vaqua.color || vaqua.y;
+            obj['color']['type'] = vaqua.colorType;
         }
         if (obj['size']) {
             obj['size']['field'] = vaqua.y;
+            obj['size']['type'] = vaqua.typeY;
         }
     }
-
 
     return jsonObj
 }
@@ -788,4 +817,115 @@ vaqua.initUpload = function () {
             }
         });
     });
+};
+
+vaqua.initKeysSelect = function () {
+    $(document).ready(function () {
+        for (var i = 0; i < vaqua.keys.length; i++) {
+            $("#attrselectorx").append("<option>" + vaqua.keys[i] + "</option>");
+            $("#attrselectory").append("<option>" + vaqua.keys[i] + "</option>");
+            $('#attrselectorsize').append("<option>" + vaqua.keys[i] + "</option>");
+            $('#attrselectorcolor').append("<option>" + vaqua.keys[i] + "</option>");
+            $('#attrselectorshape').append("<option>" + vaqua.keys[i] + "</option>");
+            $('#attrselectortext').append("<option>" + vaqua.keys[i] + "</option>");
+
+        }
+
+        $("#attrselectorx").change(function () {
+            onChange("x", $(this).val())
+        });
+        $("#attrselectory").change(function () {
+            onChange("y", $(this).val())
+        });
+        $('#attrselectorsize').change(function () {
+            onChange("size", $(this).val())
+        });
+        $('#attrselectorcolor').change(function () {
+            onChange("color", $(this).val())
+        });
+        $('#attrselectorshape').change(function () {
+            onChange("shape", $(this).val())
+        });
+        $('#attrselectortext').change(function () {
+            onChange("text", $(this).val())
+        });
+    });
+
+    function onChange(k, value) {
+        if (k == "x") {
+            vaqua.x = value;
+        }
+        if (k == "y") {
+            vaqua.y = value;
+        }
+        if (k == "color") {
+            vaqua.color = value;
+        }
+        if (k == "text") {
+            vaqua.text = value;
+        }
+        if (vaqua.modelID) {
+            ved.select("");
+        } else {
+            vaqua.initVegaJson();
+        }
+
+    }
+};
+
+
+vaqua.displaySelect = function () {
+    $(document).ready(function () {
+        var idx = vaqua.modelID || 1;
+        hideAll();
+        if (idx == 1 || idx == 2 || idx == 3 || idx == 4 || idx == 9 || idx == 10 || idx == 11 || idx == 14 || idx == 15) {
+            $("#attrselectorx").parent().show();
+            $("#attrselectory").parent().show();
+        }
+        else if (idx == 5 || idx == 8) {
+            $('#attrselectorx').parent().show();
+            $('#attrselectory').parent().show();
+            $('#attrselectorsize').parent().show();
+
+        }
+        else if (idx == 12 || idx == 13 || idx == 16 || idx == 17 || idx == 18 || idx == 19 || idx == 20 || idx == 21 || idx == 22 || idx == 24 || idx == 25) {
+            $('#attrselectorx').parent().show();
+            $('#attrselectory').parent().show();
+            $('#attrselectorcolor').parent().show();
+
+        }
+        else if (idx == 6) {
+            $('#attrselectorx').parent().show();
+            $('#attrselectory').parent().show();
+            $('#attrselectorcolor').parent().show();
+            $('#attrselectorshape').parent().show();
+
+        }
+        else if (idx == 23) {
+            $('#attrselectorx').parent().show();
+            $('#attrselectory').parent().show();
+            $('#attrselectorcolor').parent().show();
+            $('#attrselectorsize').parent().show();
+
+        }
+        else if (idx == 7) {
+            $('#attrselectorx').show()
+            $('#attrselectory').show();
+            $('#attrselectorcolor').show();
+            $('#attrselectortext').show();
+
+        }
+
+
+    });
+
+    function hideAll() {
+        $("#attrselectorx").parent().hide();
+        $("#attrselectory").parent().hide();
+        $('#attrselectorsize').parent().hide();
+        $('#attrselectorcolor').parent().hide();
+        $('#attrselectorshape').parent().hide();
+        $('#attrselectortext').parent().hide();
+    }
+
 };

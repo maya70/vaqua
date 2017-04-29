@@ -1,4 +1,5 @@
 <link rel="stylesheet" type="text/css" href="./../vaqua/css/vega.css">
+
 <div class="vega-editor">
     <div class="mod_spec module">
         <div class="mod_header">
@@ -18,7 +19,42 @@
                 </select>
             </div>
         </div>
-        <div class="mod_body spec vl-spec hide-vg" spellcheck="false"></div>
+
+        <div class="gui_rep">
+            <div class="padding"> Choose X :
+                <select id="attrselectorx" class="menustyle">
+                </select>
+            </div>
+
+            <div class="padding"> Choose Y :
+                <select id="attrselectory" class="menustyle">
+                </select>
+            </div>
+
+            <div class="padding"> Choose Size :
+                <select id="attrselectorsize" class="menustyle">
+                </select>
+            </div>
+
+            <div class="padding"> Choose Color :
+                <select id="attrselectorcolor" class="menustyle">
+                </select>
+            </div>
+
+            <div class="padding"> Choose Shape :
+                <select id="attrselectorshape" class="menustyle">
+                </select>
+            </div>
+
+            <div class="padding"> Choose Text :
+                <select id="attrselectortext" class="menustyle">
+                </select>
+            </div>
+
+
+        </div>
+
+
         <div class="vg_pane mod_subheader hide-vg">
             <div class="mod_ctrls">
                 <input type="button" class="btn_to_vega" value="Edit spec">
@@ -68,11 +104,7 @@
                 Renderer <select class="sel_render"></select>
                 <!--        <input type="button" class="btn_export" value="Export">-->
             </div>
-            <div class="mod_title">
-              <!-- <input type="button"  id="zmin" value="ZoomIn"> -->
-              <button  id="zmin" value="ZoomIn" onclick="fortest()">ZoomIn</button>
-              <button id="zmout" value="ZoomOut" onclick="fortest2()">ZoomOut</button>
-            </div>
+
         </div>
         <div class="vis"></div>
 

@@ -129,8 +129,9 @@ ved.select = function (spec) {
 
     function parallel_coord() {
         console.log("mahmoud");
+        var path = "../" + vaqua.url.url.substr(6);
         $(".vega")
-            .html('<object width="800" height="700" data="./../parallel-coords/index.html"/>').watch(600);
+            .html('<object width="800" height="700" data="./../parallel-coords/index.html?path='+path+'"/>').watch(600);
     }
 
 
@@ -215,6 +216,7 @@ ved.parseVl = function (callback) {
     try {
         spec = JSON.parse(value);
         // console.log(vaqua.attr+"   mahmoud");
+        console.log(spec['encoding']['x']['type']);
         if (spec['encoding']['x']['type'] != vaqua.attr[spec['encoding']['x']['field']] ||
             spec['encoding']['y']['type'] != vaqua.attr[spec['encoding']['y']['field']]) {
             // console.log("attributes : " + );

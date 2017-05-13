@@ -50,7 +50,7 @@
 
 		$userid=qa_get_logged_in_userid();
 
-
+		$GLOBALS['uid'] = $userid;
 	//	Chop down to size, get user information for display
 
 		if (isset($pagesize))
@@ -136,7 +136,7 @@
 
 		$navigation=array(
 			'recent' => array(
-				'label' => qa_lang('main/nav_most_recent'),
+				'label' => ($GLOBALS['uid']>0)?qa_lang('main/nav_most_recent'):'Recent',
 				'url' => qa_path_html($request),
 			),
 

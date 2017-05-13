@@ -21,7 +21,13 @@
 
 	More about this license: http://www.question2answer.org/license.php
 */
-
+// window.onload = function () {
+// 	var x = document.getElementById("mmd");
+// 	x.onsubmit = function () {
+// 		alert("mahmoud");
+// 		return false;
+//     }
+// }
 function qa_reveal(elem, type, callback)
 {
 	if (elem)

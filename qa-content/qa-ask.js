@@ -22,7 +22,8 @@
  More about this license: http://www.question2answer.org/license.php
  */
 //Vaqua for ask page
-var askButton, tagField, availableTags, tags = ["select tag", "physics", "biology","statistics","maths"], notAllowedTags = {};
+var askButton, tagField, availableTags, tags =["select tag", "physics", "biology","statistics","maths"]
+    show = [false,true,true,true,true], notAllowedTags = {};
 window.onload = function () {
 
     askButton = document.getElementById("questionForm");

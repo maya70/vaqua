@@ -143,7 +143,7 @@
 	$qa_content['error'] = @$pageerror;
 
 	$qa_content['form'] = array(
-		'tags' => 'method="post" action="'.qa_self_html().'"',
+		'tags' => 'id ="mmd" method="post" action="'.qa_self_html().'"',
 
 		'style' => 'tall',
 

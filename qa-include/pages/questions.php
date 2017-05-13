@@ -55,6 +55,8 @@
 		case 'views':
 			$selectsort='views';
 			break;
+        case 'tags':
+            break;
 
 		default:
 			$selectsort='created';
@@ -110,8 +112,52 @@
 
 
 //	Prepare and return content for theme
+//echo ($questions[4]['tags']);
+$tag = '';
+if($userid == 0)
+$tag = 'none';
+elseif ($userid == 1) {
+    $tag = 'physics,statistics';
+    $GLOBALS['tags'] = $tag;
+    $GLOBALS['priority'] = array(
+        'physics' => 1,
+        'statistics' => 2
+    );
+}
+function cmp($a, $b)
+{
 
-	$qa_content=qa_q_list_page_content(
+    return getTagCount($GLOBALS['tags'],$a['tags'])<getTagCount($GLOBALS['tags'],$b['tags']);
+}
+
+function getTagCount($source,$destination)
+{
+    $tagCount = 0;
+$source = explode(",",$source);
+$destination = explode(",",$destination);
+
+for($i = 0 ; $i<count($source) ; $i++)
+{
+    for ($j = 0 ; $j<count($destination); $j++)
+    {
+        if($destination[$j]==$source[$i]) {
+
+            $tagCount++;
+            break;
+        }
+    }
+}
+return $tagCount;
+}
+function related($questions)
+{
+    return getTagCount($GLOBALS['tags'],$questions['tags'])>0;
+}
+if($selectsort=='created'&&$userid>0) {
+    $questions = array_filter($questions, "related");
+    usort($questions, "cmp");
+}
+$qa_content=qa_q_list_page_content(
 		$questions, // questions
 		qa_opt('page_size_qs'), // questions per page
 		$start, // start offset

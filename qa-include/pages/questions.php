@@ -116,7 +116,7 @@
 $tag = '';
 if($userid == 0)
 $tag = 'none';
-elseif ($userid == 1) {
+elseif ($userid > 1) {
     $tag = 'physics,statistics';
     $GLOBALS['tags'] = $tag;
     $GLOBALS['priority'] = array(

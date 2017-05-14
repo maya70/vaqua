@@ -1,3 +1,60 @@
+window.onload=function(){
+	var x=document.getElementById('mmd');
+	var checkValue=null;
+	// var inputElements=document.getElementById('2');
+
+	// for(var i=0;)
+	var intes=[];
+	x.onsubmit=function(){
+		for(var i=1;i<17;i++){
+		var inputElements=document.getElementById(i+'');
+		// alert("asdasdlkara")
+		// console.log(inputElements.checked);
+		if(inputElements.checked)
+		intes.push(1);
+		else {
+			intes.push(0);
+		}
+	}
+	// alert(intes[10]);
+	$.ajax({
+		type:'POST',
+		url:'test.php',
+		data:{
+			health:intes[0],
+			health_eating:intes[1],
+			medicine :intes[2],
+			exercise:intes[3],
+			history:intes[4],
+			World_history:intes[5],
+			World_War:intes[6],
+			Philosophy:intes[7],
+			Technology :intes[8],
+			Science :intes[9],
+			Phisics :intes[10],
+			Computer_science:intes[11],
+			Design :intes[12],
+			Photography :intes[13],
+			Fine_art:intes[14],
+			Web_design:intes[15],
+
+		},
+		success: function (){
+	// content.html(response);
+	console.log("Asdadaswewfs");
+		}
+	})
+	alert('asf')
+}
+	// if(!regForm)
+	// {
+	// 	alert("i am defned")
+	// }
+	// else{
+	// 	alert('asdasd')
+	// 	regForm.innerHTML +="<input type='checkbox' value='' name='group2' style='margin-left:140px;vertical-align:sub' />History";
+	// }
+}
 /*
 	Question2Answer by Gideon Greenspan and contributors
 
@@ -21,13 +78,7 @@
 
 	More about this license: http://www.question2answer.org/license.php
 */
-// window.onload = function () {
-// 	var x = document.getElementById("mmd");
-// 	x.onsubmit = function () {
-// 		alert("mahmoud");
-// 		return false;
-//     }
-// }
+
 function qa_reveal(elem, type, callback)
 {
 	if (elem)

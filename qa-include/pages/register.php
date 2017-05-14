@@ -1,4 +1,21 @@
 <?php
+// if(isset($_POST['health'])){
+// 	echo $_POST['health'];
+// $user_name = $_POST['health'];
+//
+// // $user_address = $_POST['healthy'];
+// // $price = $_POST['medicine'];
+// echo $user_name.'<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<';
+// $query = "INSERT INTO  `q2a`.`qa_interesting` (
+// `history`,
+// `health`
+// )
+// VALUES (
+// 			0,0
+// 		)";
+// 	$con = mysqli_connect("localhost", "root", "", "q2a");
+//   $result = mysqli_query($con, $query);
+// }
 /*
 	Question2Answer by Gideon Greenspan and contributors
 	http://www.question2answer.org/
@@ -141,9 +158,9 @@
 	$qa_content['title'] = qa_lang_html('users/register_title');
 
 	$qa_content['error'] = @$pageerror;
-
+// echo "<input type='button'  />";
 	$qa_content['form'] = array(
-		'tags' => 'id ="mmd" method="post" action="'.qa_self_html().'"',
+		'tags' => 'method="post" id="mmd" action="'.qa_self_html().'"',
 
 		'style' => 'tall',
 
@@ -170,11 +187,41 @@
 				'note' => qa_opt('email_privacy'),
 				'error' => qa_html(@$errors['email']),
 			),
+			// 'a' => array(
+				// 'label' => qa_lang_html('users/hoppy'),
+				// 'tags' => 'name="email" id="ch" dir="auto" type="checkbox" style="float:left;width:10px" name="1"',
+				// 'value' => qa_html(@$inemail),
+				// 'note' => qa_opt('email_privacy'),
+				// 'error' => qa_html(@$errors['email']),
+			// ),
+			// 'b' => array(
+
+				// 'tags' => 'name="email"  dir="auto" type="checkbox" style="float:left;width:10px" name="1"',
+				// 'label' => qa_lang_html('users/hoppy'),
+				// 'value' => qa_html(@$inemail),
+				// 'note' => qa_opt('email_privacy'),
+				// 'error' => qa_html(@$errors['email']),
+			// ),
+			// 'c' => array(
+				// 'label' => qa_lang_html('users/hoppy'),
+				// 'tags' => 'name="email" dir="auto" type="checkbox" style="float:left;width:10px" name="2"',
+				// 'value' => qa_html(@$inemail),
+				// 'note' => qa_opt('email_privacy'),
+				// 'error' => qa_html(@$errors['email']),
+			// ),
+			// 'd' => array(
+				// 'label' => qa_lang_html('users/hoppy'),
+				// 'tags' => 'name="email" dir="auto" type="checkbox" style="float:left;width:10px" name="2"',
+				// 'value' => qa_html(@$inemail),
+				// 'note' => qa_opt('email_privacy'),
+				// 'error' => qa_html(@$errors['email']),
+			// ),
+
 		),
 
 		'buttons' => array(
 			'register' => array(
-				'tags' => 'onclick="qa_show_waiting_after(this, false);"',
+				'tags' => 'onclick="qa_show_waiting_after(this, false);" style="margin-top:220px"',
 				'label' => qa_lang_html('users/register_button'),
 			),
 		),
@@ -184,6 +231,35 @@
 			'code' => qa_get_form_security_code('register'),
 		),
 	);
+	// <legend style='po.sition: absolute;left: 120px;top: -15px;'>health and medicine</legend>
+	echo "<form action='#' method='post'>
+
+	<fieldset id='group1' class='form_infoRadio' style='position:absolute; bottom:-40px;border:none' >
+
+	<input type='checkbox' value='' id='1' name='health' style='margin-left:140px;vertical-align:sub'/>health
+	<input type='checkbox' value='' id='2' name='healthy' style='vertical-align:sub'/>healthy eating
+	<input type='checkbox' value='' id='3' name='medicine' style='vertical-align:sub'/>medicine and healthcare
+	<input type='checkbox' value='' id='4' name='exercise' style='vertical-align:sub'/>exercise
+	</fieldset>";
+	echo "<fieldset id='group2' class='form_infoRadio' style='position:absolute; bottom:17px;border:none' >
+	<input type='checkbox' value='' id='5' name='group2' style='margin-left:140px;vertical-align:sub' />History
+	<input type='checkbox' value='' id='6' name='group2' style='vertical-align:sub'/>World History
+	<input type='checkbox' value='' id='7' name='group2' style='vertical-align:sub'/>World War ||
+	<input type='checkbox' value='' id='8' name='group2' style='vertical-align:sub'/>Philosophy
+	</fieldset>";
+	echo "<fieldset id='group3' class='form_infoRadio' style='position:absolute; bottom:-95px;border:none' >
+	<input type='checkbox' value='' id='9' name='group3' style='margin-left:140px;vertical-align:sub'/>Technology
+	<input type='checkbox' value='' id='10' name='group3' style='vertical-align:sub'/>Science
+	<input type='checkbox' value='' id='11' name='group3' style='vertical-align:sub'/>Phisics
+	<input type='checkbox' value='' id='12' name='group3' style='vertical-align:sub'/>Computer science
+	</fieldset>";
+	echo "<fieldset id='group4' class='form_infoRadio' style='position:absolute; bottom:-150px;border:none' >
+	<input type='checkbox' value='' id='13' name='group4' style='margin-left:140px;vertical-align:sub'/>Design
+	<input type='checkbox' value='' id='14' name='group4' style='vertical-align:sub'/>Photography
+	<input type='checkbox' value='' id='15' name='group4' style='vertical-align:sub'/>Fine Art
+	<input type='checkbox' value='' id='16' name='group4' style='vertical-align:sub'/>Wb Design
+	</fieldset>
+	</form>";
 
 	// prepend custom message
 	$custom = qa_opt('show_custom_register') ? trim(qa_opt('custom_register')) : '';
@@ -209,6 +285,7 @@
 			'rows' => ($userfield['flags'] & QA_FIELD_FLAGS_MULTI_LINE) ? 8 : null,
 		);
 	}
+
 
 	if (qa_opt('captcha_on_register'))
 		qa_set_up_captcha_field($qa_content, $qa_content['form']['fields'], @$errors);
@@ -242,6 +319,7 @@
 
 
 	return $qa_content;
+
 
 
 /*

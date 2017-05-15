@@ -217,12 +217,12 @@ ved.parseVl = function (callback) {
         spec = JSON.parse(value);
         // console.log(vaqua.attr+"   mahmoud");
         console.log(spec['encoding']['x']['type']);
-        if (spec['encoding']['x']['type'] != vaqua.attr[spec['encoding']['x']['field']] ||
-            spec['encoding']['y']['type'] != vaqua.attr[spec['encoding']['y']['field']]) {
-            // console.log("attributes : " + );
-            alert("not valid type");
-            return;
-        }
+        // if (spec['encoding']['x']['type'] != vaqua.attr[spec['encoding']['x']['field']] ||
+        //     spec['encoding']['y']['type'] != vaqua.attr[spec['encoding']['y']['field']]) {
+        //     // console.log("attributes : " + );
+        //     alert("not valid type");
+        //     return;
+        // }
         // console.log("attributes : " + );
     } catch (e) {
         console.log(e);
@@ -724,6 +724,9 @@ vaqua.parseConfJson = function (jsonObj) {
             console.log(vaqua.values[i]);
         }
 
+        vaqua.typex = vaqua.values[0];
+        vaqua.typey = vaqua.values[1];
+
         vaqua.displaySelect();
         vaqua.initKeysSelect();
 
@@ -824,41 +827,45 @@ vaqua.initUpload = function () {
 vaqua.initKeysSelect = function () {
     $(document).ready(function () {
         for (var i = 0; i < vaqua.keys.length; i++) {
-            $("#attrselectorx").append("<option>" + vaqua.keys[i] + "</option>");
-            $("#attrselectory").append("<option>" + vaqua.keys[i] + "</option>");
-            $('#attrselectorsize').append("<option>" + vaqua.keys[i] + "</option>");
-            $('#attrselectorcolor').append("<option>" + vaqua.keys[i] + "</option>");
-            $('#attrselectorshape').append("<option>" + vaqua.keys[i] + "</option>");
-            $('#attrselectortext').append("<option>" + vaqua.keys[i] + "</option>");
+            if (vaqua.values[i] != "nominal") {
+                $("#attrselectorx").append("<option class='" + vaqua.values[i] + "'>" + vaqua.keys[i] + "</option>");
+                $("#attrselectory").append("<option class='" + vaqua.values[i] + "'>" + vaqua.keys[i] + "</option>");
+            }
+            $('#attrselectorsize').append("<option class='"+vaqua.values[i]+"'>" + vaqua.keys[i] + "</option>");
+            $('#attrselectorcolor').append("<option class='"+vaqua.values[i]+"'>" + vaqua.keys[i] + "</option>");
+            $('#attrselectorshape').append("<option class='"+vaqua.values[i]+"'>" + vaqua.keys[i] + "</option>");
+            $('#attrselectortext').append("<option class='"+vaqua.values[i]+"'>" + vaqua.keys[i] + "</option>");
 
         }
 
         $("#attrselectorx").change(function () {
-            onChange("x", $(this).val())
+            onChange("x", $(this).val(), $(this).attr("class"));
         });
         $("#attrselectory").change(function () {
-            onChange("y", $(this).val())
+            onChange("y", $(this).val(), $(this).attr("class"));
         });
         $('#attrselectorsize').change(function () {
-            onChange("size", $(this).val())
+            onChange("size", $(this).val(), $(this).attr("class"));
         });
         $('#attrselectorcolor').change(function () {
-            onChange("color", $(this).val())
+            onChange("color", $(this).val(), $(this).attr("class"));
         });
         $('#attrselectorshape').change(function () {
-            onChange("shape", $(this).val())
+            onChange("shape", $(this).val(), $(this).attr("class"));
         });
         $('#attrselectortext').change(function () {
-            onChange("text", $(this).val())
+            onChange("text", $(this).val(), $(this).attr("class"));
         });
     });
 
-    function onChange(k, value) {
+    function onChange(k, value, type) {
         if (k == "x") {
             vaqua.x = value;
+            vaqua.typeX = type;
         }
         if (k == "y") {
             vaqua.y = value;
+            vaqua.typeY = type;
         }
         if (k == "color") {
             vaqua.color = value;

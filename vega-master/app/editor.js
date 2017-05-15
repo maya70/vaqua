@@ -732,6 +732,25 @@ vaqua.parseConfJson = function (jsonObj) {
 
         delete jsonObj['attr'];
 
+
+
+
+    }
+
+    if(jsonObj['encoding']['x']['axis']){
+        delete jsonObj['encoding']['x']['axis'];
+    }
+
+    if (jsonObj['encoding']['x']['timeUnit']){
+        delete jsonObj['encoding']['x']['timeUnit'];
+    }
+
+    if(jsonObj['encoding']['y']['axis']){
+        delete jsonObj['encoding']['y']['axis'];
+    }
+
+    if (jsonObj['encoding']['y']['timeUnit']){
+        delete jsonObj['encoding']['y']['timeUnit'];
     }
     console.log(vaqua.color + "mmd");
 
@@ -826,8 +845,15 @@ vaqua.initUpload = function () {
 
 vaqua.initKeysSelect = function () {
     $(document).ready(function () {
+        clearAll();
+        var firstEnter = 0;
         for (var i = 0; i < vaqua.keys.length; i++) {
             if (vaqua.values[i] != "nominal") {
+                if (firstEnter == 0){
+                    onChange("x", vaqua.keys[i],vaqua.values[i] );
+                    onChange("y", vaqua.keys[i],vaqua.values[i] );
+                    firstEnter = 5;
+                }
                 $("#attrselectorx").append("<option class='" + vaqua.values[i] + "'>" + vaqua.keys[i] + "</option>");
                 $("#attrselectory").append("<option class='" + vaqua.values[i] + "'>" + vaqua.keys[i] + "</option>");
             }
@@ -858,6 +884,8 @@ vaqua.initKeysSelect = function () {
         });
     });
 
+
+
     function onChange(k, value, type) {
         if (k == "x") {
             vaqua.x = value;
@@ -879,6 +907,15 @@ vaqua.initKeysSelect = function () {
             vaqua.initVegaJson();
         }
 
+    }
+
+    function clearAll() {
+        $("#attrselectorx").html("");
+        $("#attrselectory").html("");
+        $('#attrselectorsize').html("");
+        $('#attrselectorcolor').html("");
+        $('#attrselectorshape').html("");
+        $('#attrselectortext').html("");
     }
 };
 

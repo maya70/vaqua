@@ -114,9 +114,11 @@ switch ($sort) {
 //	Prepare and return content for theme
 //echo ($questions[4]['tags']);
 $tag = '';
-if($userid == 0)
+if($userid == 0) {
     $tag = 'none';
-elseif ($userid > 1) {
+
+}
+elseif ($userid >= 1) {
     require_once './vaqua/vaqua_utilities.php';
     $tag = getTagsAsString($userid);
     $GLOBALS['tags'] = $tag;
@@ -127,6 +129,7 @@ function cmp($a, $b)
 
     return getTagCount($GLOBALS['tags'],$a['tags'])<getTagCount($GLOBALS['tags'],$b['tags']);
 }
+
 
 function getTagCount($source,$destination)
 {

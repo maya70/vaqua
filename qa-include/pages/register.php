@@ -250,7 +250,7 @@
 	echo "<fieldset id='group3' class='form_infoRadio' style='position:absolute; bottom:-95px;border:none' >
 	<input type='checkbox' value='' id='9' name='group3' style='margin-left:140px;vertical-align:sub'/>Technology
 	<input type='checkbox' value='' id='10' name='group3' style='vertical-align:sub'/>Science
-	<input type='checkbox' value='' id='11' name='group3' style='vertical-align:sub'/>Phisics
+	<input type='checkbox' value='' id='11' name='group3' style='vertical-align:sub'/>Physics
 	<input type='checkbox' value='' id='12' name='group3' style='vertical-align:sub'/>Computer science
 	</fieldset>";
 	echo "<fieldset id='group4' class='form_infoRadio' style='position:absolute; bottom:-150px;border:none' >

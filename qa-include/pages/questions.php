@@ -118,7 +118,7 @@ if($userid == 0)
     $tag = 'none';
 elseif ($userid > 1) {
     require_once './vaqua/vaqua_utilities.php';
-    $tag = getCurUserTags($userid);
+    $tag = getTagsAsString($userid);
     $GLOBALS['tags'] = $tag;
 
 }

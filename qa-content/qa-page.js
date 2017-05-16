@@ -31,7 +31,7 @@ window.onload=function(){
 			Philosophy:intes[7],
 			Technology :intes[8],
 			Science :intes[9],
-			Phisics :intes[10],
+			Physics :intes[10],
 			Computer_science:intes[11],
 			Design :intes[12],
 			Photography :intes[13],

@@ -144,7 +144,7 @@ CREATE TABLE IF NOT EXISTS `qa_interesting` (
   `Philosophy` tinyint(1) NOT NULL,
   `Technology` tinyint(1) NOT NULL,
   `Science` tinyint(1) NOT NULL,
-  `Phisics` tinyint(1) NOT NULL,
+  `Physics` tinyint(1) NOT NULL,
   `Computer_science` tinyint(1) NOT NULL,
   `Design` tinyint(1) NOT NULL,
   `Photography` tinyint(1) NOT NULL,
@@ -156,7 +156,7 @@ CREATE TABLE IF NOT EXISTS `qa_interesting` (
 -- Dumping data for table `qa_interesting`
 --
 
-INSERT INTO `qa_interesting` (`users_id`, `health`, `health_eating`, `medicine`, `exercise`, `history`, `World_history`, `World_War`, `Philosophy`, `Technology`, `Science`, `Phisics`, `Computer_science`, `Design`, `Photography`, `Fine_art`, `Web_design`) VALUES
+INSERT INTO `qa_interesting` (`users_id`, `health`, `health_eating`, `medicine`, `exercise`, `history`, `World_history`, `World_War`, `Philosophy`, `Technology`, `Science`, `Physics`, `Computer_science`, `Design`, `Photography`, `Fine_art`, `Web_design`) VALUES
 (0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
 (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
 (0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
@@ -1097,9 +1097,9 @@ CREATE TABLE IF NOT EXISTS `qa_users` (
 --
 
 INSERT INTO `qa_users` (`userid`, `created`, `createip`, `email`, `handle`, `avatarblobid`, `avatarwidth`, `avatarheight`, `passsalt`, `passcheck`, `level`, `loggedin`, `loginip`, `written`, `writeip`, `emailcode`, `sessioncode`, `sessionsource`, `flags`, `wallposts`) VALUES
-(1, '2016-12-04 00:31:52', 0, 'osamaharby95@gmail.com', 'osama_harby95', NULL, NULL, NULL, 'u18l2xvgjr5j5w0n', ' +)ßWa9‘™hÒ_\rM', 120, '2017-03-25 21:00:08', 0, '2017-01-02 20:24:50', 0, '', 'yz9g3muh', NULL, 0, 0),
-(2, '2017-01-02 21:11:00', 0, 'karammahmoud77@gmail.com', 'karam', NULL, NULL, NULL, 'dmow6eeyeslnaf1m', 'GÙ[fÏ¥£­ä¼q!¤4iû', 0, '2017-04-16 15:48:31', 0, '2017-04-10 21:05:47', 0, '7rxrdd6j', 'xw7nkkst', NULL, 0, 0),
-(3, '2017-03-29 11:33:00', 0, 'karammahmoud@gmail.com', 'karamMahmoud', NULL, NULL, NULL, '6kg7v08c52bj11bt', '%îÏ2.“ÍJ>»Y¹jÍ.E®ˆ·', 0, '2017-03-29 11:33:02', 0, NULL, NULL, '92lhfhj7', '0haeqg9h', NULL, 0, 0);
+(1, '2016-12-04 00:31:52', 0, 'osamaharby95@gmail.com', 'osama_harby95', NULL, NULL, NULL, 'u18l2xvgjr5j5w0n', ' +)ï¿½Wa9ï¿½ï¿½ï¿½ï¿½hï¿½_\rM', 120, '2017-03-25 21:00:08', 0, '2017-01-02 20:24:50', 0, '', 'yz9g3muh', NULL, 0, 0),
+(2, '2017-01-02 21:11:00', 0, 'karammahmoud77@gmail.com', 'karam', NULL, NULL, NULL, 'dmow6eeyeslnaf1m', 'Gï¿½[fÏ¥ï¿½ï¿½ï¿½q!ï¿½4iï¿½', 0, '2017-04-16 15:48:31', 0, '2017-04-10 21:05:47', 0, '7rxrdd6j', 'xw7nkkst', NULL, 0, 0),
+(3, '2017-03-29 11:33:00', 0, 'karammahmoud@gmail.com', 'karamMahmoud', NULL, NULL, NULL, '6kg7v08c52bj11bt', '%ï¿½ï¿½2.ï¿½ï¿½J>ï¿½Yï¿½jï¿½.Eï¿½ï¿½ï¿½', 0, '2017-03-29 11:33:02', 0, NULL, NULL, '92lhfhj7', '0haeqg9h', NULL, 0, 0);
 
 -- --------------------------------------------------------
 

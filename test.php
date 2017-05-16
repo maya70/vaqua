@@ -16,7 +16,7 @@
   $Philosophy = $_POST['Philosophy'];
   $Technology = $_POST['Technology'];
   $Science = $_POST['Science'];
-  $Phisics = $_POST['Phisics'];
+  $Physics = $_POST['Physics'];
   $Computer_science = $_POST['Computer_science'];
   $Design = $_POST['Design'];
   $Photography = $_POST['Photography'];
@@ -35,7 +35,7 @@
 	`Philosophy`,
 	`Technology`,
 	`Science`,
-	`Phisics`,
+	`Physics`,
 	`Computer_science`,
 	`Design`,
 	`Photography`,
@@ -54,7 +54,7 @@
 				{$Philosophy},
 				{$Technology},
 				{$Science},
-				{$Phisics},
+				{$Physics},
 				{$Computer_science},
 				{$Design},
 				{$Photography},

@@ -22,22 +22,17 @@
  More about this license: http://www.question2answer.org/license.php
  */
 //Vaqua for ask page
-var askButton, tagField, availableTags, tags =[]
-    show = [], notAllowedTags = {};
+var askButton, tagField, availableTags, tags =["select tag", "health", "health_eating","medicine","exercise",'history','World_history',
+        'World_War','Philosophy','Technology','Science','Physics','Computer_science','Design','Photography','Fine_art','Web_design'],
+    show = [false,true,true,true,true], notAllowedTags = {};
+
 window.onload = function () {
+
     askButton = document.getElementById("questionForm");
     tagField = document.getElementById("tags");
-    tagField.value = '';
     availableTags = document.getElementById('available_tags');
-    for (var i = 0 ; i<availableTags.options.length ; i ++) {
-        tags.push(availableTags.options[i].value);
-        if(i == 0 )
-            show.push(false);
-        else
-            show.push(true);
-    }
 
-    // makeTagList();
+    makeTagList();
     askButton.onsubmit = function () {
         if (tagField.value == '') {
             alert('tags field is null')
@@ -69,13 +64,13 @@ function searchTag(tag,list)
     }
     return found;
 }
-// function makeTagList() {
-//     availableTags.innerHTML = '';
-//     for (var i = 0; i < tags.length; i++) {
-//         if (tags[i] != '')
-//             availableTags.innerHTML += '<option>' + tags[i] + '</option>';
-//     }
-// }
+function makeTagList() {
+    availableTags.innerHTML = '';
+    for (var i = 0; i < tags.length; i++) {
+        if (tags[i] != '')
+            availableTags.innerHTML += '<option>' + tags[i] + '</option>';
+    }
+}
 function setTag() {
     for(var i = 1 ; i <tags.length; i++)
     {

@@ -59,7 +59,7 @@ function searchTag(tag,list)
     var found  = false;
     for(var i = 0 ; i <list.length;i++)
     {
-       if(tag == list[i])
+       if(tag.toLowerCase() == list[i].toLowerCase())
            found = true;
     }
     return found;

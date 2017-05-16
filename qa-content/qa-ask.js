@@ -23,7 +23,7 @@
  */
 //Vaqua for ask page
 var askButton, tagField, availableTags, tags =["select tag", "health", "health_eating","medicine","exercise",'history','World_history',
-        'World_War','Philosophy','Technology','Science','Physics','Computer_science','Design','Photography','Fine_art','Web_design'],
+        'World_War','Philosophy','Technology','Science','physics','Computer_science','Design','Photography','Fine_art','Web_design'],
     show = [false,true,true,true,true], notAllowedTags = {};
 
 window.onload = function () {
@@ -31,7 +31,7 @@ window.onload = function () {
     askButton = document.getElementById("questionForm");
     tagField = document.getElementById("tags");
     availableTags = document.getElementById('available_tags');
-
+    tagField.value = '';
     makeTagList();
     askButton.onsubmit = function () {
         if (tagField.value == '') {

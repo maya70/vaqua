@@ -1278,9 +1278,30 @@ class qa_html_theme_base
         $flag = false;
         for ($i = 0; $i < count($param); $i++) {
             if ($param[$i] == 'id="tags"') {
-                $this->output('Avaialble tags: <select id = "available_tags" onclick="setTag()">');
+                $id = qa_get_logged_in_userid();
+                if ($id > 0) {
+                    require_once __DIR__ . '/../vaqua/db/DB.php';
+                    $vDb = new \VAQUA\DB();
+                    $tags = $vDb->getUserTags($id);
+                    $cols = array(
+                        0 => 'health', 1 => 'health_eating', 2 => 'medicine', 3 => 'exercise', 4 => 'history',
+                        5 => 'World_history', 6 => 'World_War', 7 => 'Philosophy', 8 => 'Technology',
+                        9 => 'Science', 10 => 'Phisics', 11 => 'Computer_science', 12 => 'Design', 13 => 'Photography',
+                        14 => 'Fine_art', 15 => 'Web_design'
+                    );
+                    $this->output('Avaialble tags: <select id = "available_tags" onclick="setTag()"><option>select tag</option>');
+                    for ($i = 0 ; $i<16; $i++)
+                        if ($tags[$i] == 1) {
+                            $this->output('<option>' . $cols[$i] . '</option>');
+                        }
+                    $this->output('</select>');
+                    break;
+
+                }
             }
         }
+
+
         $this->output('<input ' . @$field['tags'] . ' type="text" value="' . @$field['value'] . '" class="qa-form-' . $style . '-text"/>');
     }
 

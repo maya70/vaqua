@@ -1,4 +1,11 @@
 	<<?php
+	$con = mysqli_connect("localhost", "root", "", "q2a");
+	$user_query="SELECT `userid` FROM `qa_users` order by `userid` DESC limit 1";
+	$res = mysqli_query($con, $user_query);
+	while($row = $res -> fetch_assoc())
+	{
+		$user_id=$row['userid']+1;
+	}
   $health = $_POST['health'];
   $health_eating = $_POST['health_eating'];
   $medicine = $_POST['medicine'];
@@ -17,6 +24,7 @@
   $Web_design = $_POST['Web_design'];
 	$con = mysqli_connect("localhost", "root", "", "q2a");
 	$query = "INSERT INTO  `q2a`.`qa_interesting` (
+	`users_id`,
 	`health`,
 	`health_eating`,
 	`medicine`,
@@ -35,6 +43,7 @@
 	`Web_design`
 	)
 	VALUES (
+				{$user_id},
 				{$health},
 				{$health_eating},
 				{$medicine},

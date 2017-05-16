@@ -106,4 +106,18 @@ class DB
             return false;
         }
     }
+    function getUserTags($userId)
+    {
+        $cols = "health , health_eating , medicine , exercise , history , World_history , World_War , Philosophy , Technology , 
+        Science , Phisics , Computer_science , Design , Photography , Fine_art , Web_design";
+        $query="SELECT ".$cols." FROM qa_interesting WHERE users_id={$userId} ";
+        $res=mysqli_query($this->con,$query);
+        if($res){
+            while ($row=mysqli_fetch_array($res)) {
+                return $row;
+            }
+        }
+
+        return -1;
+    }
 }

@@ -221,7 +221,7 @@
 
 		'buttons' => array(
 			'register' => array(
-				'tags' => 'onclick="qa_show_waiting_after(this, false);" style="margin-top:220px"',
+				'tags' => 'onclick="qa_show_waiting_after(this, false);" style="margin-top:120px"',
 				'label' => qa_lang_html('users/register_button'),
 			),
 		),
@@ -232,34 +232,34 @@
 		),
 	);
 	// <legend style='po.sition: absolute;left: 120px;top: -15px;'>health and medicine</legend>
-	echo "<form action='#' method='post'>
-
-	<fieldset id='group1' class='form_infoRadio' style='position:absolute; bottom:-40px;border:none' >
-
-	<input type='checkbox' value='' id='1' name='health' style='margin-left:140px;vertical-align:sub'/>health
-	<input type='checkbox' value='' id='2' name='healthy' style='vertical-align:sub'/>healthy eating
-	<input type='checkbox' value='' id='3' name='medicine' style='vertical-align:sub'/>medicine and healthcare
-	<input type='checkbox' value='' id='4' name='exercise' style='vertical-align:sub'/>exercise
-	</fieldset>";
-	echo "<fieldset id='group2' class='form_infoRadio' style='position:absolute; bottom:17px;border:none' >
-	<input type='checkbox' value='' id='5' name='group2' style='margin-left:140px;vertical-align:sub' />History
-	<input type='checkbox' value='' id='6' name='group2' style='vertical-align:sub'/>World History
-	<input type='checkbox' value='' id='7' name='group2' style='vertical-align:sub'/>World War ||
-	<input type='checkbox' value='' id='8' name='group2' style='vertical-align:sub'/>Philosophy
-	</fieldset>";
-	echo "<fieldset id='group3' class='form_infoRadio' style='position:absolute; bottom:-95px;border:none' >
-	<input type='checkbox' value='' id='9' name='group3' style='margin-left:140px;vertical-align:sub'/>Technology
-	<input type='checkbox' value='' id='10' name='group3' style='vertical-align:sub'/>Science
-	<input type='checkbox' value='' id='11' name='group3' style='vertical-align:sub'/>Physics
-	<input type='checkbox' value='' id='12' name='group3' style='vertical-align:sub'/>Computer science
-	</fieldset>";
-	echo "<fieldset id='group4' class='form_infoRadio' style='position:absolute; bottom:-150px;border:none' >
-	<input type='checkbox' value='' id='13' name='group4' style='margin-left:140px;vertical-align:sub'/>Design
-	<input type='checkbox' value='' id='14' name='group4' style='vertical-align:sub'/>Photography
-	<input type='checkbox' value='' id='15' name='group4' style='vertical-align:sub'/>Fine Art
-	<input type='checkbox' value='' id='16' name='group4' style='vertical-align:sub'/>Wb Design
-	</fieldset>
-	</form>";
+	// echo "<form action='#' method='post'>
+	//
+	// <fieldset id='group1' class='form_infoRadio' style='position:absolute; bottom:-40px;border:none' >
+	//
+	// <input type='checkbox' value='' id='1' name='health' style='margin-left:140px;vertical-align:sub'/>health
+	// <input type='checkbox' value='' id='2' name='healthy' style='vertical-align:sub'/>healthy eating
+	// <input type='checkbox' value='' id='3' name='medicine' style='vertical-align:sub'/>medicine and healthcare
+	// <input type='checkbox' value='' id='4' name='exercise' style='vertical-align:sub'/>exercise
+	// </fieldset>";
+	// echo "<fieldset id='group2' class='form_infoRadio' style='position:absolute; bottom:17px;border:none' >
+	// <input type='checkbox' value='' id='5' name='group2' style='margin-left:140px;vertical-align:sub' />History
+	// <input type='checkbox' value='' id='6' name='group2' style='vertical-align:sub'/>World History
+	// <input type='checkbox' value='' id='7' name='group2' style='vertical-align:sub'/>World War ||
+	// <input type='checkbox' value='' id='8' name='group2' style='vertical-align:sub'/>Philosophy
+	// </fieldset>";
+	// echo "<fieldset id='group3' class='form_infoRadio' style='position:absolute; bottom:-95px;border:none' >
+	// <input type='checkbox' value='' id='9' name='group3' style='margin-left:140px;vertical-align:sub'/>Technology
+	// <input type='checkbox' value='' id='10' name='group3' style='vertical-align:sub'/>Science
+	// <input type='checkbox' value='' id='11' name='group3' style='vertical-align:sub'/>Physics
+	// <input type='checkbox' value='' id='12' name='group3' style='vertical-align:sub'/>Computer science
+	// </fieldset>";
+	// echo "<fieldset id='group4' class='form_infoRadio' style='position:absolute; bottom:-150px;border:none' >
+	// <input type='checkbox' value='' id='13' name='group4' style='margin-left:140px;vertical-align:sub'/>Design
+	// <input type='checkbox' value='' id='14' name='group4' style='vertical-align:sub'/>Photography
+	// <input type='checkbox' value='' id='15' name='group4' style='vertical-align:sub'/>Fine Art
+	// <input type='checkbox' value='' id='16' name='group4' style='vertical-align:sub'/>Wb Design
+	// </fieldset>
+	// </form>";
 
 	// prepend custom message
 	$custom = qa_opt('show_custom_register') ? trim(qa_opt('custom_register')) : '';

@@ -1,5 +1,51 @@
 window.onload=function(){
-	var x=document.getElementById('mmd');
+ var inter={
+ 	1:'health',
+ 	2:'healthy eating',
+ 	3:'medicine',
+ 	4:'exercise',
+ 	5:'History',
+ 	6:'World History',
+ 	7:'World War ||',
+ 	8:'Philosophy',
+ 	9:'Technology',
+ 	10:'Science',
+ 	11:'Physics',
+ 	12:'Computer science',
+ 	13:'design',
+ 	14:'Photography',
+ 	15:'Fine Art',
+ 	16:'Wb Design'
+ }
+ // // console.log(inter[1]);
+ var x=document.getElementById('mmd');
+ var bigCon = document.createElement("div");
+ bigCon.setAttribute("style", "transform: translateY(-150px);");
+ for(var w=1;w<17;w++){
+
+ var con = document.createElement("span");
+ con.setAttribute("style", "display:inline-block;width:150px");
+ // con.setAttribute("style", "");
+ var node = document.createElement("input");
+ node.setAttribute("type", "checkbox");
+ node.setAttribute("id", ''+w);
+ node.setAttribute("value", ''+inter[w]);
+ var textnode = document.createTextNode(inter[w]);
+ // console.log(textnode);
+
+ con.appendChild(node);
+ con.appendChild(textnode);
+ bigCon.appendChild(con);
+
+ if(w%4==0)
+ {
+ 		var line=document.createElement('br');
+ 		bigCon.appendChild(line);
+ }
+ //  document.getElementById("myList").appendChild(node);
+ }
+ x.appendChild(bigCon);
+  // document.getElementById("myList").appendChild(node);
 	var checkValue=null;
 	// var inputElements=document.getElementById('2');
 
@@ -8,6 +54,8 @@ window.onload=function(){
 	x.onsubmit=function(){
 		for(var i=1;i<17;i++){
 		var inputElements=document.getElementById(i+'');
+		console.log(inputElements);
+		// alert("ASd")
 		// alert("asdasdlkara")
 		// console.log(inputElements.checked);
 		if(inputElements.checked)
@@ -15,7 +63,11 @@ window.onload=function(){
 		else {
 			intes.push(0);
 		}
+    console.log(intes[i-1]);
 	}
+
+
+	// alert(intes[1]);
 	// alert(intes[10]);
 	$.ajax({
 		type:'POST',
@@ -37,14 +89,14 @@ window.onload=function(){
 			Photography :intes[13],
 			Fine_art:intes[14],
 			Web_design:intes[15],
-
 		},
 		success: function (){
 	// content.html(response);
 	console.log("Asdadaswewfs");
 		}
-	})
-	alert('asf')
+	});
+	// alert(data);
+	alert('asf+1')
 }
 	// if(!regForm)
 	// {

@@ -231,6 +231,30 @@
 			'code' => qa_get_form_security_code('register'),
 		),
 	);
+	// $con = mysqli_connect("localhost", "root", "", "q2a");
+	//
+	// $user_query="SELECT `userid` FROM `qa_users` order by `userid` DESC limit 1";
+	// 	// echo "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<";
+	// $res = mysqli_query($con, $user_query);
+	// $num_rows=$res->num_rows;
+	// 	if( $num_rows == 0)
+	// {
+	// 	echo "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<";
+	// }
+	// else {
+	// 	echo ">>>>>>>>>>>>>>";
+	// }
+	// while($row = $res -> fetch_assoc())
+	// {
+	// 	$user_id=$row['users_id'];
+	// 	echo $user_id;
+	// 	if($user_id==null){
+	// 		$user_id=1;
+	// 	}
+	// 	else {
+	// 			$user_id=$user_id+1;
+	// 	}
+	// }
 	// <legend style='po.sition: absolute;left: 120px;top: -15px;'>health and medicine</legend>
 	// echo "<form action='#' method='post'>
 	//

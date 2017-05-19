@@ -5,12 +5,27 @@ $con = mysqli_connect("localhost", "root", "", "q2a");
 
 $user_query="SELECT `userid` FROM `qa_users` order by `userid` DESC limit 1";
 $res = mysqli_query($con, $user_query);
+$num_rows=$res->num_rows;
+if( $num_rows == 0)
+{
+$user_id=1;
+}
+else{
 while($row = $res -> fetch_assoc())
 {
-	$user_id=$row['userid']+1;
-}
-
-
+	$user_id=$row['userid'];
+	$user_id=$user_id+1;
+}}
+// $user_query="SELECT `userid` FROM `qa_users`";
+// $res = mysqli_query($con, $user_query);
+// $flag=0;
+// while($row = $res -> fetch_assoc())
+// {
+// 	if($user_id==$row['users_id'];){
+// 		$flag=1;
+// 	}
+// }
+// if($flag==0){
 $health = $_POST['health'];
 $health_eating = $_POST['health_eating'];
 
@@ -93,5 +108,6 @@ else {
 	$res = mysqli_query($con, $query);
 }
 
+// }
 
 ?>

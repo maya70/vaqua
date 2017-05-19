@@ -9,7 +9,7 @@ $user_id = 0;
 while ($row = $res->fetch_assoc()) {
     $user_id = $row['userid'] + 1;
 }
-if ($user_id > 0) {
+($user_id>0)?$user_id:1;
     $health = $_POST['health'];
     $health_eating = $_POST['health_eating'];
 
@@ -99,7 +99,7 @@ VALUES (
 //        $query="delete * FROM `qa_interesting` where `users_id`={$user_id_inter}";
 //        $res = mysqli_query($con, $query);
 //    }
-}
+
 
 
 ?>

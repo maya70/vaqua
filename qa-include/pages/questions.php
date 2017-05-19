@@ -141,7 +141,7 @@ function getTagCount($source,$destination)
     {
         for ($j = 0 ; $j<count($destination); $j++)
         {
-            if($destination[$j]==$source[$i]) {
+            if(strtolower($destination[$j])==strtolower ($source[$i])) {
 
                 $tagCount++;
                 break;

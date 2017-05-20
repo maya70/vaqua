@@ -118,11 +118,11 @@ var span = document.getElementsByClassName("close")[0];
 
 // When the user clicks on the button, open the modal
 btn.onclick = function() {
-    modal.style.display = "block";
+    $(modal).slideDown();
 }
 regbtn.onclick=function(){
   modal.style.display = "none";
-  regbtn1.style.display="block"
+  regbtn1.style.display="block";
   openModelBtnId.style.display="none"
 
 }

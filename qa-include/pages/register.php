@@ -221,7 +221,7 @@
 
 		'buttons' => array(
 			'register' => array(
-				'tags' => 'onclick="qa_show_waiting_after(this, false);" style="margin-top:120px"',
+				'tags' => 'onclick="qa_show_waiting_after(this, false);" id="regbtn" style="display:none"',
 				'label' => qa_lang_html('users/register_button'),
 			),
 		),
@@ -255,6 +255,24 @@
 	// 			$user_id=$user_id+1;
 	// 	}
 	// }
+	echo "<!-- Trigger/Open The Modal -->
+
+
+<!-- The Modal -->
+<div id='myModal' class='modal'>
+
+  <!-- Modal content -->
+  <div class='modal-content' id='sModel'>
+    <span class='close'>&times;</span>
+    <p style='font-size:14px'>CHOOSE YOUR INTERESTINGS</p>
+
+		<a href='#'onclick='showReg()' class='button' id='okbtn' style='transform: translateY(235px);    margin-bottom: 0px;'><span>submit</span></a>
+  </div>
+
+</div>";
+// <a href="#" class="button">
+//   <span>Hover Me</span>
+// </a>
 	// <legend style='po.sition: absolute;left: 120px;top: -15px;'>health and medicine</legend>
 	// echo "<form action='#' method='post'>
 	//

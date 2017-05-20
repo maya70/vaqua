@@ -51,7 +51,7 @@ $('#mmd').ready(function () {
                 }
             });
             // alert(data);
-            alert('asf+1')
+            // alert('asf+1')
 
         // if(!regForm)
         // {
@@ -84,13 +84,66 @@ window.onload=function(){
         16:'Wb Design'
     }
     // // console.log(inter[1]);
-    var x=document.getElementById('mmd');
+    var x=document.getElementById('sModel');
+    var regFrom=document.getElementById('mmd');
+
+// <button id='myBtn'>Open Modal</button>
+    var openModelBtn = document.createElement("a");
+    openModelBtn.setAttribute("id", "myBtn");
+    openModelBtn.setAttribute("class", "continueBtn");
+    var openModelBtnText = document.createTextNode('continue');
+    openModelBtn.appendChild(openModelBtnText)
+    regFrom.appendChild(openModelBtn);
+    var openModelBtnId=document.getElementById('myBtn');
+    // var btnDiv = document.createElement("div");
+    // btnDiv.setAttribute("id", "myModel");
+    // btnDiv.setAttribute("class", "model");
+    // var btnDiv2 = document.createElement("div");
+    // btnDiv2.setAttribute("id", "model-content");
+    // btnDiv.appendChild(btnDiv2);
+    // x.appendChild(btn1);
+    // x.appendChild(btnDiv);
+
+// Get the modal
+
+var modal = document.getElementById('myModal');
+
+// Get the button that opens the modal
+var btn = document.getElementById("myBtn");
+var regbtn = document.getElementById("okbtn");
+var regbtn1 = document.getElementById("regbtn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks on the button, open the modal
+btn.onclick = function() {
+    modal.style.display = "block";
+}
+regbtn.onclick=function(){
+  modal.style.display = "none";
+  regbtn1.style.display="block"
+  openModelBtnId.style.display="none"
+
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+    modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
     var bigCon = document.createElement("div");
-    bigCon.setAttribute("style", "transform: translateY(-150px);");
+    bigCon.setAttribute("style", "margin-top:50px");
     for(var w=1;w<17;w++){
 
         var con = document.createElement("span");
-        con.setAttribute("style", "display:inline-block;width:150px");
+        con.setAttribute("style", "display:inline-block;width:25%;text-align:left;margin-bottom:20px");
         // con.setAttribute("style", "");
         var node = document.createElement("input");
         node.setAttribute("type", "checkbox");

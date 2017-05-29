@@ -26,7 +26,7 @@ $('#mmd').ready(function () {
             // alert(intes[10]);
             $.ajax({
                 type:'POST',
-                url:'test.php',
+                url:'./test.php',
                 data:{
                     health:intes[0],
                     health_eating:intes[1],

@@ -681,159 +681,189 @@ vaqua.changeFields = function (jsonTxt) {
     return text;
 }
 vaqua.drawData = function (jsonObj) {
-    var path = "../" + vaqua.url.url.substr(6);
+    var dimensions;
+    $(document).ready(function () {
+        console.log("hahahahahahahahahhahahahahahah");
 
-    console.log(path + "////wwww");
+        var pathh = "../" + vaqua.url.url.substr(6);
 
-    var margin = {top: 50, right: 10, bottom: 10, left: 10},
-        width = 530 - margin.left - margin.right,
-        height = 200 - margin.top - margin.bottom;
+        console.log(pathh + "////fff");
 
-    var x = d3.scale.ordinal().rangePoints([0, width], 1),
-        y = {},
-        dragging = {};
+        var margin = {top: 50, right: 10, bottom: 10, left: 10},
+            width = 530 - margin.left - margin.right,
+            height = 200 - margin.top - margin.bottom;
 
-    var line = d3.svg.line(),
-        axis = d3.svg.axis().orient("left"),
-        background,
-        foreground;
+        var x = d3.scale.ordinal().rangePoints([0, width], 1),
+            y = {},
+            dragging = {};
 
-    var svg = d3.select(".gui_rep").append("svg")
-        .attr("width", width + margin.left + margin.right)
-        .attr("height", height + margin.top + margin.bottom)
-        .append("g")
-        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+        var line = d3.svg.line(),
+            axis = d3.svg.axis().orient("left"),
+            background,
+            foreground;
 
-    var pathh = vaqua.findGetParameter("path");
-    d3.json(pathh, function (error, data) {
+        var svg = d3.select(".gui_rep").append("svg")
+            .attr("width", width + margin.left + margin.right)
+            .attr("height", height + margin.top + margin.bottom)
+            .append("g")
+            .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+            .style("font", "10px sans-serif");
 
-        // Extract the list of dimensions and create a scale for each.
-        x.domain(dimensions = d3.keys(data[0]).filter(function (d) {
-            if (typeof data[0][d] != "string") {
-                return ( y[d] = d3.scale.linear()
-                    .domain(d3.extent(data, function (p) {
-                        return +p[d];
-                    }))
-                    .range([height, 0]));
-            }
-        }));
+        //var pathh = vaqua.findGetParameter("path");
+        d3.json(pathh, function (error, data) {
+             console.log("in the fileeeeeeeeee" + data[0]);
+            // Extract the list of dimensions and create a scale for each.
 
-        // Add grey background lines for context.
-        background = svg.append("g")
-            .attr("class", "background")
-            .selectAll("path")
-            .data(data)
-            .enter().append("path")
-            .attr("d", path);
+            x.domain(dimensions = d3.keys(data[0]).filter(function (d) {
+                if (typeof data[0][d] != "string") {
+                    return ( y[d] = d3.scale.linear()
+                        .domain(d3.extent(data, function (p) {
+                            return +p[d];
+                        }))
+                        .range([height, 0]));
+                }
+            }));
 
-        // Add blue foreground lines for focus.
-        foreground = svg.append("g")
-            .attr("class", "foreground")
-            .selectAll("path")
-            .data(data)
-            .enter().append("path")
-            .attr("d", path);
+            // Add grey background lines for context.
+            background = svg.append("g")
+                .attr("class", "background")
+                .selectAll("path")
+                .data(data)
+                .enter().append("path")
+                .attr("d", path)
+                .style("fill", "none")
+                .style("stroke", "#ddd");
 
-        // Add a group element for each dimension.
-        var g = svg.selectAll(".dimension")
-            .data(dimensions)
-            .enter().append("g")
-            .attr("class", "dimension")
-            .attr("transform", function (d) {
-                return "translate(" + x(d) + ")";
-            })
-            .call(d3.behavior.drag()
-                .origin(function (d) {
-                    return {x: x(d)};
+            // Add blue foreground lines for focus.
+            foreground = svg.append("g")
+                .attr("class", "foreground")
+                .selectAll("path")
+                .data(data)
+                .enter().append("path")
+                .attr("d", path)
+                .style("fill", "none")
+                .style("stroke", "steelblue");
+
+            // Add a group element for each dimension.
+            var g = svg.selectAll(".dimension")
+                .data(dimensions)
+                .enter().append("g")
+                .attr("class", "dimension")
+                .attr("transform", function (d) {
+                    return "translate(" + x(d) + ")";
                 })
-                .on("dragstart", function (d) {
-                    dragging[d] = x(d);
-                    background.attr("visibility", "hidden");
-                })
-                .on("drag", function (d) {
-                    dragging[d] = Math.min(width, Math.max(0, d3.event.x));
-                    foreground.attr("d", path);
-                    dimensions.sort(function (a, b) {
-                        return position(a) - position(b);
-                    });
-                    x.domain(dimensions);
-                    g.attr("transform", function (d) {
-                        return "translate(" + position(d) + ")";
+                .call(d3.behavior.drag()
+                    .origin(function (d) {
+                        return {x: x(d)};
                     })
+                    .on("dragstart", function (d) {
+                        dragging[d] = x(d);
+                        background.attr("visibility", "hidden");
+                    })
+                    .on("drag", function (d) {
+                        dragging[d] = Math.min(width, Math.max(0, d3.event.x));
+                        foreground.attr("d", path);
+                        dimensions.sort(function (a, b) {
+                            return position(a) - position(b);
+                        });
+                        x.domain(dimensions);
+                        g.attr("transform", function (d) {
+                            return "translate(" + position(d) + ")";
+                        })
+                    })
+                    .on("dragend", function (d) {
+                        delete dragging[d];
+                        transition(d3.select(this)).attr("transform", "translate(" + x(d) + ")");
+                        transition(foreground).attr("d", path);
+                        background
+                            .attr("d", path)
+                            .transition()
+                            .delay(500)
+                            .duration(0)
+                            .attr("visibility", null);
+                    }));
+
+            // Add an axis and title.
+            g.append("g")
+                .attr("class", "axis")
+                .style("fill", "none")
+                .style("stroke", "#000")
+                .style("shape-rendering", "crispEdges")
+                .each(function (d) {
+                    d3.select(this).call(axis.scale(y[d]));
                 })
-                .on("dragend", function (d) {
-                    delete dragging[d];
-                    transition(d3.select(this)).attr("transform", "translate(" + x(d) + ")");
-                    transition(foreground).attr("d", path);
-                    background
-                        .attr("d", path)
-                        .transition()
-                        .delay(500)
-                        .duration(0)
-                        .attr("visibility", null);
-                }));
+                .append("text")
+                .style("text-anchor", "middle") 
+                .style("text-shadow", "0 1px 0 #fff, 1px 0 0 #fff, 0 -1px 0 #fff, -1px 0 0 #fff")
+                .style("cursor", "move")               
+                .attr("y", -9)
+                .text(function (d) {
+                    return d;
+                });
 
-        // Add an axis and title.
-        g.append("g")
-            .attr("class", "axis")
-            .each(function (d) {
-                d3.select(this).call(axis.scale(y[d]));
-            })
-            .append("text")
-            .style("text-anchor", "middle")
-            .attr("y", -9)
-            .text(function (d) {
-                return d;
+            // Add and store a brush for each axis.
+            g.append("g")
+                .attr("class", "brush")
+                .style("fill-opacity", .3)
+                .style("stroke", "#fff")
+                .style("shape-rendering", "crispEdges")
+                .each(function (d) {
+                    d3.select(this).call(y[d].brush = d3.svg.brush().y(y[d]).on("brushstart", brushstart).on("brush", brush));
+                    // d3.select(this).call(y[d].brush = d3.svg.brush().y(y[d]).on("click",function () {
+                    //     console.log("toooootooootoooootototototototototo");
+                    // }));
+                })
+                .selectAll("rect")
+                .attr("x", -8)
+                .attr("width", 16);
+
+            $(".axis").click(function () {
+                var value = $(this).children().last().text();
+                console.log($(this).children().last().text());
+                $("#attrselectorx").val(value);
+                vaqua.initKeysSelect.onChange("x", $("#attrselectorx").val(), $("#attrselectorx").attr("class"));
             });
-
-        // Add and store a brush for each axis.
-        g.append("g")
-            .attr("class", "brush")
-            .each(function (d) {
-                d3.select(this).call(y[d].brush = d3.svg.brush().y(y[d]).on("brushstart", brushstart).on("brush", brush));
-            })
-            .selectAll("rect")
-            .attr("x", -8)
-            .attr("width", 16);
-    });
-
-    function position(d) {
-        var v = dragging[d];
-        return v == null ? x(d) : v;
-    }
-
-    function transition(g) {
-        return g.transition().duration(500);
-    }
-
-    // Returns the path for a given data point.
-    function path(d) {
-        return line(dimensions.map(function (p) {
-            return [position(p), y[p](d[p])];
-        }));
-    }
-
-    function brushstart() {
-        d3.event.sourceEvent.stopPropagation();
-    }
-
-    // Handles a brush event, toggling the display of foreground lines.
-    function brush() {
-        var actives = dimensions.filter(function (p) {
-                return !y[p].brush.empty();
-            }),
-            extents = actives.map(function (p) {
-                return y[p].brush.extent();
-            });
-        foreground.style("display", function (d) {
-            return actives.every(function (p, i) {
-                return extents[i][0] <= d[p] && d[p] <= extents[i][1];
-            }) ? null : "none";
         });
-    }
 
-    // $(".gui_rep")
-    //   .html('<object width="520px" height="220px" data="./../parallel-coords/index.html?path='+path+'"/>');
+        function position(d) {
+            var v = dragging[d];
+            return v == null ? x(d) : v;
+        }
+
+        function transition(g) {
+            return g.transition().duration(500);
+        }
+
+        // Returns the path for a given data point.
+        function path(d) {
+            return line(dimensions.map(function (p) {
+                return [position(p), y[p](d[p])];
+            }));
+        }
+
+        function brushstart() {
+            d3.event.sourceEvent.stopPropagation();
+        }
+
+        // Handles a brush event, toggling the display of foreground lines.
+        function brush() {
+            var actives = dimensions.filter(function (p) {
+                    return !y[p].brush.empty();
+                }),
+                extents = actives.map(function (p) {
+                    return y[p].brush.extent();
+                });
+            foreground.style("display", function (d) {
+                //console.log(extents);
+                return actives.every(function (p, i) {
+                    return extents[i][0] <= d[p] && d[p] <= extents[i][1];
+                }) ? null : "none";
+            });
+        }
+
+        // $(".gui_rep")
+        //   .html('<object width="520px" height="220px" data="./../parallel-coords/index.html?path='+path+'"/>');
+    });
 }
 
 vaqua.findGetParameter = function (parameterName) {
@@ -1001,48 +1031,8 @@ vaqua.initUpload = function () {
 };
 
 vaqua.initKeysSelect = function () {
-    $(document).ready(function () {
-        clearAll();
-        var firstEnter = 0;
-        for (var i = 0; i < vaqua.keys.length; i++) {
-            if (vaqua.values[i] != "nominal") {
-                if (firstEnter == 0) {
-                    onChange("x", vaqua.keys[i], vaqua.values[i]);
-                    onChange("y", vaqua.keys[i], vaqua.values[i]);
-                    firstEnter = 5;
-                }
-                $("#attrselectorx").append("<option class='" + vaqua.values[i] + "'>" + vaqua.keys[i] + "</option>");
-                $("#attrselectory").append("<option class='" + vaqua.values[i] + "'>" + vaqua.keys[i] + "</option>");
-            }
-            $('#attrselectorsize').append("<option class='" + vaqua.values[i] + "'>" + vaqua.keys[i] + "</option>");
-            $('#attrselectorcolor').append("<option class='" + vaqua.values[i] + "'>" + vaqua.keys[i] + "</option>");
-            $('#attrselectorshape').append("<option class='" + vaqua.values[i] + "'>" + vaqua.keys[i] + "</option>");
-            $('#attrselectortext').append("<option class='" + vaqua.values[i] + "'>" + vaqua.keys[i] + "</option>");
 
-        }
-
-        $("#attrselectorx").change(function () {
-            onChange("x", $(this).val(), $(this).attr("class"));
-        });
-        $("#attrselectory").change(function () {
-            onChange("y", $(this).val(), $(this).attr("class"));
-        });
-        $('#attrselectorsize').change(function () {
-            onChange("size", $(this).val(), $(this).attr("class"));
-        });
-        $('#attrselectorcolor').change(function () {
-            onChange("color", $(this).val(), $(this).attr("class"));
-        });
-        $('#attrselectorshape').change(function () {
-            onChange("shape", $(this).val(), $(this).attr("class"));
-        });
-        $('#attrselectortext').change(function () {
-            onChange("text", $(this).val(), $(this).attr("class"));
-        });
-    });
-
-
-    function onChange(k, value, type) {
+    vaqua.initKeysSelect.onChange = function(k, value, type) {
         if (k == "x") {
             vaqua.x = value;
             vaqua.typeX = type;
@@ -1064,6 +1054,49 @@ vaqua.initKeysSelect = function () {
         }
 
     }
+
+    $(document).ready(function () {
+        clearAll();
+        var firstEnter = 0;
+        for (var i = 0; i < vaqua.keys.length; i++) {
+            if (vaqua.values[i] != "nominal") {
+                if (firstEnter == 0) {
+                    vaqua.initKeysSelect.onChange("x", vaqua.keys[i], vaqua.values[i]);
+                    vaqua.initKeysSelect.onChange("y", vaqua.keys[i], vaqua.values[i]);
+                    firstEnter = 5;
+                }
+                $("#attrselectorx").append("<option class='" + vaqua.values[i] + "'>" + vaqua.keys[i] + "</option>");
+                $("#attrselectory").append("<option class='" + vaqua.values[i] + "'>" + vaqua.keys[i] + "</option>");
+            }
+            $('#attrselectorsize').append("<option class='" + vaqua.values[i] + "'>" + vaqua.keys[i] + "</option>");
+            $('#attrselectorcolor').append("<option class='" + vaqua.values[i] + "'>" + vaqua.keys[i] + "</option>");
+            $('#attrselectorshape').append("<option class='" + vaqua.values[i] + "'>" + vaqua.keys[i] + "</option>");
+            $('#attrselectortext').append("<option class='" + vaqua.values[i] + "'>" + vaqua.keys[i] + "</option>");
+
+        }
+
+        $("#attrselectorx").change(function () {
+            vaqua.initKeysSelect.onChange("x", $(this).val(), $(this).attr("class"));
+        });
+        $("#attrselectory").change(function () {
+            vaqua.initKeysSelect.onChange("y", $(this).val(), $(this).attr("class"));
+        });
+        $('#attrselectorsize').change(function () {
+            vaqua.initKeysSelect.onChange("size", $(this).val(), $(this).attr("class"));
+        });
+        $('#attrselectorcolor').change(function () {
+            vaqua.initKeysSelect.onChange("color", $(this).val(), $(this).attr("class"));
+        });
+        $('#attrselectorshape').change(function () {
+            vaqua.initKeysSelect.onChange("shape", $(this).val(), $(this).attr("class"));
+        });
+        $('#attrselectortext').change(function () {
+            vaqua.initKeysSelect.onChange("text", $(this).val(), $(this).attr("class"));
+        });
+    });
+
+
+
 
     function clearAll() {
         $("#attrselectorx").html("");

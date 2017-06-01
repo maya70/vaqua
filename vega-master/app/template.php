@@ -19,34 +19,33 @@
                 </select>
             </div>
         </div>
-
         <div class="gui_rep">
-            <div class="padding"> Choose X :
-                <select id="attrselectorx" class="menustyle">
-                </select>
+            <div class="padding"> Data Selection:
+                <!--select id="attrselectorx" class="menustyle">
+                </select-->
             </div>
 
-            <div class="padding"> Choose Y :
-                <select id="attrselectory" class="menustyle">
-                </select>
+            <div class="padding">
+                <!--select id="attrselectory" class="menustyle">
+                </select-->
             </div>
 
-            <div class="padding"> Choose Size :
+            <div class="padding"> Choose Size:
                 <select id="attrselectorsize" class="menustyle">
                 </select>
             </div>
 
-            <div class="padding"> Choose Color :
+            <div class="padding"> Choose Color:
                 <select id="attrselectorcolor" class="menustyle">
                 </select>
             </div>
 
-            <div class="padding"> Choose Shape :
+            <div class="padding"> Choose Shape:
                 <select id="attrselectorshape" class="menustyle">
                 </select>
             </div>
 
-            <div class="padding"> Choose Text :
+            <div class="padding"> Choose Text:
                 <select id="attrselectortext" class="menustyle">
                 </select>
             </div>
@@ -54,10 +53,17 @@
 
         </div>
 
+        <div class="gui_attr">
+           <div class="padding"> Attribute Specification:
+
+            </div>
+
+
+        </div>
 
         <div class="vg_pane mod_subheader hide-vg">
             <div class="mod_ctrls">
-                <input type="button" class="btn_to_vega" value="Edit spec">
+                <!--input type="button" class="btn_to_vega" value="Edit spec"-->
             </div>
             <?php
             session_start();
@@ -83,12 +89,12 @@
             $db = new \VAQUA\DB();
 
 
-            echo '<form   name="data" method="post" action="./../vaqua/data/data.php" target="_blank">
-  <input type = "hidden" name = "id"  value ="' . $q_id . '">
-  <input type="submit" value="show data" > </form>';
+            echo '<form   name="data" method="post" action="./../vaqua/data/data.php" target="_blank" style="display:inline; margin-left: 50px;">
+                  <input style="display:inline; " type = "hidden" name = "id"  value ="' . $q_id . '">
+                  <input type="submit" value="Show Data" style="display:inline; margin-left: 50px;" > </form>';
             ?>
-            <form name="fileToUpload" id="fileToUpload" action="./app/vaqua/upload.php" method="post">
-                <label>optional:<input type="file" name="upload" id="upload" value="upload other file"></label>
+            <form name="fileToUpload" id="fileToUpload" action="./app/vaqua/upload.php" method="post" style="display:inline; margin-left: 50px;">
+                <input type="file" name="upload" id="upload" value="upload other file" style="display:inline; margin-left: 50px;"></input>
             </form>
 
             <span class="click_toggle_vega" title="Expand/Collapse Vega editor"></span>
@@ -129,7 +135,7 @@
         //      $db->updateAnswerCount($acount, $q_id);
 
         ?>
-        type
+
         <div class="mod_params"></div>
         <div class="spec_desc"></p>
         </div>

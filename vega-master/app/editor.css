@@ -3,25 +3,68 @@
     display: flex;
     font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
     font-size: 14px;
-    background-color: #f6f6f6;
+    background-color: #003366;
 }
 .vega-editor .mod_spec {
     -webkit-flex: 0 0 auto;
     flex: 0 0 auto;
     min-width: 540px;
-    border-right: 1px solid #ccc;
+    max-width: 550px;
+    border-right: 1px solid #003366;
 }
 
+#comment{
+    border-radius: 0.5em;
+    max-height: 100px;
+    max-width: 87%;
+    margin-left: 5%;
+}
+.btn_export{
+    border-radius: 0.5em;
+    margin-left: 10%;
+    margin-top: 20px;
+    margin-bottom: 50px;
+    min-height: 45px;
+    min-width: 80%;
+}
 .vega-editor .gui_rep {
-    height: 550px;
-  background:white ;
+    height: 450px;
+      width: 530px;
+  background: #99ffff ; /* For browsers that do not support gradients */
+  background: -webkit-linear-gradient(left, #99ffff , #e6ffff); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(right, #99ffff, #e6ffff); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(right, #99ffff, #e6ffff); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(to right, #99ffff , #e6ffff); /* Standard syntax */
   font-size: 20px;
     color:#588191;
     padding-top: 0px;
     padding-left: 0px;
     border-style: double;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-radius: 1em;
+    /*overflow: scroll;*/
 }
-
+.gui_attr{
+    height: 10%;
+    background: #99ffff ; /* For browsers that do not support gradients */
+  background: -webkit-linear-gradient(left, #99ffff , #e6ffff); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(right, #99ffff, #e6ffff); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(right, #99ffff, #e6ffff); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(to right, #99ffff , #e6ffff); /* Standard syntax */
+  font-size: 20px;
+    color:#588191;
+    padding-top: 0px;
+    padding-left: 0px;
+    border-style: double;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 3px;
+    margin-bottom: 10px;
+    border-radius: 1em;
+}
 .vega-editor .padding {
     padding-left: 0.3cm;
     padding-top: 0.5cm;
@@ -30,11 +73,13 @@
      font-weight: bold;
 
 }
-
+#fileToUpload{
+    display: inline;
+}
 .vega-editor .menustyle {
      height:25px;
      width:200px; border-style: solid;
-     border-color: #588191;
+     border-color: #003366;
 }
 
 .vega-editor .mod_vis {
@@ -43,7 +88,7 @@
     min-width: 0;
     margin-left: 10px;
     background-color: white;
-    border-left: 1px solid #ccc;
+    border-left: 1px solid #003366;
 }
 
 .vega-editor .module {
@@ -52,13 +97,20 @@
     -webkit-flex-direction: column;
     flex-direction: column;
     height: 100vh;
+    background-color: #003366;
 }
-
+.vega{
+    background-color: white;
+    max-width: 90%;
+    max-height: 90%;
+    margin-left: 5%;
+    margin-top: 10px;
+}
 .vega-editor .mod_header {
     -webkit-flex: 0 0 auto;
     flex: 0 0 auto;
     padding: 4px 4px 4px 6px;
-    background: #111;
+    background: #196666;
     border-bottom: 1px solid #ccc;
     line-height: 22px;
 }
@@ -67,7 +119,7 @@
     -webkit-flex: 0 0 auto;
     flex: 0 0 auto;
     padding: 2px 4px 2px 6px;
-    background: #eee;
+    background: #196666;
     border-bottom: 1px solid #ccc;
     border-top: 1px solid #ccc;
     line-height: 18px;

@@ -117,11 +117,23 @@ function uploadFile($filename, $questionid)
         if (move_uploaded_file($filename["tmp_name"], $target_file)) {
             $attributes = get_json_Attributes($target_file);
             make_conf_file(basename($filename['name']), $attributes, $questionid);
+//            echo basename($filename['name']);
         } else {
             return false;
         }
     }
     return $target_file;
+}
+function moveToQuestionData($questionid,$oldDir)
+{
+    $filename = explode('/',$oldDir);
+    $filename = $filename[count($filename)-1];
+
+//    echo  $filename;
+    $target_file = getBasePath($questionid) . basename($filename);
+    copy($oldDir,$target_file);
+    $attributes = get_json_Attributes($target_file);
+    make_conf_file($filename, $attributes, $questionid);
 }
 
 ?>

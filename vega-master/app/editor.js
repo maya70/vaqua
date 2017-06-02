@@ -870,6 +870,7 @@ vaqua.drawData = function (jsonObj) {
                 data[title] = extents[i];
             }
             vaqua.data = data;
+            vaqua.titles = titles;
             // console.log(data);
 
             $.ajax({
@@ -877,9 +878,11 @@ vaqua.drawData = function (jsonObj) {
                 type:'POST',
                 data:{rdata:vaqua.realData,
                     sdata:vaqua.data,
-                titles:titles},
-                success:function (data) {
-                    console.log(data+"mmm");
+                titles:vaqua.titles},
+                success:function (res) {
+                    vaqua.defaultName = res;
+                    vaqua.initVegaJson();
+                    vaqua.url = "";
                 }
             });
 

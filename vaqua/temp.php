@@ -24,6 +24,13 @@ foreach ($_POST['rdata'] as $key=>$val)
         array_push($sdata, $val);
 }
 //print_r($sdata);
-$fp = fopen('../uploads/temp.json', 'w');
+$path = '../uploads/temp.json';
+$fp = fopen($path, 'w');
 fwrite($fp, json_encode($sdata));
 fclose($fp);
+
+
+require_once __DIR__ . '/upload.php';
+session_start();
+moveToQuestionData($_SESSION['qid'],$path);
+echo 'temp';

@@ -128,7 +128,7 @@ ved.select = function (spec) {
     spec = d3.select(sel.options[idx]).datum();
 
     function parallel_coord() {
-        console.log("mahmoud");
+        // console.log("mahmoud");
         var path = "../" + vaqua.url.url.substr(6);
         $(".vega")
             .html('<object width="800" height="700" data="./../parallel-coords/index.html?path=' + path + '"/>').watch(600);
@@ -151,7 +151,7 @@ ved.select = function (spec) {
                     desc.html(spec.desc || '');
                 });
                 ved.format();
-                console.log(response + idx);
+                // console.log(response + idx);
             });
         }
     } else {
@@ -216,7 +216,7 @@ ved.parseVl = function (callback) {
     try {
         spec = JSON.parse(value);
         // console.log(vaqua.attr+"   mahmoud");
-        console.log(spec['encoding']['x']['type']);
+        // console.log(spec['encoding']['x']['type']);
         // if (spec['encoding']['x']['type'] != vaqua.attr[spec['encoding']['x']['field']] ||
         //     spec['encoding']['y']['type'] != vaqua.attr[spec['encoding']['y']['field']]) {
         //     // console.log("attributes : " + );
@@ -225,7 +225,7 @@ ved.parseVl = function (callback) {
         // }
         // console.log("attributes : " + );
     } catch (e) {
-        console.log(e);
+        // console.log(e);
         return;
     }
 
@@ -683,11 +683,11 @@ vaqua.changeFields = function (jsonTxt) {
 vaqua.drawData = function (jsonObj) {
     var dimensions;
     $(document).ready(function () {
-        console.log("hahahahahahahahahhahahahahahah");
+        // console.log("hahahahahahahahahhahahahahahah");
 
         var pathh = "../" + vaqua.url.url.substr(6);
 
-        console.log(pathh + "////fff");
+        // console.log(pathh + "////fff");
 
         var margin = {top: 50, right: 10, bottom: 10, left: 10},
             width = 530 - margin.left - margin.right,
@@ -711,7 +711,7 @@ vaqua.drawData = function (jsonObj) {
 
         //var pathh = vaqua.findGetParameter("path");
         d3.json(pathh, function (error, data) {
-             console.log("in the fileeeeeeeeee" + data[0]);
+            // console.log("in the fileeeeeeeeee" + data[0]);
             // Extract the list of dimensions and create a scale for each.
 
             x.domain(dimensions = d3.keys(data[0]).filter(function (d) {
@@ -722,6 +722,7 @@ vaqua.drawData = function (jsonObj) {
                         }))
                         .range([height, 0]));
                 }
+                vaqua.realData = data;
             }));
 
             // Add grey background lines for context.
@@ -743,7 +744,6 @@ vaqua.drawData = function (jsonObj) {
                 .attr("d", path)
                 .style("fill", "none")
                 .style("stroke", "steelblue");
-
             // Add a group element for each dimension.
             var g = svg.selectAll(".dimension")
                 .data(dimensions)
@@ -793,9 +793,9 @@ vaqua.drawData = function (jsonObj) {
                     d3.select(this).call(axis.scale(y[d]));
                 })
                 .append("text")
-                .style("text-anchor", "middle") 
+                .style("text-anchor", "middle")
                 .style("text-shadow", "0 1px 0 #fff, 1px 0 0 #fff, 0 -1px 0 #fff, -1px 0 0 #fff")
-                .style("cursor", "move")               
+                .style("cursor", "move")
                 .attr("y", -9)
                 .text(function (d) {
                     return d;
@@ -819,7 +819,7 @@ vaqua.drawData = function (jsonObj) {
 
             $(".axis").click(function () {
                 var value = $(this).children().last().text();
-                console.log($(this).children().last().text());
+                // console.log($(this).children().last().text());
                 $("#attrselectorx").val(value);
                 vaqua.initKeysSelect.onChange("x", $("#attrselectorx").val(), $("#attrselectorx").attr("class"));
             });
@@ -859,6 +859,32 @@ vaqua.drawData = function (jsonObj) {
                     return extents[i][0] <= d[p] && d[p] <= extents[i][1];
                 }) ? null : "none";
             });
+            vaqua.fields = {};
+            //vaqua.fields.actives = actives;
+            // vaqua.fields.sData = extents;
+            var data = {};
+            var title,titles = [];
+            for(var i =0 ; i<actives.length; i++) {
+                title = actives[i];
+                titles.push(title);
+                data[title] = extents[i];
+            }
+            vaqua.data = data;
+            // console.log(data);
+
+            $.ajax({
+                url:'./../vaqua/temp.php',
+                type:'POST',
+                data:{rdata:vaqua.realData,
+                    sdata:vaqua.data,
+                titles:titles},
+                success:function (data) {
+                    console.log(data+"mmm");
+                }
+            });
+
+
+
         }
 
         // $(".gui_rep")
@@ -897,20 +923,20 @@ vaqua.parseConfJson = function (jsonObj) {
         vaqua.keys = [];
         vaqua.values = [];
 
-        console.log("here is attributes...........sssssssssss..................");
-        console.log(jsonObj);
+        // console.log("here is attributes...........sssssssssss..................");
+        // console.log(jsonObj);
 
         vaqua.drawData(jsonObj);
 
         for (var i = 0; i < Object.keys(vaqua.attr).length; i++) {
             vaqua.keys[i] = Object.keys(vaqua.attr)[i];
-            console.log(vaqua.keys[i]);
+            // console.log(vaqua.keys[i]);
         }
 
-        console.log("here is types...................................");
+        // console.log("here is types...................................");
         for (var i = 0; i < Object.values(vaqua.attr).length; i++) {
             vaqua.values[i] = Object.values(vaqua.attr)[i]
-            console.log(vaqua.values[i]);
+            // console.log(vaqua.values[i]);
         }
 
         vaqua.typex = vaqua.values[0];
@@ -939,7 +965,7 @@ vaqua.parseConfJson = function (jsonObj) {
     if (jsonObj['encoding']['y']['timeUnit']) {
         delete jsonObj['encoding']['y']['timeUnit'];
     }
-    console.log(vaqua.color + "mmd");
+    // console.log(vaqua.color + "mmd");
 
     var url = vaqua.url;
     var i = 0;
@@ -1020,7 +1046,7 @@ vaqua.initUpload = function () {
             data: form_data,
             type: 'post',
             success: function (res) {
-                console.log("uploaded") // display response from the PHP script, if any
+                // console.log("uploaded") // display response from the PHP script, if any
                 vaqua.defaultName = res;
                 vaqua.initVegaJson();
                 vaqua.url = "";

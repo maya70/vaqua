@@ -817,12 +817,12 @@ vaqua.drawData = function (jsonObj) {
                 .attr("x", -8)
                 .attr("width", 16);
 
-            $(".axis").click(function () {
-                var value = $(this).children().last().text();
-                // console.log($(this).children().last().text());
-                $("#attrselectorx").val(value);
-                vaqua.initKeysSelect.onChange("x", $("#attrselectorx").val(), $("#attrselectorx").attr("class"));
-            });
+            // $(".axis").click(function () {
+            //     var value = $(this).children().last().text();
+            //     // console.log($(this).children().last().text());
+            //     $("#attrselectorx").val(value);
+            //     vaqua.initKeysSelect.onChange("x", $("#attrselectorx").val(), $("#attrselectorx").attr("class"));
+            // });
         });
 
         function position(d) {
@@ -876,13 +876,14 @@ vaqua.drawData = function (jsonObj) {
             $.ajax({
                 url:'./../vaqua/temp.php',
                 type:'POST',
-                data:{rdata:vaqua.realData,
+                data:{dataPath:pathh,
                     sdata:vaqua.data,
                 titles:vaqua.titles},
                 success:function (res) {
                     vaqua.defaultName = res;
                     vaqua.initVegaJson();
                     vaqua.url = "";
+                    console.log(res);
                 }
             });
 

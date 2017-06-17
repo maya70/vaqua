@@ -702,6 +702,8 @@ vaqua.drawData = function (jsonObj) {
             background,
             foreground;
 
+        console.log("helllllo")
+        d3.select(".gui_rep").select("svg").remove();
         var svg = d3.select(".gui_rep").append("svg")
             .attr("width", width + margin.left + margin.right)
             .attr("height", height + margin.top + margin.bottom)

@@ -632,9 +632,22 @@ ved.init = function (el, dir) {
 
 };
 
+vaqua.trackMouseMove = function (e) {
+    vaqua.mouseMovedY = e.y;
+    vaqua.mouseMovedX = e.x;
+
+}
+
+vaqua.trackMouseClick = function (e) {
+    vaqua.mouseClickedY = e.y;
+    vaqua.mouseClickedX = e.x;
+}
 
 vaqua.init = function () {
 
+    document.addEventListener("mousemove", vaqua.trackMouseMove);
+    document.addEventListener("mousedown", vaqua.trackMouseClick);
+    document.addEventListener("mouseup", vaqua.tarckMouseUp);
     vaqua.q_id = vaqua.findGetParameter('id');
     vaqua.defaultName = vaqua.findGetParameter('name');
 }
@@ -689,7 +702,7 @@ vaqua.drawData = function (jsonObj) {
 
         // console.log(pathh + "////fff");
 
-        var margin = {top: 50, right: 10, bottom: 10, left: 10},
+        var margin = {top: 5, right: 10, bottom: 10, left: 10},
             width = 530 - margin.left - margin.right,
             height = 200 - margin.top - margin.bottom;
 
@@ -759,10 +772,13 @@ vaqua.drawData = function (jsonObj) {
                         return {x: x(d)};
                     })
                     .on("dragstart", function (d) {
+
                         dragging[d] = x(d);
+                        vaqua.beginDrag(Object.keys(dragging)[0]);
                         background.attr("visibility", "hidden");
                     })
                     .on("drag", function (d) {
+                        vaqua.drag();
                         dragging[d] = Math.min(width, Math.max(0, d3.event.x));
                         foreground.attr("d", path);
                         dimensions.sort(function (a, b) {
@@ -771,9 +787,10 @@ vaqua.drawData = function (jsonObj) {
                         x.domain(dimensions);
                         g.attr("transform", function (d) {
                             return "translate(" + position(d) + ")";
-                        })
+                        });
                     })
                     .on("dragend", function (d) {
+                        vaqua.endDrag();
                         delete dragging[d];
                         transition(d3.select(this)).attr("transform", "translate(" + x(d) + ")");
                         transition(foreground).attr("d", path);
@@ -865,23 +882,26 @@ vaqua.drawData = function (jsonObj) {
             //vaqua.fields.actives = actives;
             // vaqua.fields.sData = extents;
             var data = {};
-            var title,titles = [];
-            for(var i =0 ; i<actives.length; i++) {
+            var title, titles = [];
+            for (var i = 0; i < actives.length; i++) {
                 title = actives[i];
                 titles.push(title);
                 data[title] = extents[i];
             }
             vaqua.data = data;
             vaqua.titles = titles;
+            vaqua.draw = true;
             // console.log(data);
 
             $.ajax({
-                url:'./../vaqua/temp.php',
-                type:'POST',
-                data:{dataPath:pathh,
-                    sdata:vaqua.data,
-                titles:vaqua.titles},
-                success:function (res) {
+                url: './../vaqua/temp.php',
+                type: 'POST',
+                data: {
+                    dataPath: pathh,
+                    sdata: vaqua.data,
+                    titles: vaqua.titles
+                },
+                success: function (res) {
                     vaqua.defaultName = res;
                     vaqua.initVegaJson();
                     vaqua.url = "";
@@ -890,13 +910,33 @@ vaqua.drawData = function (jsonObj) {
             });
 
 
-
         }
 
         // $(".gui_rep")
         //   .html('<object width="520px" height="220px" data="./../parallel-coords/index.html?path='+path+'"/>');
     });
-}
+};
+
+vaqua.beginDrag = function (dragedElement) {
+
+    vaqua.dragMode = true;
+    $("body").css("cursor", "none");
+    $(".dragIcon").css("top", vaqua.mouseMovedY);
+    $(".dragIcon").css("left", vaqua.mouseMovedX);
+    $(".dragIcon").show();
+    vaqua.dragedElement = dragedElement;
+};
+
+vaqua.drag = function () {
+    $(".dragIcon").css("top", vaqua.mouseMovedY);
+    $(".dragIcon").css("left", vaqua.mouseMovedX);
+};
+
+vaqua.endDrag = function () {
+    vaqua.dragMode = false;
+    $("body").css("cursor", "auto");
+    $(".dragIcon").hide();
+};
 
 vaqua.findGetParameter = function (parameterName) {
     var result = null,
@@ -932,7 +972,9 @@ vaqua.parseConfJson = function (jsonObj) {
         // console.log("here is attributes...........sssssssssss..................");
         // console.log(jsonObj);
 
-        vaqua.drawData(jsonObj);
+        if (!vaqua.draw) {
+            vaqua.drawData(jsonObj);
+        }
 
         for (var i = 0; i < Object.keys(vaqua.attr).length; i++) {
             vaqua.keys[i] = Object.keys(vaqua.attr)[i];
@@ -1064,7 +1106,7 @@ vaqua.initUpload = function () {
 
 vaqua.initKeysSelect = function () {
 
-    vaqua.initKeysSelect.onChange = function(k, value, type) {
+    vaqua.initKeysSelect.onChange = function (k, value, type) {
         if (k == "x") {
             vaqua.x = value;
             vaqua.typeX = type;
@@ -1110,24 +1152,103 @@ vaqua.initKeysSelect = function () {
         $("#attrselectorx").change(function () {
             vaqua.initKeysSelect.onChange("x", $(this).val(), $(this).attr("class"));
         });
+
+        $("#attrselectorx").mouseenter(function () {
+            if (vaqua.dragMode) {
+                console.log("ss");
+                vaqua.mouseOverselectorX = true;
+                $(this).css("border", "1px solid yellow");
+            }
+        });
+        $("#attrselectorx").mouseleave(function () {
+            var ele = $(this);
+            setTimeout(function () {
+                vaqua.mouseOverselectorX = false;
+                ele.css("border", "1px solid black");
+            }, 1);
+
+        });
         $("#attrselectory").change(function () {
             vaqua.initKeysSelect.onChange("y", $(this).val(), $(this).attr("class"));
+        });
+        $("#attrselectory").mouseenter(function () {
+            if (vaqua.dragMode) {
+                vaqua.mouseOverselectorY = true;
+                $(this).css("border", "1px solid yellow");
+            }
+        });
+        $("#attrselectory").mouseout(function () {
+            var ele = $(this);
+            setTimeout(function () {
+                vaqua.mouseOverselectorX = false;
+                ele.css("border", "1px solid black");
+            }, 1);
         });
         $('#attrselectorsize').change(function () {
             vaqua.initKeysSelect.onChange("size", $(this).val(), $(this).attr("class"));
         });
+        $("#attrselectorsize").mouseover(function () {
+            if (vaqua.dragMode) {
+                vaqua.mouseOverselectorSize = true;
+                $(this).css("border", "1px solid yellow");
+            }
+        });
+        $("#attrselectorsize").mouseout(function () {
+            var ele = $(this);
+            setTimeout(function () {
+                vaqua.mouseOverselectorX = false;
+                ele.css("border", "1px solid black");
+            }, 1);
+        });
         $('#attrselectorcolor').change(function () {
             vaqua.initKeysSelect.onChange("color", $(this).val(), $(this).attr("class"));
+        });
+        $("#attrselectorcolor").mouseover(function () {
+            if (vaqua.dragMode) {
+                vaqua.mouseOverselectorColor = true;
+                $(this).css("border", "1px solid yellow");
+            }
+        });
+        $("#attrselectorcolor").mouseout(function () {
+            var ele = $(this);
+            setTimeout(function () {
+                vaqua.mouseOverselectorX = false;
+                ele.css("border", "1px solid black");
+            }, 1);
         });
         $('#attrselectorshape').change(function () {
             vaqua.initKeysSelect.onChange("shape", $(this).val(), $(this).attr("class"));
         });
+        $("#attrselectorshape").mouseover(function () {
+            if (vaqua.dragMode) {
+                vaqua.mouseOverselectorShape = true;
+                $(this).css("border", "1px solid yellow");
+            }
+        });
+        $("#attrselectorshape").mouseout(function () {
+            var ele = $(this);
+            setTimeout(function () {
+                vaqua.mouseOverselectorX = false;
+                ele.css("border", "1px solid black");
+            }, 1);
+        });
         $('#attrselectortext').change(function () {
             vaqua.initKeysSelect.onChange("text", $(this).val(), $(this).attr("class"));
         });
+        $("#attrselectortext").mouseover(function () {
+            if (vaqua.dragMode) {
+                vaqua.mouseOverselectorText = true;
+                $(this).css("border", "1px solid yellow");
+            }
+        });
+        $("#attrselectortext").mouseout(function () {
+            var ele = $(this);
+            setTimeout(function () {
+                vaqua.mouseOverselectorX = false;
+                ele.css("border", "1px solid black");
+            }, 1);
+        });
     });
-
-
 
 
     function clearAll() {
@@ -1139,6 +1260,37 @@ vaqua.initKeysSelect = function () {
         $('#attrselectortext').html("");
     }
 };
+
+vaqua.tarckMouseUp = function () {
+    if (vaqua.mouseOverselectorX) {
+        $("#attrselectorx").val(vaqua.dragedElement);
+        var selectKey = $("#attrselectorx").find(":selected").attr("class");
+        vaqua.initKeysSelect.onChange("x", vaqua.dragedElement, selectKey);
+    }
+    else if (vaqua.mouseOverselectorY) {
+        $("#attrselectory").val(vaqua.dragedElement);
+        var selectKey = $("#attrselectory").find(":selected").attr("class");
+        vaqua.initKeysSelect.onChange("y", vaqua.dragedElement, selectKey);
+    }
+    else if (vaqua.mouseOverselectorSize) {
+        $("#attrselectorsize").val(vaqua.dragedElement);
+        var selectKey = $("#attrselectorsize").find(":selected").attr("class");
+        vaqua.initKeysSelect.onChange("size", vaqua.dragedElement, selectKey);
+    } else if (vaqua.mouseOverselectorColor) {
+        $("#attrselectorcolor").val(vaqua.dragedElement);
+        var selectKey = $("#attrselectorcolor").find(":selected").attr("class");
+        vaqua.initKeysSelect.onChange("color", vaqua.dragedElement, selectKey);
+    } else if (vaqua.mouseOverselectorShape) {
+        $("#attrselectorshape").val(vaqua.dragedElement);
+        var selectKey = $("#attrselectorshape").find(":selected").attr("class");
+        vaqua.initKeysSelect.onChange("shape", vaqua.dragedElement, selectKey);
+    } else if (vaqua.mouseOverselectorText) {
+        $("#attrselectortext").val(vaqua.dragedElement);
+        var selectKey = $("#attrselectortext").find(":selected").attr("class");
+        vaqua.initKeysSelect.onChange("text", vaqua.dragedElement, selectKey);
+    }
+
+}
 
 
 vaqua.displaySelect = function () {
@@ -1196,3 +1348,18 @@ vaqua.displaySelect = function () {
     }
 
 };
+
+function allowDrop(ev) {
+    ev.preventDefault();
+}
+
+function drag(ev) {
+    console.log("ss");
+    ev.dataTransfer.setData("text", ev.target.id);
+}
+
+function drop(ev) {
+    ev.preventDefault();
+    var data = ev.dataTransfer.getData("text");
+    ev.target.appendChild(document.getElementById(data));
+}

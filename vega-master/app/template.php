@@ -1,5 +1,7 @@
 <link rel="stylesheet" type="text/css" href="./../vaqua/css/vega.css">
 
+<img class="dragIcon" src="./app/pictures/drag.png"/>
+
 <div class="vega-editor">
     <div class="mod_spec module">
         <div class="mod_header">
@@ -20,15 +22,15 @@
             </div>
         </div>
         <div class="gui_rep">
-            <div class="padding"> Data Selection:
-                <!--select id="attrselectorx" class="menustyle">
-                </select-->
+            <div class="padding"> Choose X:
+                <select id="attrselectorx" class="menustyle"></select>
+
             </div>
 
-            <div class="padding">
-                <!--select id="attrselectory" class="menustyle">
-                </select-->
+            <div class="padding"> Choose Y:
+                <select id="attrselectory" class="menustyle"></select>
             </div>
+
 
             <div class="padding"> Choose Size:
                 <select id="attrselectorsize" class="menustyle">
@@ -54,7 +56,7 @@
         </div>
 
         <div class="gui_attr">
-           <div class="padding"> Attribute Specification:
+            <div class="padding"> Attribute Specification:
 
             </div>
 
@@ -93,8 +95,10 @@
                   <input style="display:inline; " type = "hidden" name = "id"  value ="' . $q_id . '">
                   <input type="submit" value="Show Data" style="display:inline; margin-left: 50px;" > </form>';
             ?>
-            <form name="fileToUpload" id="fileToUpload" action="./app/vaqua/upload.php" method="post" style="display:inline; margin-left: 50px;">
-                <input type="file" name="upload" id="upload" value="upload other file" style="display:inline; margin-left: 50px;"></input>
+            <form name="fileToUpload" id="fileToUpload" action="./app/vaqua/upload.php" method="post"
+                  style="display:inline; margin-left: 50px;">
+                <input type="file" name="upload" id="upload" value="upload other file"
+                       style="display:inline; margin-left: 50px;"></input>
             </form>
 
             <span class="click_toggle_vega" title="Expand/Collapse Vega editor"></span>

@@ -1080,7 +1080,7 @@ vaqua.cumulativeOffset = function (element) {
 
 vaqua.initUpload = function () {
     $("#upload").change(function () {
-
+        vaqua.draw = false;
         var file_data = $('#upload').prop('files')[0];
         var form_data = new FormData();
         form_data.append('file', file_data);

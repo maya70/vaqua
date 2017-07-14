@@ -140,26 +140,21 @@ window.onclick = function(event) {
     }
 }
     var bigCon = document.createElement("div");
-    bigCon.setAttribute("style", "margin-top:-10px");
+    bigCon.setAttribute("style", "margin-top:50px");
     for(var w=1;w<17;w++){
 
         var con = document.createElement("span");
-        con.setAttribute("style", "display: inline-block;width: 24%;text-align: left;margin-top:25px;margin-right: 5px;background: url('./qa-content/img/"+w+".jpg');background-size: cover;background-repeat: no-repeat;height: 75px;text-align: right;");
+        con.setAttribute("style", "display:inline-block;width:25%;text-align:left;margin-bottom:20px");
         // con.setAttribute("style", "");
         var node = document.createElement("input");
         node.setAttribute("type", "checkbox");
-        node.setAttribute("style", "    transform: translateX(-105px);min-width: 16px;min-height: 30px;");
         node.setAttribute("id", ''+w);
         node.setAttribute("value", ''+inter[w]);
-        var pargraph = document.createElement("p");
-        pargraph.setAttribute("style",' transform: translateY(38px);width: 100%;background: #666666;text-align: center;color:#fff');
-
         var textnode = document.createTextNode(inter[w]);
         // console.log(textnode);
 
-        pargraph.appendChild(textnode);
         con.appendChild(node);
-        con.appendChild(pargraph);
+        con.appendChild(textnode);
         bigCon.appendChild(con);
 
         if(w%4==0)

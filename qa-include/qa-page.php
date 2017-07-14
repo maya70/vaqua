@@ -686,7 +686,7 @@
 				($logowidth ? (' width="'.$logowidth.'"') : '').($logoheight ? (' height="'.$logoheight.'"') : '').
 				' border="0" alt="'.qa_html(qa_opt('site_title')).'"/></a>';
 		else
-			$qa_content['logo']='<a class ="qa-logo-link" href='.qa_path_html('').'><img class ="qa-logo-link" src ="./vaqua/logo3.png" width = "150" height = "50"> </a> <a href=""></a>';
+			$qa_content['logo']='<a class ="qa-logo-link" href='.qa_path_html('').'><img class ="qa-logo-link" src ="./vaqua/logo3.png" width = "180" height = "60"> </a> <a href=""></a>';
 
 		$topath=qa_get('to'); // lets user switch between login and register without losing destination page
 

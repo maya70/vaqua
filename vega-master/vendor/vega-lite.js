@@ -9318,4 +9318,4 @@ module.exports = (function() {
 
 },{}]},{},[74])(74)
 });
-//# sourceMappingURL=vega-lite.js.map
+//# sourceMappingURL=vaqua-lite.js.map

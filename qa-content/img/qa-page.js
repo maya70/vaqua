@@ -65,24 +65,42 @@ $('#mmd').ready(function () {
 })
 
 window.onload=function(){
-    var inter={
-        1:'health',
-        2:'healthy eating',
-        3:'medicine',
-        4:'exercise',
-        5:'History',
-        6:'World History',
-        7:'World War ||',
-        8:'Philosophy',
-        9:'Technology',
-        10:'Science',
-        11:'Physics',
-        12:'Computer science',
-        13:'design',
-        14:'Photography',
-        15:'Fine Art',
-        16:'Wb Design'
+  var inter={
+        1:'Technology',
+        2:'Science',
+        3:'History',
+        4:'Health',
+        5:'Photography',
+        6:'Exercise',
+        7:'Physics',
+        8:'Design',
+        9:'Computer science',
+        10:'Traveling',
+        11:'Economics',
+        12:'Fine Arts',
+        13:'Banking & Finance',
+        14:'Medicine',
+        15:'Psychology',
     }
+
+    var photo={
+      1:'./qa-content/img/technology.jpg',
+      2:'./qa-content/img/science.jpg',
+      3:'./qa-content/img/history.jpg',
+      4:'./qa-content/img/health.jpg',
+      5:'./qa-content/img/photography.jpg',
+      6:'./qa-content/img/exercise.jpg',
+      7:'./qa-content/img/physics.jpg',
+      8:'./qa-content/img/design.jpg',
+      9:'./qa-content/img/computer_science.jpg',
+      10:'./qa-content/img/traveling.jpg',
+      11:'./qa-content/img/economics.jpg',
+      12:'./qa-content/img/fine_arts.jpg',
+      13:'./qa-content/img/banking.jpg',
+      14:'./qa-content/img/medicine.jpg',
+      15:'./qa-content/img/psychology.jpg',
+    }
+
     // // console.log(inter[1]);
     var x=document.getElementById('sModel');
     var regFrom=document.getElementById('mmd');
@@ -91,7 +109,6 @@ window.onload=function(){
     var openModelBtn = document.createElement("a");
     openModelBtn.setAttribute("id", "myBtn");
     openModelBtn.setAttribute("class", "continueBtn");
-    openModelBtn.setAttribute("style", "display:inline-block");
     var openModelBtnText = document.createTextNode('continue');
     openModelBtn.appendChild(openModelBtnText)
     regFrom.appendChild(openModelBtn);
@@ -138,39 +155,200 @@ window.onclick = function(event) {
     if (event.target == modal) {
         modal.style.display = "none";
     }
+
+    if(numberOfCheckboxesSelected() < 4){
+      nodes.setAttribute("value", " Choose at least 4 interests ");
+      nodes.setAttribute("class", "button2");
+      // nodes.setAttribute("class", "button2");
+    console.log(numberOfCheckboxesSelected());
+  }
+
+    else if(numberOfCheckboxesSelected() >= 4){
+      nodes.setAttribute("value", " Submit ");
+      nodes.setAttribute("class", "button");
+      // nodes.setAttribute("class", "button2");
+    console.log(numberOfCheckboxesSelected());
+  }
 }
-    var bigCon = document.createElement("div");
-    bigCon.setAttribute("style", "margin-top:-10px");
-    for(var w=1;w<17;w++){
 
-        var con = document.createElement("span");
-        con.setAttribute("style", "display: inline-block;width: 24%;text-align: left;margin-top:25px;margin-right: 5px;background: url('./qa-content/img/"+w+".jpg');background-size: cover;background-repeat: no-repeat;height: 75px;text-align: right;");
-        // con.setAttribute("style", "");
-        var node = document.createElement("input");
-        node.setAttribute("type", "checkbox");
-        node.setAttribute("style", "    transform: translateX(-105px);min-width: 16px;min-height: 30px;");
-        node.setAttribute("id", ''+w);
-        node.setAttribute("value", ''+inter[w]);
-        var pargraph = document.createElement("p");
-        pargraph.setAttribute("style",' transform: translateY(38px);width: 100%;background: #666666;text-align: center;color:#fff');
 
-        var textnode = document.createTextNode(inter[w]);
-        // console.log(textnode);
+var dp4 = document.createElement("div");
+var sp1 = document.createElement("span");
 
-        pargraph.appendChild(textnode);
-        con.appendChild(node);
-        con.appendChild(pargraph);
-        bigCon.appendChild(con);
+       dp4.setAttribute("class","dialog_wrapper large_dialog_wrapper follow_interests");
+       dp4.setAttribute("id","id01");
 
-        if(w%4==0)
-        {
-            var line=document.createElement('br');
-            bigCon.appendChild(line);
-        }
-        //  document.getElementById("myList").appendChild(node);
-    }
-    x.appendChild(bigCon);
+       sp1.setAttribute("class","close");  /*<- problem here*/
+
+             dp4.appendChild(sp1);
+
+
+
+
+var dp5 = document.createElement("div");
+var dp6 = document.createElement("div");
+var tp = document.createTextNode("Choose your interests ...");
+var dp7 = document.createElement("div");
+       dp5.setAttribute("id", "world");
+       dp6.setAttribute("class", "title");
+       dp7.setAttribute("style", "line-height: 1.5; margin-bottom: 18px;");
+
+
+               dp4.appendChild(dp5);
+               dp5.appendChild(dp6);
+               dp6.appendChild(tp);
+               dp5.appendChild(dp7);
+
+
+var dp8 = document.createElement("div");
+var dp9 = document.createElement("div");
+var dp10 = document.createElement("div");
+var dp11 = document.createElement("div");
+        dp8.setAttribute("class", "ux_dialog_interests");
+        dp10.setAttribute("class","interest_window_wrapper");
+        dp10.setAttribute("style","background-color:#fafafa;");
+        dp11.setAttribute("class","dynamic_interests row");
+
+             dp5.appendChild(dp8);
+             dp8.appendChild(dp9);
+             dp9.appendChild(dp10);
+             dp10.appendChild(dp11);
+
+
+  var i;
+  for (i = 1; i <16; i++) {
+       var div1 = document.createElement("div");
+       var div2 = document.createElement("div");
+
+       var div3 = document.createElement("div");
+       var div4 = document.createElement("div");
+       var div5 = document.createElement("div");
+       var div6 = document.createElement("div");
+               div2.setAttribute("class", "interest_photo");
+               div3.setAttribute("class","photo");
+               div5.setAttribute("class","TopicPhoto");
+               // div.setAttribute("style", "");
+
+               var node1 = document.createElement("a");
+               node1.setAttribute("href", '#');
+               var node2 = document.createElement("img");
+               node2.setAttribute("src", photo[i]);
+               node2.setAttribute("alt", inter[i]);
+               node2.setAttribute("style", "width:115px; height:90px;");
+
+                 div1.appendChild(div2);
+                 div2.appendChild(div3);
+                 div3.appendChild(div4);
+                 div4.appendChild(div5);
+                 div5.appendChild(div6);
+                 div6.appendChild(node1);
+                 node1.appendChild(node2);
+
+               // w.appendChild(div1);
+               // var textnode = document.createTextNode(inter[i]);
+
+        var div7 = document.createElement("div");
+        var span1 = document.createElement("span");
+                 div7.setAttribute("class", "info_wrapper");
+                 span1.setAttribute("class", "info_background");
+
+                 var label1 = document.createElement("label");
+                           label1.setAttribute("class", "label");
+
+
+                            var nodec = document.createElement("input");
+                            nodec.setAttribute("type", "checkbox");
+                            nodec.setAttribute("id", 'id'+i);
+                            nodec.setAttribute("name", "seatdata");
+                            nodec.setAttribute("value", "shero");
+
+
+                            var span2 = document.createElement("span");
+
+                                        div2.appendChild(div7);
+                                        div7.appendChild(span1);
+                                        span1.appendChild(label1);
+                                        label1.appendChild(nodec);
+                                        label1.appendChild(span2);
+
+
+               var div8 = document.createElement("div");
+                       div8.setAttribute("class", "info");
+
+                       var span3 = document.createElement("span");
+
+
+                                var span4 = document.createElement("span");
+                                         span4.setAttribute("class", "TopicNameSpan TopicName");
+
+                                         var t = document.createTextNode(inter[i]);
+
+                                                span1.appendChild(div8);
+                                                div8.appendChild(span3);
+                                                span3.appendChild(span4);
+                                                span4.appendChild(t);
+
+
+
+                                        dp11.appendChild(div1);
+
+}
+
+
+   var nodes = document.createElement("input");
+            nodes.setAttribute("id", "enable-on-four");
+            nodes.setAttribute("type", "submit");
+            // nodes.setAttribute("class", "button");
+            // nodes.setAttribute("value", " Check at least 4 ");
+            nodes.setAttribute("disabled", true);
+            // nodes.setAttribute('onclick', 'send_query(document.getElementsByTagName('seatdata'));');
+            // var y=document.getElementsByTagName('seatdata');
+            // console.log(y);
+
+            
+            dp5.appendChild(nodes);
+
+    x.appendChild(dp4);
     // document.getElementById("myList").appendChild(node);
+
+
+
+  //   function send_query(check) {
+  //     console.log(check);
+  //     console.log(check[1].value);
+  //     var values = [];
+  //     for (var i = 0; i < check.length; i++) {
+  //         if (check[i].checked == true) {
+  //             values.push(check[i].value);
+  //         }
+  //     }
+  //
+  //     return values.join();
+  // }
+  //
+  // onload = function () {
+  //   var z=document.getElementsByTagName('seatdata');
+  //   console.log(z);
+  //     var s=send_query(document.getElementsByName('seatdata'));
+  //       alert(s);
+  //
+  // };
+
+
+    function numberOfCheckboxesSelected() {
+      var c=document.querySelectorAll('input[type=checkbox][name="seatdata"]:checked').length;
+    	return c;
+
+    }
+
+    function onChange() {
+
+    	document.getElementById('enable-on-four').disabled = numberOfCheckboxesSelected() < 4;
+
+    }
+
+    document.getElementById('world').addEventListener('change', onChange, false);
+
 
 }
 /*

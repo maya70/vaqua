@@ -259,23 +259,23 @@
 
 
 <!-- The Modal -->
-<div id='myModal' class='modal'>
-
+<div id='myModal' class='modal' style='display: bloc'>
+<div>
+  <div id='id01' class='dialog dialog_ux' style='background-color:#fafafa;''>
   <!-- Modal content -->
-  <div class='modal-content' style='margin: auto;margin-top:-50px;height: 460px;width: 525px' id='sModel'>
+
+  <div  id='sModel'>
     <span class='close'>&times;</span>
-    <p style='font-size:14px'>CHOOSE YOUR INTERESTS</p>
 
-		<a href='#'onclick='showReg()' class='button' id='okbtn' style='transform: translateY(490px);
-    display: block;
-    font-size: 14px;
-    width: 130px;
-    height: 10px;
-     color: #fff;
-    '><span style='transform: translateY(-2px);'>submit</span></a>
+
+		<a href='#'  id='okbtn'></a>
+
   </div>
-
+</div>
+</div>
 </div>";
+
+
 // <a href="#" class="button">
 //   <span>Hover Me</span>
 // </a>

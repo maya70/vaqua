@@ -1,9 +1,9 @@
 .mod_title,.mod_header,.mod_ctrl,.vg_pane.mod_subheader.hide-vg
 {
-      background:#003366;
+      background:#ffffff;
 }
 .mod_header{
-  background: #003366 !important;
+  background: #ffffff  !important;
   min-height: 45px;
   max-height: 45px;
 }

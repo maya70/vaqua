@@ -3,22 +3,20 @@
 var vaqua = {};
 
 vaqua.q_id = 0;
-/*global location, window, d3, vl, vg, localStorage, document,
- alert, console, VG_SPECS, VL_SPECS, ace, JSON3*/
 
-var VEGA = 'vega';
-var VEGA_LITE = 'vega-lite';
+var VAQUA = 'vaqua';
+var VAQUA_LITE = 'vaqua-lite';
 
 var ved = {
     version: '1.2.0',
     data: undefined,
     renderType: 'canvas',
     editor: {
-        vega: null,
-        'vega-lite': null
+        vaqua: null,
+        'vaqua-lite': null
     },
     currentMode: null,
-    vgHidden: true  // vega editor hidden in vl mode
+    vgHidden: true  // vaqua editor hidden in vl mode
 };
 
 ved.isPathAbsolute = function (path) {
@@ -42,7 +40,7 @@ ved.params = function () {
 ved.mode = function () {
     var $d3 = ved.$d3,
         sel = $d3.select('.sel_mode').node(),
-        vge = $d3.select('.vega-editor'),
+        vge = $d3.select('.vaqua-editor'),
         ace = $d3.select('.vg-spec .ace_content'),
         idx = sel.selectedIndex,
         newMode = sel.options[idx].value,
@@ -51,16 +49,16 @@ ved.mode = function () {
     if (ved.currentMode === newMode) return;
     ved.currentMode = newMode;
 
-    if (ved.currentMode === VEGA) {
-        ved.editor[VEGA].setOptions({
+    if (ved.currentMode === VAQUA) {
+        ved.editor[VAQUA].setOptions({
             readOnly: false,
             highlightActiveLine: true,
             highlightGutterLine: true
         });
 
         ace.attr('class', 'ace_content');
-    } else if (ved.currentMode === VEGA_LITE) {
-        ved.editor[VEGA].setOptions({
+    } else if (ved.currentMode === VAQUA_LITE) {
+        ved.editor[VAQUA].setOptions({
             readOnly: true,
             highlightActiveLine: false,
             highlightGutterLine: false
@@ -71,36 +69,36 @@ ved.mode = function () {
         throw new Error('Unknown mode ' + ved.currentMode);
     }
 
-    vge.attr('class', 'vega-editor ' + ved.currentMode);
+    vge.attr('class', 'vaqua-editor ' + ved.currentMode);
 
     ved.editorVisibility();
     ved.getSelect().selectedIndex = 0;
     ved.select('');
 };
 
-ved.switchToVega = function () {
+ved.switchToVaqua = function () {
     var sel = ved.$d3.select('.sel_mode').node(),
-        spec = ved.editor[VEGA].getValue();
+        spec = ved.editor[VAQUA].getValue();
     sel.selectedIndex = 0;
     ved.mode();
     ved.select(spec);
 };
 
-// Changes visibility of vega editor in vl mode
+// Changes visibility of vaqua editor in vl mode
 ved.editorVisibility = function () {
     var $d3 = ved.$d3,
         vgs = $d3.select('.vg-spec'),
         vls = $d3.select('.vl-spec'),
-        toggle = $d3.select('.click_toggle_vega');
+        toggle = $d3.select('.click_toggle_vaqua');
 
-    if (ved.vgHidden && ved.currentMode === VEGA_LITE) {
+    if (ved.vgHidden && ved.currentMode === VAQUA_LITE) {
         vgs.style('display', 'none');
         vls.style('flex', '1 1 auto');
-        toggle.attr('class', 'click_toggle_vega up');
+        toggle.attr('class', 'click_toggle_vaqua up');
     } else {
         vgs.style('display', 'block');
         // ved.resizeVlEditor();
-        toggle.attr('class', 'click_toggle_vega down');
+        toggle.attr('class', 'click_toggle_vaqua down');
     }
     // ved.resize();
 };
@@ -111,7 +109,7 @@ ved.select = function (spec) {
         desc = $d3.select('.spec_desc'),
         editor = ved.editor[mode],
         sel = ved.getSelect(),
-        parse = mode === VEGA ? ved.parseVg : ved.parseVl;
+        parse = mode === VAQUA ? ved.parseVg : ved.parseVl;
 
     if (spec) {
         editor.setValue(spec);
@@ -128,9 +126,8 @@ ved.select = function (spec) {
     spec = d3.select(sel.options[idx]).datum();
 
     function parallel_coord() {
-        // console.log("mahmoud");
         var path = "../" + vaqua.url.url.substr(6);
-        $(".vega")
+        $(".vaqua")
             .html('<object width="800" height="700" data="./../parallel-coords/index.html?path=' + path + '"/>').watch(600);
     }
 
@@ -151,17 +148,16 @@ ved.select = function (spec) {
                     desc.html(spec.desc || '');
                 });
                 ved.format();
-                // console.log(response + idx);
             });
         }
     } else {
         editor.setValue('');
         editor.gotoLine(0);
-        ved.editor[VEGA].setValue('');
+        ved.editor[VAQUA].setValue('');
         ved.resetView();
     }
 
-    // if (mode === VEGA) {
+    // if (mode === VAQUA) {
     //     ved.resize();
     // } else if (mode === 'vl') {
     //     ved.resizeVlEditor();
@@ -171,8 +167,6 @@ ved.select = function (spec) {
 ved.uri = function (entry) {//simple pir chart for ex --- file pat
 
     if (entry == "") {
-        // console.log("hhhhhhh");
-        // console.log(vaqua.defaultName);
         return '../uploads/' + vaqua.q_id + "/dataset/" + vaqua.defaultName + "_conf.json";
     }
     else {
@@ -205,42 +199,32 @@ ved.format = function () {
 
 ved.parseVl = function (callback) {
     var spec, source,
-        value = ved.editor[VEGA_LITE].getValue();
+        value = ved.editor[VAQUA_LITE].getValue();
 
     // delete cookie if editor is empty
     if (!value) {
-        localStorage.removeItem('vega-lite-spec');
+        localStorage.removeItem('vaqua-lite-spec');
         return;
     }
 
     try {
         spec = JSON.parse(value);
-        // console.log(vaqua.attr+"   mahmoud");
-        // console.log(spec['encoding']['x']['type']);
-        // if (spec['encoding']['x']['type'] != vaqua.attr[spec['encoding']['x']['field']] ||
-        //     spec['encoding']['y']['type'] != vaqua.attr[spec['encoding']['y']['field']]) {
-        //     // console.log("attributes : " + );
-        //     alert("not valid type");
-        //     return;
-        // }
-        // console.log("attributes : " + );
     } catch (e) {
-        // console.log(e);
         return;
     }
 
     if (ved.getSelect().selectedIndex === 0) {
-        localStorage.setItem('vega-lite-spec', value);
+        localStorage.setItem('vaqua-lite-spec', value);
     }
 
     // TODO: display error / warnings
     var vgSpec = vl.compile(spec).spec;
     var text = JSON3.stringify(vgSpec, null, 2, 60);
-    ved.editor[VEGA].setValue(text);
-    ved.editor[VEGA].gotoLine(0);
+    ved.editor[VAQUA].setValue(text);
+    ved.editor[VAQUA].gotoLine(0);
 
-    // change select for vega to Custom
-    var vgSel = ved.$d3.select('.sel_vega_spec');
+    // change select for vaqua to Custom
+    var vgSel = ved.$d3.select('.sel_vaqua_spec');
     vgSel.node().selectedIndex = 0;
 
     ved.parseVg(callback);
@@ -257,26 +241,26 @@ ved.parseVg = function (callback) {
     }
 
     var opt, source,
-        value = ved.editor[VEGA].getValue();
+        value = ved.editor[VAQUA].getValue();
 
     // delete cookie if editor is empty
     if (!value) {
-        localStorage.removeItem('vega-spec');
+        localStorage.removeItem('vaqua-spec');
         return;
     }
 
     try {
-        opt = JSON.parse(ved.editor[VEGA].getValue());
+        opt = JSON.parse(ved.editor[VAQUA].getValue());
     } catch (e) {
         return callback(e);
     }
 
-    if (ved.getSelect().selectedIndex === 0 && ved.currentMode === VEGA) {
-        localStorage.setItem('vega-spec', value);
+    if (ved.getSelect().selectedIndex === 0 && ved.currentMode === VAQUA) {
+        localStorage.setItem('vaqua-spec', value);
     }
 
     if (!opt.spec && !opt.url && !opt.source) {
-        // wrap spec for handoff to vega-embed
+        // wrap spec for handoff to vaqua-embed
         opt = {spec: opt};
     }
     opt.actions = false;
@@ -302,15 +286,15 @@ ved.resetView = function () {
 };
 
 // ved.resize = function (event) {
-//     // ved.editor[VEGA].resize();
-//     // ved.editor[VEGA_LITE].resize();
+//     // ved.editor[VAQUA].resize();
+//     // ved.editor[VAQUA_LITE].resize();
 // };
 //
 // ved.resizeVlEditor = function () {
-//     if (ved.vgHidden || ved.currentMode !== VEGA_LITE)
+//     if (ved.vgHidden || ved.currentMode !== VAQUA_LITE)
 //         return;
 //
-//     var editor = ved.editor[VEGA_LITE];
+//     var editor = ved.editor[VAQUA_LITE];
 //     var height = editor.getSession().getDocument().getLength() *
 //         editor.renderer.lineHeight + editor.renderer.scrollBar.getWidth();
 //
@@ -338,7 +322,7 @@ ved.setPermanentUrl = function () {
         params.push('spec=' + spec.name);
     }
 
-    if (!ved.vgHidden && ved.currentMode === VEGA_LITE) {
+    if (!ved.vgHidden && ved.currentMode === VAQUA_LITE) {
         params.push('showEditor=1');
     }
 
@@ -357,22 +341,7 @@ ved.setPermanentUrl = function () {
 ved.export = function () {
     var ext = ved.renderType === 'canvas' ? 'png' : 'svg',
         url = ved.view.toImageURL(ext);
-    //dataUrl = ved.view.toDataURL();
-    // var el = d3.select(document.createElement('a'))
-    //     .attr('href', url)
-    //     .attr('target', '_blank')
-    //     .attr('download', (ved.spec.name || VEGA) + '.' + ext)
-    //     .node();
-
-    //vis team
-    //dowloadOnServe(dataUrl);
-    //console.log(url)
-    //var dataurl = getBase64FromImageUrl(url);
     vaqua.dowloadOnServe(url);
-    // var evt = document.createEvent('MouseEvents');
-    // evt.initMouseEvent('click', true, true, document.defaultView, 1, 0, 0, 0, 0,
-    //     false, false, false, false, 0, null);
-    // el.dispatchEvent(evt);
 };
 
 
@@ -431,8 +400,8 @@ ved.init = function (el, dir) {
 
         vaqua.initTextArea(el);
 
-        // Vega specification drop-down menu
-        var vgSel = el.select('.sel_vega_spec');
+        // Vaqua specification drop-down menu
+        var vgSel = el.select('.sel_vaqua_spec');
         vgSel.on('change', ved.setUrlAfter(ved.select));
         vgSel.append('option').text('Custom');
         vgSel.selectAll('optgroup')
@@ -451,8 +420,8 @@ ved.init = function (el, dir) {
             });
 
 
-        // Vega-lite specification drop-down menu
-        var vlSel = el.select('.sel_vega-lite_spec');
+        // Vaqua-lite specification drop-down menu
+        var vlSel = el.select('.sel_vaqua-lite_spec');
         vlSel.on('change', ved.setUrlAfter(ved.select));
         vlSel.append('option').text('Custom');
         vlSel.selectAll('optgroup')
@@ -486,14 +455,14 @@ ved.init = function (el, dir) {
                 return d;
             });
 
-        // Vega or Vega-lite mode
+        // Vaqua or Vaqua-lite mode
         var mode = el.select('.sel_mode');
         mode.on('change', ved.setUrlAfter(ved.mode));
 
 
         // Code Editors
-        var vlEditor = ved.editor[VEGA_LITE] = ace.edit(el.select('.vl-spec').node());
-        var vgEditor = ved.editor[VEGA] = ace.edit(el.select('.vg-spec').node());
+        var vlEditor = ved.editor[VAQUA_LITE] = ace.edit(el.select('.vl-spec').node());
+        var vgEditor = ved.editor[VAQUA] = ace.edit(el.select('.vg-spec').node());
 
         [vlEditor, vgEditor].forEach(function (editor) {
             editor.getSession().setMode('ace/mode/json');
@@ -527,9 +496,9 @@ ved.init = function (el, dir) {
         el.select('.btn_spec_format').on('click', ved.format);
         el.select('.btn_vg_parse').on('click', ved.setUrlAfter(ved.parseVg));
         el.select('.btn_vl_parse').on('click', ved.setUrlAfter(ved.parseVl));
-        el.select('.btn_to_vega').on('click', ved.setUrlAfter(function () {
+        el.select('.btn_to_vaqua').on('click', ved.setUrlAfter(function () {
             d3.event.preventDefault();
-            ved.switchToVega();
+            ved.switchToVaqua();
         }));
         el.select('.btn_export').on('click', ved.export);
         el.select('.vg_pane').on('click', ved.setUrlAfter(function () {
@@ -550,8 +519,8 @@ ved.init = function (el, dir) {
         };
 
         ved.specs = {};
-        ved.specs[VEGA] = getIndexes(VG_SPECS);
-        ved.specs[VEGA_LITE] = getIndexes(VL_SPECS);
+        ved.specs[VAQUA] = getIndexes(VG_SPECS);
+        ved.specs[VAQUA_LITE] = getIndexes(VL_SPECS);
 
         // Handle application parameters
         var p = ved.params();
@@ -561,11 +530,11 @@ ved.init = function (el, dir) {
         }
 
         if (p.mode) {
-            mode.node().selectedIndex = p.mode.toLowerCase() === VEGA ? 1 : 0;
+            mode.node().selectedIndex = p.mode.toLowerCase() === VAQUA ? 1 : 0;
         }
         ved.mode();
 
-        if (ved.currentMode === VEGA_LITE) {
+        if (ved.currentMode === VAQUA_LITE) {
             if (p.showEditor) {
                 ved.vgHidden = false;
                 ved.editorVisibility();
@@ -591,18 +560,9 @@ ved.init = function (el, dir) {
             }
         }
 
-        // Load content from cookies if no example has been loaded
-        // var key = ved.currentMode + '-spec';
-        // if (ved.getSelect().selectedIndex === 0 && localStorage.getItem(key)) {
-        //
-        //     ved.select(localStorage.getItem(key));
-        //
-        // }
 
-        // Handle post messages
         window.addEventListener('message', function (evt) {
             var data = evt.data;
-            console.log('[Vega-Editor] Received Message', evt.origin, data);
 
             // send acknowledgement
             if (data.spec || data.file) {
@@ -612,7 +572,7 @@ ved.init = function (el, dir) {
             // set vg or vl mode
             if (data.mode) {
                 mode.node().selectedIndex =
-                    data.mode.toLowerCase() === VEGA_LITE ? 1 : 0;
+                    data.mode.toLowerCase() === VAQUA_LITE ? 1 : 0;
                 ved.mode();
             }
 
@@ -626,7 +586,7 @@ ved.init = function (el, dir) {
 
 
         }, false);
-        vaqua.initVegaJson();
+        vaqua.initVaquaJson();
     });
 
 
@@ -652,30 +612,23 @@ vaqua.init = function () {
     vaqua.defaultName = vaqua.findGetParameter('name');
 }
 
-vaqua.initVegaJson = function () {
+vaqua.initVaquaJson = function () {
     var $d3 = ved.$d3,
         mode = ved.currentMode,
         desc = $d3.select('.spec_desc'),
-        editor = ved.editor[VEGA],
+        editor = ved.editor[VAQUA],
         sel = ved.getSelect(),
-        parse = mode === VEGA ? ved.parseVg : ved.parseVl;
+        parse = mode === VAQUA ? ved.parseVg : ved.parseVl;
 
     var spec = d3.select(sel.options[5]).datum();
-
 
     d3.xhr(ved.uri(""), function (error, response) {
 
         var text = vaqua.changeFields(response.responseText);
 
-        // console.log(text);
         editor.setValue(text);
         ved.select(text);
         editor.gotoLine(0);
-        // parse(function (err) {
-        //     if (err) console.error(err);
-        //     desc.html(spec.desc || '');
-        //
-        // });
         ved.format();
     });
 };
@@ -684,8 +637,6 @@ vaqua.initVegaJson = function () {
 vaqua.changeFields = function (jsonTxt) {
     var jsonObj = JSON.parse(jsonTxt);
 
-    // var keys = Object.keys(jsonObj);
-    // console.log(keys);
 
     jsonObj = vaqua.parseConfJson(jsonObj);
 
@@ -696,13 +647,11 @@ vaqua.changeFields = function (jsonTxt) {
 vaqua.drawData = function (jsonObj) {
     var dimensions;
     $(document).ready(function () {
-        // console.log("hahahahahahahahahhahahahahahah");
 
         var pathh = "../" + vaqua.url.url.substr(6);
 
-        // console.log(pathh + "////fff");
 
-        var margin = {top: 5, right: 10, bottom: 10, left: 10},
+        var margin = {top: 20, right: 10, bottom: 10, left: 10},
             width = 530 - margin.left - margin.right,
             height = 200 - margin.top - margin.bottom;
 
@@ -715,7 +664,6 @@ vaqua.drawData = function (jsonObj) {
             background,
             foreground;
 
-        console.log("helllllo")
         d3.select(".gui_rep").select("svg").remove();
         var svg = d3.select(".gui_rep").append("svg")
             .attr("width", width + margin.left + margin.right)
@@ -726,10 +674,9 @@ vaqua.drawData = function (jsonObj) {
 
         //var pathh = vaqua.findGetParameter("path");
         d3.json(pathh, function (error, data) {
-            // console.log("in the fileeeeeeeeee" + data[0]);
-            // Extract the list of dimensions and create a scale for each.
 
             x.domain(dimensions = d3.keys(data[0]).filter(function (d) {
+
                 if (typeof data[0][d] != "string") {
                     return ( y[d] = d3.scale.linear()
                         .domain(d3.extent(data, function (p) {
@@ -813,7 +760,7 @@ vaqua.drawData = function (jsonObj) {
                 })
                 .append("text")
                 .style("text-anchor", "middle")
-                .style("text-shadow", "0 1px 0 #fff, 1px 0 0 #fff, 0 -1px 0 #fff, -1px 0 0 #fff")
+                //.style("text-shadow", "0 1px 0 #fff, 1px 0 0 #fff, 0 -1px 0 #fff, -1px 0 0 #fff")
                 .style("cursor", "move")
                 .attr("y", -9)
                 .text(function (d) {
@@ -828,21 +775,22 @@ vaqua.drawData = function (jsonObj) {
                 .style("shape-rendering", "crispEdges")
                 .each(function (d) {
                     d3.select(this).call(y[d].brush = d3.svg.brush().y(y[d]).on("brushstart", brushstart).on("brush", brush));
-                    // d3.select(this).call(y[d].brush = d3.svg.brush().y(y[d]).on("click",function () {
-                    //     console.log("toooootooootoooootototototototototo");
-                    // }));
+
                 })
                 .selectAll("rect")
                 .attr("x", -8)
                 .attr("width", 16);
-
-            // $(".axis").click(function () {
-            //     var value = $(this).children().last().text();
-            //     // console.log($(this).children().last().text());
-            //     $("#attrselectorx").val(value);
-            //     vaqua.initKeysSelect.onChange("x", $("#attrselectorx").val(), $("#attrselectorx").attr("class"));
-            // });
         });
+
+        function isAstring(s){
+            for (var i = 0; i < s.length; i++){
+                var ch = s.charAt(i);
+                if (ch >= 'a' && ch <= 'z'){
+                    return true;
+                }
+            }
+            return false;
+        }
 
         function position(d) {
             var v = dragging[d];
@@ -861,11 +809,13 @@ vaqua.drawData = function (jsonObj) {
         }
 
         function brushstart() {
+            vaqua.brushStart = true;
             d3.event.sourceEvent.stopPropagation();
         }
 
         // Handles a brush event, toggling the display of foreground lines.
         function brush() {
+
             var actives = dimensions.filter(function (p) {
                     return !y[p].brush.empty();
                 }),
@@ -873,7 +823,6 @@ vaqua.drawData = function (jsonObj) {
                     return y[p].brush.extent();
                 });
             foreground.style("display", function (d) {
-                //console.log(extents);
                 return actives.every(function (p, i) {
                     return extents[i][0] <= d[p] && d[p] <= extents[i][1];
                 }) ? null : "none";
@@ -891,23 +840,7 @@ vaqua.drawData = function (jsonObj) {
             vaqua.data = data;
             vaqua.titles = titles;
             vaqua.draw = true;
-            // console.log(data);
-
-            $.ajax({
-                url: './../vaqua/temp.php',
-                type: 'POST',
-                data: {
-                    dataPath: pathh,
-                    sdata: vaqua.data,
-                    titles: vaqua.titles
-                },
-                success: function (res) {
-                    vaqua.defaultName = res;
-                    vaqua.initVegaJson();
-                    vaqua.url = "";
-                    console.log(res);
-                }
-            });
+            vaqua.pathOfBruch = pathh;
 
 
         }
@@ -916,6 +849,24 @@ vaqua.drawData = function (jsonObj) {
         //   .html('<object width="520px" height="220px" data="./../parallel-coords/index.html?path='+path+'"/>');
     });
 };
+
+vaqua.drawOnBrush = function () {
+    $.ajax({
+        url: './../vaqua/temp.php',
+        type: 'POST',
+        data: {
+            dataPath: vaqua.pathOfBruch,
+            sdata: vaqua.data,
+            titles: vaqua.titles
+        },
+        success: function (res) {
+            vaqua.defaultName = res;
+            vaqua.initVaquaJson();
+            vaqua.url = "";
+
+        }
+    });
+}
 
 vaqua.beginDrag = function (dragedElement) {
 
@@ -968,23 +919,16 @@ vaqua.parseConfJson = function (jsonObj) {
 
         vaqua.keys = [];
         vaqua.values = [];
-
-        // console.log("here is attributes...........sssssssssss..................");
-        // console.log(jsonObj);
-
         if (!vaqua.draw) {
             vaqua.drawData(jsonObj);
         }
 
         for (var i = 0; i < Object.keys(vaqua.attr).length; i++) {
             vaqua.keys[i] = Object.keys(vaqua.attr)[i];
-            // console.log(vaqua.keys[i]);
         }
 
-        // console.log("here is types...................................");
         for (var i = 0; i < Object.values(vaqua.attr).length; i++) {
             vaqua.values[i] = Object.values(vaqua.attr)[i]
-            // console.log(vaqua.values[i]);
         }
 
         vaqua.typex = vaqua.values[0];
@@ -1013,7 +957,6 @@ vaqua.parseConfJson = function (jsonObj) {
     if (jsonObj['encoding']['y']['timeUnit']) {
         delete jsonObj['encoding']['y']['timeUnit'];
     }
-    // console.log(vaqua.color + "mmd");
 
     var url = vaqua.url;
     var i = 0;
@@ -1094,9 +1037,8 @@ vaqua.initUpload = function () {
             data: form_data,
             type: 'post',
             success: function (res) {
-                // console.log("uploaded") // display response from the PHP script, if any
                 vaqua.defaultName = res;
-                vaqua.initVegaJson();
+                vaqua.initVaquaJson();
                 vaqua.url = "";
 
             }
@@ -1124,7 +1066,7 @@ vaqua.initKeysSelect = function () {
         if (vaqua.modelID) {
             ved.select("");
         } else {
-            vaqua.initVegaJson();
+            vaqua.initVaquaJson();
         }
 
     }
@@ -1155,7 +1097,6 @@ vaqua.initKeysSelect = function () {
 
         $("#attrselectorx").mouseenter(function () {
             if (vaqua.dragMode) {
-                console.log("ss");
                 vaqua.mouseOverselectorX = true;
                 $(this).css("border", "1px solid yellow");
             }
@@ -1262,6 +1203,11 @@ vaqua.initKeysSelect = function () {
 };
 
 vaqua.tarckMouseUp = function () {
+
+    if (vaqua.brushStart){
+        vaqua.drawOnBrush();
+        vaqua.brushStart = false;
+    }
     if (vaqua.mouseOverselectorX) {
         $("#attrselectorx").val(vaqua.dragedElement);
         var selectKey = $("#attrselectorx").find(":selected").attr("class");
@@ -1297,23 +1243,36 @@ vaqua.displaySelect = function () {
     $(document).ready(function () {
         var idx = vaqua.modelID || 1;
         hideAll();
-        if (idx == 1 || idx == 2 || idx == 3 || idx == 4 || idx == 9 || idx == 10 || idx == 11 || idx == 14 || idx == 15) {
+        if (idx == 14){
+            $("#attrtitle").parent().show();
+            $("#attrselectorx").parent().show();
+        }
+        else if(idx == 16){
+            $("#attrtitle").parent().show();
+            $('#attrselectorx').parent().show();
+            $('#attrselectorcolor').parent().show();
+        }
+        else if (idx == 1 || idx == 2 || idx == 3 || idx == 5 || idx == 4 || idx == 9 || idx == 10 || idx == 11  || idx == 15) {
+          $("#attrtitle").parent().show();
             $("#attrselectorx").parent().show();
             $("#attrselectory").parent().show();
         }
-        else if (idx == 5 || idx == 8) {
+        else if ( idx == 8) {
+            $("#attrtitle").parent().show();
             $('#attrselectorx').parent().show();
             $('#attrselectory').parent().show();
             $('#attrselectorsize').parent().show();
 
         }
-        else if (idx == 12 || idx == 13 || idx == 16 || idx == 17 || idx == 18 || idx == 19 || idx == 20 || idx == 21 || idx == 22 || idx == 24 || idx == 25) {
+        else if (idx == 12 || idx == 13 || idx == 17 || idx == 18 || idx == 19 || idx == 20 || idx == 21 || idx == 22 || idx == 24 || idx == 25) {
+            $("#attrtitle").parent().show();
             $('#attrselectorx').parent().show();
             $('#attrselectory').parent().show();
             $('#attrselectorcolor').parent().show();
 
         }
         else if (idx == 6) {
+            $("#attrtitle").parent().show();
             $('#attrselectorx').parent().show();
             $('#attrselectory').parent().show();
             $('#attrselectorcolor').parent().show();
@@ -1321,6 +1280,7 @@ vaqua.displaySelect = function () {
 
         }
         else if (idx == 23) {
+            $("#attrtitle").parent().show();
             $('#attrselectorx').parent().show();
             $('#attrselectory').parent().show();
             $('#attrselectorcolor').parent().show();
@@ -1328,6 +1288,7 @@ vaqua.displaySelect = function () {
 
         }
         else if (idx == 7) {
+            $("#attrtitle").show();
             $('#attrselectorx').show()
             $('#attrselectory').show();
             $('#attrselectorcolor').show();
@@ -1339,6 +1300,7 @@ vaqua.displaySelect = function () {
     });
 
     function hideAll() {
+        $("#attrtitle").parent().hide();
         $("#attrselectorx").parent().hide();
         $("#attrselectory").parent().hide();
         $('#attrselectorsize').parent().hide();
@@ -1354,7 +1316,6 @@ function allowDrop(ev) {
 }
 
 function drag(ev) {
-    console.log("ss");
     ev.dataTransfer.setData("text", ev.target.id);
 }
 

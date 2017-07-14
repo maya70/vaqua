@@ -1,50 +1,92 @@
-.vega-editor {
+.vaqua-editor {
     display: -webkit-flex;
     display: flex;
     font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
     font-size: 14px;
-    background-color: #003366;
+    /*background-color: #022744;*/
 }
-.vega-editor .mod_spec {
+.vaqua-editor .mod_spec {
     -webkit-flex: 0 0 auto;
     flex: 0 0 auto;
     min-width: 540px;
     max-width: 550px;
-    border-right: 1px solid #003366;
+    border-right: 1px solid #cccccc;
+}
+
+.vaqua-editor .hr {
+
+    border-bottom: 1px solid #cccccc;
+}
+.vaqua-editor .titleattrb{
+  font-size: 35px;
+  font-weight: bold;
+  letter-spacing: -0.5px;
+  /* margin-bottom: 4px; */
+  color: #34495e;
+  text-shadow: 0 0 4px #7ca9a9;
+  margin-left: 10px;
 }
 
 #comment{
-    border-radius: 0.5em;
-    max-height: 100px;
-    max-width: 87%;
-    margin-left: 5%;
+    border-radius: 0.4em;
+    height: 400px;
+    max-width: 770px;
+    margin: 1%;
+    margin-bottom: -4px;
+}
+.vaqua-editor #bar_menus {
+height:25px;
+width:200px;
+border-radius: 0.3em;
+color:#34495e;
+font-weight:bold;
 }
 .btn_export{
-    border-radius: 0.5em;
+    border-radius: 0.4em;
     margin-left: 10%;
-    margin-top: 20px;
+    margin-top: 11px;
     margin-bottom: 50px;
     min-height: 45px;
-    min-width: 80%;
+    min-width: 70%;
 }
-.vega-editor .gui_rep {
-    height: 450px;
-      width: 530px;
-  background: #99ffff ; /* For browsers that do not support gradients */
-  background: -webkit-linear-gradient(left, #99ffff , #e6ffff); /* For Safari 5.1 to 6.0 */
-  background: -o-linear-gradient(right, #99ffff, #e6ffff); /* For Opera 11.1 to 12.0 */
-  background: -moz-linear-gradient(right, #99ffff, #e6ffff); /* For Firefox 3.6 to 15 */
-  background: linear-gradient(to right, #99ffff , #e6ffff); /* Standard syntax */
+.vaqua-editor #other_btns {
+  border-radius: 0.3em;
+  /*background-color:#dff4ff;
+  color:#295376;*/
+  font-weight:bold;
+  box-shadow: 0 10px 15px 0 white inset, 0 0 5px 0 rgba(0, 0, 0, 0.05);
+    background-color: #d8eaea;
+    color: #34495e;
+
+}
+.vaqua-editor .gui_rep {
+    height: 700px;
+      width: 550px;
+  /*background: #c3e1f9 ; /* For browsers that do not support gradients */*/
+  /*background: -webkit-linear-gradient(left, #c3e1f9 , #e6ffff); /* For Safari 5.1 to 6.0 */*/
+  /*background: -o-linear-gradient(right, #c3e1f9, #e6ffff); /* For Opera 11.1 to 12.0 */*/
+  /*background: -moz-linear-gradient(right, #c3e1f9, #e6ffff); /* For Firefox 3.6 to 15 */*/
+  /*background: linear-gradient(to right,  #d2ebff, #f7ffff); /* Standard syntax */*/
   font-size: 20px;
-    color:#588191;
-    padding-top: 0px;
+    /*color:#588191;*/
+    color: #295376;
+    /*-moz-box-shadow:    inset 0 0 10px #cccccc;
+  -webkit-box-shadow: inset 0 0 10px #cccccc;
+  box-shadow:         inset 0 0 10px #cccccc;*/
+  -moz-box-shadow:    inset  0  8px 8px -8px #cccccc;
+                         /*inset  0 -8px 8px -8px #cccccc;*/
+     -webkit-box-shadow: inset  0  8px 8px -8px #cccccc;
+                         /*inset  0 -8px 8px -8px #cccccc;*/
+      box-shadow:        inset  0  8px 8px -8px #cccccc;
+                         /*inset  0 -8px 8px -8px #cccccc;*/
+    /*padding-top: 0px;
     padding-left: 0px;
     border-style: double;
     margin-left: 10px;
     margin-right: 10px;
     margin-top: 10px;
     margin-bottom: 10px;
-    border-radius: 1em;
+    border-radius: 0.3em;*/
     /*overflow: scroll;*/
 }
 .gui_attr{
@@ -65,7 +107,7 @@
     margin-bottom: 10px;
     border-radius: 1em;
 }
-.vega-editor .padding {
+.vaqua-editor .padding {
     padding-left: 0.3cm;
     padding-top: 0.5cm;
     font-size: 25px;
@@ -76,37 +118,43 @@
 #fileToUpload{
     display: inline;
 }
-.vega-editor .menustyle {
+.vaqua-editor .menustyle {
      height:25px;
      width:200px; border-style: solid;
      border-color: #003366;
+     border-radius: 0.3em;
+     color:#052e4e;
+     font-weight:bold;
 }
 
-.vega-editor .mod_vis {
+.vaqua-editor .mod_vis {
     -webkit-flex: 1 1 auto;
     flex: 1 1 auto;
     min-width: 0;
     margin-left: 10px;
     background-color: white;
-    border-left: 1px solid #003366;
+    /*border-left: 1px solid #022744;*/
 }
 
-.vega-editor .module {
+.vaqua-editor .module {
     display: -webkit-flex;
     display: flex;
     -webkit-flex-direction: column;
     flex-direction: column;
     height: 100vh;
-    background-color: #003366;
+    background-color: #ffffff;
+    /*-moz-box-shadow:    inset 0 0 10px #cccccc;
+  -webkit-box-shadow: inset 0 0 10px #cccccc;
+  box-shadow:         inset 0 0 10px #cccccc;*/
 }
-.vega{
+.vaqua {
     background-color: white;
     max-width: 90%;
     max-height: 90%;
     margin-left: 5%;
     margin-top: 10px;
 }
-.vega-editor .mod_header {
+.vaqua-editor .mod_header {
     -webkit-flex: 0 0 auto;
     flex: 0 0 auto;
     padding: 4px 4px 4px 6px;
@@ -115,49 +163,59 @@
     line-height: 22px;
 }
 
-.vega-editor .mod_subheader {
+.vaqua-editor .mod_subheader {
     -webkit-flex: 0 0 auto;
     flex: 0 0 auto;
     padding: 2px 4px 2px 6px;
     background: #196666;
-    border-bottom: 1px solid #ccc;
-    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #022744;
+    border-top: 1px solid #c1c1c1;
     line-height: 18px;
     font-size: 12px;
 }
 
-.vega-editor .vg_pane {
+.vaqua-editor .vg_pane {
     cursor: pointer;
 }
 
-.vega-editor .vg_pane:hover {
+.vaqua-editor .vg_pane:hover {
     background: #fafafa;
 }
 
-.vega-editor .mod_body {
+.vaqua-editor .mod_body {
     -webkit-flex: 1 1 0;
     flex: 1 1 auto;
     padding-top: 2px;
     overflow: auto;
 }
 
-.vega-editor .vis {
+.vaqua-editor .vis {
     overflow: auto;
-    margin: 4px;
+    height: 500px;
+    /*margin: 4px;*/
+    /*-moz-box-shadow:    inset 0 0 10px #cccccc;
+  -webkit-box-shadow: inset 0 0 10px #cccccc;
+  box-shadow:         inset 0 0 10px #cccccc;*/
+  -moz-box-shadow:    inset  0  8px 8px -8px #cccccc;
+                       /*inset  0 -8px 8px -8px #cccccc;*/
+   -webkit-box-shadow: inset  0  8px 8px -8px #cccccc;
+                       /*inset  0 -8px 8px -8px #cccccc;*/
+    box-shadow:        inset  0  8px 8px -8px #cccccc;
+                       /*inset  0 -8px 8px -8px #cccccc;*/
 }
 
-.vega-editor .sel_mode {
+.vaqua-editor .sel_mode {
     font-size: 15pt;
     width: 125px;
     margin-left: 5px;
 }
 
-.vega-editor .mod_params {
+.vaqua-editor .mod_params {
     -webkit-flex: 0 0 auto;
     flex: 0 0 auto;
 }
 
-.vega-editor .spec_desc {
+.vaqua-editor .spec_desc {
     -webkit-flex: 0 0 auto;
     flex: 0 0 auto;
     margin: 4px;
@@ -165,7 +223,7 @@
     color: #666;
 }
 
-.vega-editor .spec {
+.vaqua-editor .spec {
     font-family: Monaco, Courier New;
     font-size: 10px;
     white-space: pre;
@@ -179,36 +237,37 @@
     color: transparent;
 }
 
-.vega-editor .vis svg,
-.vega-editor .vis canvas {
+.vaqua-editor .vis svg,
+.vaqua-editor .vis canvas {
     border: 1px dashed #ccc;
 }
 
-.vega-editor .mod_ctrls {
+.vaqua-editor .mod_ctrls {
     float: right;
+        margin-right: 8px;
 }
 
-.vega-editor .mod_ctrls input {
+.vaqua-editor .mod_ctrls input {
     height: 19px;
 }
 
-.vega-editor .vl-spec .ace_scrollbar {
+.vaqua-editor .vl-spec .ace_scrollbar {
     display: none;
 }
 
-.vega-editor .vl-spec:hover .ace_scrollbar {
+.vaqua-editor .vl-spec:hover .ace_scrollbar {
     display: block;
 }
 
-.vega-param {
+.vaqua-param {
     line-height: 15px;
 }
 
-.vega-param * {
+.vaqua-param * {
     vertical-align: middle;
 }
 
-.vega-param-name {
+.vaqua-param-name {
     display: inline-block;
     width: 60px;
     margin-right: 10px;
@@ -217,37 +276,37 @@
     overflow: hidden;
 }
 
-.vega-params label {
+.vaqua-params label {
     font-size: 10px;
     margin-right: 5px;
 }
 
-.vega-params label.vega-range {
+.vaqua-params label.vaqua-range {
     display: inline-block;
     max-width: 30px;
     overflow: hidden;
 }
 
-.vega-params input[type=range] {
+.vaqua-params input[type=range] {
     max-width: 100px;
     margin-right: 5px;
 }
 
-.vega-params input[type=text] {
+.vaqua-params input[type=text] {
     border: 1px solid #ccc;
     border-radius: 4px;
     padding: 2px 4px;
     margin: 2px 0;
 }
 
-.vega-params select,
-.vega-params input[type=text] {
+.vaqua-params select,
+.vaqua-params input[type=text] {
     box-sizing: border-box;
     width: 130px;
     max-width: 130px;
 }
 
-.vega-editor .click_toggle_vega {
+.vaqua-editor .click_toggle_vaqua {
     cursor: pointer;
     display: inline-block;
     width: 64px;
@@ -260,19 +319,19 @@
     opacity: 0.7;
 }
 
-.vega-editor .click_toggle_vega.up {
+.vaqua-editor .click_toggle_vaqua.up {
     background-image: url("../images/chevron_up.png");
 }
 
-.vega-editor .click_toggle_vega.down {
+.vaqua-editor .click_toggle_vaqua.down {
     background-image: url("../images/chevron_down.png");
 }
 
-/* hide some elements in vega mode */
-.vega-editor.vega .hide-vg {
+/* hide some elements in vaqua mode */
+.vaqua-editor.vaqua .hide-vg {
     display: none;
 }
 
-.vega-editor.vega-lite .hide-vl {
+.vaqua-editor.vaqua-lite .hide-vl {
     display: none;
 }
